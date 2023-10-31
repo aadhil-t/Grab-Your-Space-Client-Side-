@@ -1,0 +1,39 @@
+.img{
+  background-image: url("./assets/UserAssets/Web_150DPI-20191106_WeWork_Gateway-1-Salt-Lake-City_004-1120x630.jpg");
+  
+}
+
+.loginimg{
+  background-image: url("./assets/UserAssets//cropwallpaper.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+}
+
+
+.signinimg{
+  background-image: url("./assets/UserAssets/top-view-tidy-Crop.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+}
+
+
+.forgot{
+  background-image: url("./assets/UserAssets/4841115.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+}
+
+
+.Adminloginimg{
+  background-image: url("./assets/UserAssets/depositphotos_167655496-stock-photo-directly-above-view-of-human.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+}
