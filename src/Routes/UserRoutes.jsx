@@ -8,6 +8,7 @@ import UserPublic from "./UserPublic";
 import Layout from "../pages/UserPages/Layout/Layout";
 import SignupOtp from "../pages/UserPages/SignupOtp/SignupOtp";
 import ChangePassword from "../pages/UserPages/ChangePassword/ChangePassword";
+import PassOtp from "../pages/UserPages/OtpPassChange/Otp";
 function UserRoutes(){
  return(
     <Routes>
@@ -15,7 +16,8 @@ function UserRoutes(){
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/forgot" element={<Forgot/>}/>
-        <Route path="/changepass" element={<ChangePassword/>}/>
+        <Route path="/changepass/:id" element={<ChangePassword/>}/>
+        <Route path="/passotp/:id" element={<PassOtp/>} />
         <Route path="/signupotp/:id" element={<SignupOtp/>}/>
 
         </Route>

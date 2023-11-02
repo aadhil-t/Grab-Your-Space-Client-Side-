@@ -23,10 +23,16 @@ export const SignupOtpSchema = Yup.object({
 
 export const ForgotMailSchema = Yup.object({
   email: Yup.string().email().required("Please Enter Your email"),
-  otp: Yup.string().min(4,"otp should contain minimum 4 characters").max(4,"otp should contain maximum 4 characters")
-})
+})  
 
 
 export const ChangepassSchema = Yup.object({
   password: Yup.string().min(3).required("Please enter password"),
+  confirmpassword: Yup.string()
+  .oneOf([Yup.ref('password'), null], 'Passwords must match')
+
+})
+
+export const OtppassSchema = Yup.object({
+  otp: Yup.string().min(4,"otp should contain minimum 4 characters").max(4,"otp should contain maximum 4 characters")
 })

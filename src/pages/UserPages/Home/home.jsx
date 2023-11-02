@@ -1,4 +1,5 @@
 import {Typography} from "@material-tailwind/react"
+import { ToastContainer,toast } from "react-toastify";
 // import UserAssest from "../../../assets/UserAssets/Web_150DPI-20191106_WeWork_Gateway-1-Salt-Lake-City_004-1120x630.jpg"
 function Home(){
     return(
@@ -31,5 +32,6 @@ function Home(){
         </div>
     )
 }
+<ToastContainer/>
 
 export default Home;

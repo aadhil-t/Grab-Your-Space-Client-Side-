@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGoogleLogin } from "@react-oauth/google";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 import { setUserDetails } from "../../../Redux/UserSlice/UsserSlice";
 import { LoginShema } from "../../../Yup/Validations";
 import google from "../../../assets/UserAssets/google.png";
@@ -75,8 +76,8 @@ export default function Login() {
         )
         .then((res) => {
           console.log(res,"hhhh");
-          userLogin({email:res.data.email,password:res.data.id}).then((response) => {
-            if (response.data.created) {
+          userLogin({email:res.data.email,id:res.data.id}).then((response) => {
+            if (response.data.status) {
               localStorage.setItem("token", response.data.token);
               dispatch(
                 setUserDetails({

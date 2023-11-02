@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const userApi = axios.create({
-  baseURL: `http://localhost:4000`    
+  baseURL: import.meta.env.VITE_UserBaseUrl   
 });
 
 
@@ -23,12 +23,17 @@ export  const userSignup = async (data) => {
 };
 
 
-export const userLogin = (loginData) => {
+export const userLogin = async (loginData) => {
   try {
-    const data = userApi.post('/login',loginData)
+    console.log(loginData)
+    const data = await userApi.post('/login',loginData,{
+
+    })
     return data
   } catch (error) {
-    console.log(error)
+    console.log(error,"mmmm")
+    console.log(error.response.data,"")
+    toast(error.response.data.message)
   }
 }
 
@@ -68,16 +73,24 @@ export const UpdatedEdit =(data)=>{
   }
 }
 
-export const UserSignupWithGoogle = (data)=>{
-  return userApi.post("/googleSignup",data,{
-    withCredentials:true
-  })
+export const UserSignupWithGoogle = async (data)=>{
+  try {
+    const datas = await userApi.post("/googleSignup",data,{
+      withCredentials:true
+    })
+    return datas
+  } catch (error) {
+    console.log(error.response.data)
+    toast(error.response.data.message)
+  }
+ 
 }
 
 export const SignupOtpVerify = (value,id)=>{
   try {
+    console.log(id)
     value.id =id
-    const datas = userApi.post("/otpverified",value)
+    const datas =  userApi.post("/otpverified",value)
     return datas
   } catch (error) {
     console.log(error)
@@ -90,6 +103,32 @@ export const ForgotPassword = (value)=>{
     console.log("Mail api kerii")
     const data = userApi.post('/forgotmail',value);
     return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const PassOtpVerify = async(value,id)=>{
+  try {
+    value.id = id
+    console.log(id)
+    console.log('rjrjrj');
+    const datas = userApi.post("/passotverify",value);
+    console.log(datas,"haiaiaiaiaai ")
+      return datas
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const ChangePassword = async(value,id)=>{
+  try {
+    value.id = id
+    console.log(id,"poooooo")
+    const datas = await userApi.post("/changepass",value);
+    return datas
   } catch (error) {
     console.log(error)
   }

@@ -28,7 +28,6 @@ export default function Forgot() {
   
   const initialValues={
     email:"",
-    otp: "",
   }
   const {
     values,
@@ -42,15 +41,15 @@ export default function Forgot() {
     initialValues:initialValues,
     validationSchema: ForgotMailSchema ,
     onSubmit: async(values)=>{
-      console.log("aaaaaaaaaaa")
+      console.log("forgot mail")
       const response = await ForgotPassword(values); 
       console.log("koiiii")
       console.log(response.data,"otp ill keriii")
 
       if(response){
-         localStorage.setItem("token", response.data.token);
-          // navigate("/")
-          setOtpVisible(true); 
+        // localStorage.setItem("token", response.data.token);
+        // setOtpVisible(true); 
+        navigate(`/passotp/${response.data.id}`)
         }
         else{
           toast(response.data.alert)
@@ -64,6 +63,7 @@ export default function Forgot() {
       <div className="forgot col-span-1 h-[50rem] w-[35rem]"></div>
 
       <div className="col-span-1 bg-opacity-100 bg-white h-[50rem] flex justify-center items-center">
+
         <Card color="transparent" shadow={false}>
           <Typography variant="h4" color="blue-gray">
             Enter your email
@@ -89,7 +89,6 @@ export default function Forgot() {
                 <div className="text-red-500 text-sm ">{errors.email}</div>
               )}
             </div>
-
             <Button
               className="mt-6"
               fullWidth
@@ -97,48 +96,6 @@ export default function Forgot() {
               disabled={emailSent}
             >
               Send Email
-            </Button>
-
-            {otpVisible && (
-              <div className="mb-1 flex flex-col gap-6">
-                <Typography variant="h6" color="blue-gray" className="-mb-3">
-                  Enter Your OTP
-                </Typography>
-                <Input
-                  name="otp"
-                  size="lg"
-                  type="Otp"
-                  placeholder="Enter your otp"
-                  value={values.otp}
-                  // onChange={(e) => setNewPassword(e.target.value)}
-                  onChange={handleChange}
-                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                />
-                   {touched.otp && errors.otp && (
-                <div className="text-red-500 text-sm ">{errors.otp}</div>
-              )}
-              </div>
-            )}
-
-            <Button
-              className="mt-2"
-              fullWidth
-              type="submit"
-              disabled={!emailSent}
-            >
-              Submit
-            </Button>
-
-            <Button
-              className="mt-2"
-              fullWidth
-              color="blue"
-              disabled={!emailSent}
-            >
-              Resend
             </Button>
 
             <Typography color="gray" className="mt-4 text-center font-normal">

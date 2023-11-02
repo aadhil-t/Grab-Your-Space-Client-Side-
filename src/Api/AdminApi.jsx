@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const adminApi = axios.create({
-    baseURL: import.meta.env.VITE_BaseUrl
+    baseURL: import.meta.env.VITE_AdminBaseUrl 
 })
 
 
