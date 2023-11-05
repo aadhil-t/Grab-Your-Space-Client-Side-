@@ -6,7 +6,8 @@ export const userApi = axios.create({
   baseURL: import.meta.env.VITE_UserBaseUrl   
 });
 
-
+import userRequest from "../Utils/UserRequest";
+console.log(userRequest,"fffffffffffffffffffffffffff");
 export  const userSignup = async (data) => {
   try {
     console.log(data);
@@ -26,8 +27,8 @@ export  const userSignup = async (data) => {
 export const userLogin = async (loginData) => {
   try {
     console.log(loginData)
-    const data = await userApi.post('/login',loginData,{
-
+    const data = await userRequest.post('/login',loginData,{
+withCredentials:true
     })
     return data
   } catch (error) {
@@ -37,11 +38,10 @@ export const userLogin = async (loginData) => {
   }
 }
 
-export const Profileview = (id)=>{
+export const Profileview = ()=>{
   try {
-     const Prodata = userApi.get(`/profile/${id}`,{
-      withCredentials:true
-     });
+    console.log("id")
+     const Prodata = userRequest.get(`/profile`);
      return Prodata
   } catch (error) {
     console.log(error)
@@ -51,7 +51,7 @@ export const Profileview = (id)=>{
 export const UserProfileEditing =(data)=>{
   try {
     console.log("/editProfile",data)
-    const Editdata = userApi.put(`/editProfile`,data,{
+    const Editdata = userRequest.put(`/editProfile`,data,{
       withCredentials:true,
     })
     return Editdata

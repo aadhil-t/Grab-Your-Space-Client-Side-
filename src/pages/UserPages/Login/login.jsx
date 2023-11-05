@@ -42,17 +42,17 @@ export default function Login() {
     onSubmit: async (values) => {
       const response = await userLogin(values);
       console.log(response,"kkkkkk")
-      if (response.status) {
-        console.log(response.status,"lollolol")
+      if (response) {
         const userDetails = {
           name: response.data.userData.name,
           email: response.data.userData.email,
         };
         dispatch(setUserDetails({ userInfo: userDetails }));
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("currentUser", response.data.token);
         navigate("/");
       }
-      toast(response.data.alert);
+      // toast(response.data.alert);
+      console.log("jjjjjjjjjj");
     },
   });
 
@@ -78,7 +78,7 @@ export default function Login() {
           console.log(res,"hhhh");
           userLogin({email:res.data.email,id:res.data.id}).then((response) => {
             if (response.data.status) {
-              localStorage.setItem("token", response.data.token);
+              localStorage.setItem("currentUser", response.data.token);
               dispatch(
                 setUserDetails({
                   name:response.data.userData.name,

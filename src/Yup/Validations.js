@@ -10,6 +10,14 @@ export const SignupSchema = Yup.object({
   });
   
 
+  export const EditProfileSchema = Yup.object({
+    name: Yup.string().min(2).max(20).required("Please Enter Your Name"),
+    mobile: Yup.string()
+      .required("Please Enter Your Mobile Number")
+      .matches(/^\d{10}$/, "Mobile number must have 10 digits"),
+  });
+
+
   export const LoginShema = Yup.object({
     email: Yup.string().email().required("Please Enter Your email"),
     password: Yup.string().min(3).required("Please enter password"),

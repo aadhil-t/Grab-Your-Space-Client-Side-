@@ -5,10 +5,12 @@ import Forgot from "../pages/UserPages/ForgotPassword/Forgot";
 import Home from "../pages/UserPages/Home/home";
 import Profile from "../components/user/Profile"
 import UserPublic from "./UserPublic";
+import UserProtect from './UserProtect'
 import Layout from "../pages/UserPages/Layout/Layout";
 import SignupOtp from "../pages/UserPages/SignupOtp/SignupOtp";
 import ChangePassword from "../pages/UserPages/ChangePassword/ChangePassword";
 import PassOtp from "../pages/UserPages/OtpPassChange/Otp";
+import SeatSlot from "../pages/UserPages/SeatSlot/SeatSlot";
 function UserRoutes(){
  return(
     <Routes>
@@ -19,12 +21,13 @@ function UserRoutes(){
         <Route path="/changepass/:id" element={<ChangePassword/>}/>
         <Route path="/passotp/:id" element={<PassOtp/>} />
         <Route path="/signupotp/:id" element={<SignupOtp/>}/>
-
+ 
         </Route>
 
         <Route path="/" element={<Layout></Layout>}>
             <Route index element={<Home/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="/seatslot" element={<SeatSlot/>}/>
         </Route>
     </Routes>
  )   

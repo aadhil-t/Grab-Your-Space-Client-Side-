@@ -14,7 +14,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
     dispatch(
       logoutDetails({
         id: "",
@@ -82,7 +82,7 @@ export default function Navbar() {
           GRAB YOUR SPACE
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        {localStorage.getItem("token") ? (
+        {localStorage.getItem("currentUser") ? (
           <>
             
               <Button

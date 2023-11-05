@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,81 +9,42 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-import { UpdatedEdit } from "../../Api/UserApi"; 
-import { useSelector, } from "react-redux";
-import { useQueryClient } from "@tanstack/react-query";
-// import { Profileview } from "../../Api/UserApi";
+import { UserProfileEditing } from "../../Api/UserApi";
+import { EditProfileSchema } from "../../Yup/Validations";
+import { useFormik } from "formik";
 
-export default function UserProfileEdit() {
-  const { name, mobile, email,id} = useSelector((state) => state.user);
+export default function ProfileEdit({ data }) {
   const [open, setOpen] = React.useState(false);
-  const queryClient=useQueryClient()
 
-  const [error, setError] = useState("");
-
-  const [formData, setFormData] = useState({
-    name:name?name: "",
-    email:email?email: "",
-    mobile:mobile?mobile: "",
-    id:id?id: "",
-  }); 
-  
-  // useEffect(() => {
-  //   // Define an async function to fetch user profile data
-  //   const fetchData = async () => {
-  //     try {
-  //       // Call your Profileview function to fetch the user's profile data
-  //       const response = await Profileview(id);
-  //       const userData = response.data; // Assuming your API response contains user data
-  //       console.log(userData,"jjjj")
-        
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   fetchData(); // Call the function to fetch data when the component mounts
-
-  // }, [id]); // Ensure this effect runs whenever the 'id' changes
-
-  
-  const handleOpen = () => setOpen((open)=>!open);
-
-  const handleInputChange = (e, field) => {
-    const { value } = e.target;
-    setFormData({
-      ...formData,
-      [field]: value,
-    });
+  const initialValues = {
+    name: data.name || "", // Initialize with data if available
+    mobile: data.mobile || "", // Initialize with data if available
   };
-  
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      const { name, email,mobile } = formData;
-      if (name.trim() === "") {
-        setError("Invalid Name");
-      } else if (email.trim() === "") {
-        setError("Invalid Email");
-      
-      }else if (mobile.trim() === "") {
-        setError("Invalid Mobile");
-      
-      } else {
-        const response = await UpdatedEdit(formData);
-
-          // 
-        console.log("Updated Values: ", response.data.data);
-        queryClient.invalidateQueries('profile')
-
-        handleOpen();
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: EditProfileSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await UserProfileEditing(values);
+        // Handle the response or update your UI as needed
+        console.log("Updated profile:", response);
+        setOpen(false); // Close the dialog after successful submission
+      } catch (error) {
+        // Handle any errors here
+        console.error(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    },
+  });
 
+  const handleOpen = () => setOpen(true);
 
   return (
     <>
@@ -91,7 +52,7 @@ export default function UserProfileEdit() {
       <Dialog
         size="sm"
         open={open}
-        onClose={handleOpen}
+        onClose={() => setOpen(false)} // Close the dialog when the "X" button is clicked
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
@@ -112,33 +73,37 @@ export default function UserProfileEdit() {
               Your Name
             </Typography>
             <Input
-                 label="Name"
-                 value={formData.name}
-                 size="lg"
-                 onChange ={(e) => handleInputChange(e, "name")}
-               />
-
-            <Typography className="-mb-2" variant="h6">
-              Your Email
-            </Typography>
-            <Input
-              label="Email"
-              value={formData.email}
+              name="name"
+              label="Name"
+              value={values.name}
               size="lg"
-              onChange={(e) => handleInputChange(e, "email")}
+              onChange={handleChange}
             />
+            {touched.name && errors.name && (
+              <div className="text-red-500 text-sm">{errors.name}</div>
+            )}
+
             <Typography className="-mb-2" variant="h6">
               Your Mobile
             </Typography>
             <Input
+              name="mobile"
               label="Mobile"
-              value={formData.mobile}
+              value={values.mobile}
               size="lg"
-              onChange={(e) => handleInputChange(e, "mobile")}
+              onChange={handleChange}
             />
+            {touched.mobile && errors.mobile && (
+              <div className="text-red-500 text-sm">{errors.mobile}</div>
+            )}
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={handleUpdate} fullWidth>
+            <Button
+              variant="gradient"
+              onClick={handleSubmit}
+              fullWidth
+              disabled={isSubmitting}
+            >
               Update
             </Button>
           </CardFooter>
