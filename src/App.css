@@ -55,3 +55,10 @@
   background-repeat:no-repeat; 
   background-position:center;
 }
+
+.tableimg{
+  background-image: url("./assets/UserAssets/table.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+}
