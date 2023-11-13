@@ -12,10 +12,12 @@ import {
 import { UserProfileEditing } from "../../Api/UserApi";
 import { EditProfileSchema } from "../../Yup/Validations";
 import { useFormik } from "formik";
+import { useParams } from "react-router-dom";
 
 export default function ProfileEdit({ data }) {
   const [open, setOpen] = React.useState(false);
 
+  useParams
   const initialValues = {
     name: data.name || "", // Initialize with data if available
     mobile: data.mobile || "", // Initialize with data if available

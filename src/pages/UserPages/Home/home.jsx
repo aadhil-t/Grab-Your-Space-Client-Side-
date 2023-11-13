@@ -26,7 +26,7 @@ function Home() {
 
         <div className="img3 h-[40rem] flex justify-center items-center bg-blue-gray-300">
           <Button className="w-[10rem] mt-6" fullWidth onClick={()=> navigate("/seatslot")}>
-            Submit
+            Booking
           </Button>
           {/* You can add form fields and labels here */}
         </div>

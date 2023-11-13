@@ -11,6 +11,7 @@ import SignupOtp from "../pages/UserPages/SignupOtp/SignupOtp";
 import ChangePassword from "../pages/UserPages/ChangePassword/ChangePassword";
 import PassOtp from "../pages/UserPages/OtpPassChange/Otp";
 import SeatSlot from "../pages/UserPages/SeatSlot/SeatSlot";
+import Hubs from "../pages/UserPages/Hubs/Hubs";
 function UserRoutes(){
  return(
     <Routes>
@@ -28,6 +29,7 @@ function UserRoutes(){
             <Route index element={<Home/>}/>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/seatslot" element={<SeatSlot/>}/>
+            <Route path="/hubs" element={<Hubs/>}/>
         </Route>
     </Routes>
  )   
