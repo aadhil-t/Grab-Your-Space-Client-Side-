@@ -1,16 +1,58 @@
 import { Typography } from "@material-tailwind/react";
 import { Carousel } from "@material-tailwind/react";
+import Button from "@material-tailwind/react";
 // import {FaMapMarkedAlt} from 'react-icons/fa'
 import Map from "../../../assets/UserAssets/Map.png";
+import { useState } from "react";
 
 function multipleComponent() {
   return <div className="col-start-2 bg-deep-orange-300">1</div>;
 }
+
+let h = [];
+h.length = 6;
+
 function SeatSlot() {
+  let currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 1); // Minimum date (tomorrow)
+
   const repeatComponent = [];
-  for (let i = 0; i < 5; i++) {
-    repeatComponent.push(multipleComponent());
+  for (let i = 0; i < 36; i++) {
+    repeatComponent.push(i + 1);
   }
+  const [selected, setSelected] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(
+    currentDate.toISOString().split("T")[0]
+  );
+
+  // Calculate maximum allowed date (3 days in the future)
+  const maxDate = new Date();
+  maxDate.setDate(currentDate.getDate() + 2);
+
+  // let selected = [];
+
+  const selectSeat = (id) => {
+    // Handle the click event for the specific seat with the provided id
+    const selectedIndex = selected.indexOf(id);
+
+    if (selected.includes(id)) {
+      // If the id is already in the array, remove it
+      const newSelected = [...selected];
+      newSelected.splice(selectedIndex, 1);
+      setSelected(newSelected);
+    } else {
+      // If the id is not in the array, add it
+      setSelected([...selected, id]);
+    }
+
+    // Add your logic here
+    console.log(selected);
+  };
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+
   return (
     <>
       <div
@@ -52,8 +94,8 @@ function SeatSlot() {
             </div>
           )}
         >
-          <div className="bg-blue-gray-400 ">
-            <div className="flex items-center justify-around bg-blue-gray-400">
+          <div className="bg-blue-gray-400">
+            <div className="flex h-16 items-center justify-around bg-blue-gray-400">
               <div className="flex">
                 <button className="h-10 w-10">
                   <img src={Map} alt="" />
@@ -62,7 +104,7 @@ function SeatSlot() {
                   <input
                     className="rounded-md ml-1 w-36 p-1.5 text-lg text-center capitalize font-serif bg-white"
                     type="text"
-                    value={"malappuram"}
+                    value={"calicut"}
                     disabled
                   />
                 </div>
@@ -74,188 +116,50 @@ function SeatSlot() {
               <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
                 {" "}
               </h1>
+              <input
+                type="date"
+                id="dateInput"
+                value={selectedDate}
+                min={currentDate.toISOString().split("T")[0]}
+                max={maxDate.toISOString().split("T")[0]}
+                onChange={handleDateChange}
+              />
             </div>
+
             <div className="flex justify-center">
               <div className=" w-11/12 h-[52rem] ">
                 <div className="grid grid-cols-3 grid-rows-1 gap-0 h-[50rem]">
-                  <div className="bg-blue-gray-50 p-16">
-                    <div className=" flex justify-around row-span-3 bg-blue-gray-600 h-full py-5">
-
-                      <div className="flex flex-col justify-around h-full">
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            1
-                          </span>
+                  <div
+                    className="bg-blue-gray-50 grid grid-cols-12 col-span-3 p-16"
+                    style={{ backgroundColor: "#1B4965" }}
+                  >
+                    {repeatComponent.map((result, index) => (
+                      <>
+                        <div
+                          key={index + 1}
+                          onClick={() => {
+                            selectSeat(index + 1);
+                          }}
+                          className="bg-white w-24 h-24 p-2 col-span-1"
+                        >
+                          <div
+                            key={index + 1}
+                            className={`w-20 cursor-pointer h-20 flex justify-center items-center ${
+                              !selected.includes(result)
+                                ? "bg-blue-400"
+                                : "bg-red-900"
+                            }`}
+                          >
+                            <h1 className="text-3xl font-extrabold">
+                              {result}
+                            </h1>
+                          </div>
                         </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            3
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            5
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            7
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            9
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className=" tableimg col-span-3 bg-gray-500 w-48 h-full  "></div>
-
-                      <div className="flex flex-col justify-around h-full">
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            2
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            4
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            6
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            8
-                          </span>
-                        </div>
-                        <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                          <span className="flex justify-around p-3 font-extrabold">
-                            10
-                          </span>
-                        </div>
-                      </div>
-
-                    </div>
+                      </>
+                    ))}
                   </div>
-
-                  <div className="bg-blue-gray-50">1</div>
-
-                  <div className="bg-blue-gray-50 p-16">
-                  <div className=" flex justify-around row-span-3 bg-blue-gray-600 h-full py-5">
-                    <div className="flex flex-col justify-around h-full">
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          11
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          13
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          15
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          17
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-e-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          19
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className=" tableimg col-span-3 bg-gray-500 w-48 h-full  "></div>
-                    
-                    <div className="flex flex-col justify-around h-full">
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          12
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          14
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          16
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          18
-                        </span>
-                      </div>
-                      <div className="col-span-1 bg-deep-orange-900 w-24 h-12 rounded-s-2xl">
-                        <span className="flex justify-around p-3 font-extrabold">
-                          20
-                        </span>
-                      </div>
-                    </div> 
-                    </div>
-                  </div>
-
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="bg-blue-gray-400">
-            <div className="flex h-16 items-center justify-around bg-blue-gray-400">
-              <div className="flex">
-                <button className="h-10 w-10">
-                  <img src={Map} alt="" />
-                </button>
-                <div className="">
-                  <input
-                    className="rounded-md ml-1 w-36 p-1.5 text-lg text-center capitalize font-serif bg-white"
-                    type="text"
-                    value={"malappuram"}
-                    disabled
-                  />
-                </div>
-              </div>
-              <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
-                {" "}
-                Grab Your Space
-              </h1>
-              <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
-                {" "}
-              </h1>
-            </div>
-          </div>
-          <div className="bg-blue-gray-400">
-            <div className="flex h-16 items-center justify-around bg-blue-gray-400">
-              <div className="flex">
-                <button className="h-10 w-10">
-                  <img src={Map} alt="" />
-                </button>
-                <div className="">
-                  <input
-                    className="rounded-md ml-1 w-36 p-1.5 text-lg text-center capitalize font-serif bg-white"
-                    type="text"
-                    value={"malappuram"}
-                    disabled
-                  />
-                </div>
-              </div>
-              <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
-                {" "}
-                Grab Your Space
-              </h1>
-              <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
-                {" "}
-              </h1>
             </div>
           </div>
         </Carousel>

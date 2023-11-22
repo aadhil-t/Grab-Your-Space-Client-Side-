@@ -49,11 +49,11 @@ export default function SignupOtp() {
     validationSchema: SignupOtpSchema,
     onSubmit: async(values)=>{
       const response = await SignupOtpVerify(values,id); 
-      console.log("koiiii")
-      console.log(response.data,"otp ill keriii")
+      console.log("koiiii in oyp")
+      console.log(response.data,"urapalle")
 
       if(response){
-         localStorage.setItem("token", response.data.token);
+         localStorage.setItem("token", response.data);
           navigate("/")
         }
         else{

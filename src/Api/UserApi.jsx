@@ -8,9 +8,12 @@ export const userApi = axios.create({
 
 import userRequest from "../Utils/UserRequest";
 console.log(userRequest,"fffffffffffffffffffffffffff");
+
 export  const userSignup = async (data) => {
   try {
-    console.log(data);
+    alert('hh')
+    console.log('hi');
+    console.log(data,"in api");
   const datas = await userApi.post("/signup", data, {
     withCredentials: true,
   });
