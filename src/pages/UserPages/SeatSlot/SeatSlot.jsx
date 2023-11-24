@@ -17,7 +17,7 @@ function SeatSlot() {
   currentDate.setDate(currentDate.getDate() + 1); // Minimum date (tomorrow)
 
   const repeatComponent = [];
-  for (let i = 0; i < 36; i++) {
+  for (let i = 0; i < 60; i++) {
     repeatComponent.push(i + 1);
   }
   const [selected, setSelected] = useState([]);

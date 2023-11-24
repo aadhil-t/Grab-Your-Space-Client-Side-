@@ -7,8 +7,8 @@ const userRequest = axios.create({
 
 userRequest.interceptors.request.use((req)=>{
     console.log("req in");
-    if(localStorage.getItem("currentUser")){
-        req.headers.authorization = "Bearer " + localStorage.getItem("currentUser")
+    if(localStorage.getItem("token")){
+        req.headers.authorization = "Bearer " + localStorage.getItem("token")
         console.log(req);
     }
       return req

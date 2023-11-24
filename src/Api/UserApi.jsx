@@ -45,6 +45,7 @@ export const Profileview = ()=>{
   try {
     console.log("id")
      const Prodata = userRequest.get(`/profile`);
+     console.log(Prodata);
      return Prodata
   } catch (error) {
     console.log(error)
@@ -54,9 +55,7 @@ export const Profileview = ()=>{
 export const UserProfileEditing =(data)=>{
   try {
     console.log("/editProfile",data)
-    const Editdata = userRequest.put(`/editProfile`,data,{
-      withCredentials:true,
-    })
+    const Editdata = userRequest.put(`/editProfile`,data)
     return Editdata
   } catch (error) {
     console.log(error)

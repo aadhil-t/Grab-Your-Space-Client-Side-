@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom"
-import AdminNavbar from "../../../components/Common/admin/Navbar";
-import Sidebar from "../../../components/Common/admin/Sidebar"
-import Footer from "../../../components/Common/admin/Footer"
-function AdminLayout(){
+import HubNavbar from "../../../components/Common/HubAdmin/Navbar"
+import Sidebar from "../../../components/Common/HubAdmin/Sidebar"
+import Footer from "../../../components/Common/HubAdmin/Footer"
+function HubLayout(){
     return(
   
     <>
-    <div className='h-screen grid grid-rows-[4rem]'>
+    <div className='h-screen grid grid-rows-[4rem] '>
         
       <div> 
-        <AdminNavbar/> 
+        <HubNavbar/> 
       </div>
 
       <div className='md:grid md:grid-cols-[17rem,1fr]'>
@@ -33,4 +33,4 @@ function AdminLayout(){
     )
 }
 
-export default AdminLayout;
+export default HubLayout;

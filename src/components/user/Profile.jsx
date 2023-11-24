@@ -9,7 +9,6 @@
   } from "@material-tailwind/react";
 
   import { Profileview } from "../../Api/UserApi";
-  import { useSelector } from "react-redux";
   import { Input } from "@material-tailwind/react";
   import ProfileEdit from "./EditProfile";
   import ChangeProfile from "./ChangeProfile";
@@ -21,13 +20,26 @@
     // const [datas, setData] = useState('');
     // console.log(datas)
 
-      const { isLoading, error, data } = useQuery({
-        queryKey: ['profile'],
-        queryFn: () =>  Profileview().then((res) => res.data)
-        .catch((err) => {
+    const { isLoading, error, data, refetch } = useQuery({
+      queryKey: ['profile'],
+      queryFn: async () => {
+        try {
+          const res = await Profileview();
+          console.log(res,'gfdghgfjg');
+          return res.data;
+        } catch (err) {
           console.error("Error:", err);
-        })
-      });
+    
+          // Log more details about the error
+          console.log("Error details:", err.response);
+    
+          // Rethrow the error to let React Query handle it
+          throw err;
+        }
+      }
+    });
+  
+    
 if (isLoading) {
   return <div>fghj</div>
 }
@@ -55,7 +67,7 @@ if (error) {
           
             <div className="flex justify-center mt-5">
               <div className="flex items-center">
-                <ProfileEdit data={data.data}/>
+                <ProfileEdit refetch={refetch} data={data.data}/>
                 <Button className="mx-10">Change Password</Button>
               </div>
             </div>

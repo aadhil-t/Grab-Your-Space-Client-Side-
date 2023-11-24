@@ -14,7 +14,7 @@ import { EditProfileSchema } from "../../Yup/Validations";
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
 
-export default function ProfileEdit({ data }) {
+export default function ProfileEdit({ data, refetch }) {
   const [open, setOpen] = React.useState(false);
 
   useParams
@@ -36,6 +36,7 @@ export default function ProfileEdit({ data }) {
     onSubmit: async (values) => {
       try {
         const response = await UserProfileEditing(values);
+        refetch()
         // Handle the response or update your UI as needed
         console.log("Updated profile:", response);
         setOpen(false); // Close the dialog after successful submission

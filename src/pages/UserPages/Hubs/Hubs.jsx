@@ -72,7 +72,7 @@ function Hubs() {
                   <Typography>{card.description}</Typography>
                 </CardBody>
                 <CardFooter className='pt-0'>
-                <a href="/seatslot"><Button>Read More</Button></a>
+                <a href="/seatslot"><Button>View More</Button></a>
                 </CardFooter>
               </Card>
             ))}

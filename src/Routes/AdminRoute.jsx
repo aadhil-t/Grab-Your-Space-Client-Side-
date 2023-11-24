@@ -18,7 +18,7 @@ function AdminRoute(){
                 <Route path="/users" element={<Users/>}/>        
             </Route>    
             </Route>
-        </Routes>
+        </Routes>       
     )
 }
 

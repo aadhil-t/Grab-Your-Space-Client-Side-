@@ -56,7 +56,7 @@ export default function Users() {
       const userData = response.data;
       console.log(userData.UserData,"user list");
       setUser(userData.UserData);
-      handleAction(id)
+      // handleAction(id)  
       console.log(userDetails);
     }).catch((error) => console.log(error));
 
