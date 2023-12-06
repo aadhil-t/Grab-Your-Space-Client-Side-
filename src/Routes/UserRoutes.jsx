@@ -25,11 +25,13 @@ function UserRoutes(){
  
         </Route>
 
-        <Route path="/" element={<Layout></Layout>}>
-            <Route index element={<Home/>}/>
+        <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Home/>}/>
+            <Route element={<UserProtect />}>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/seatslot" element={<SeatSlot/>}/>
             <Route path="/hubs" element={<Hubs/>}/>
+            </Route>
         </Route>
     </Routes>
  )   

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUserDetails } from "../../../Redux/UserSlice/UsserSlice";
 import { Link } from "react-router-dom";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google"; 
 import axios from "axios";
 import google from "../../../assets/UserAssets/google.png";
 import { useFormik } from "formik";
@@ -137,7 +137,7 @@ export default function SimpleRegistrationForm() {
                 variant="standard"
                 onChange={handleChange}
                 value={values.name}
-              />
+              />  
               {touched.name && errors.name && (
                 <div className="text-red-500 text-sm ">{errors.name}</div>
               )}

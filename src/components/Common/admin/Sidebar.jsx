@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
           </Typography>
         </div>
         <List>
-          <ListItem>
+          <ListItem onClick={()=>navigate('/admin/dashboard')}>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>

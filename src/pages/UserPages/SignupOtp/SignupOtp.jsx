@@ -106,7 +106,7 @@ export default function SignupOtp() {
         </Typography>
       </form>
     </Card>
-    <ToastContainer />
+    <ToastContainer/>
     </div>
     </div>
   );

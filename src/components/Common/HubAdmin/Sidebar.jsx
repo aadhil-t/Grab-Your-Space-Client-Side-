@@ -23,12 +23,12 @@ import { useNavigate } from "react-router-dom";
         <div className="fixed">
       <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl rounded-none shadow-blue-gray-900/5 ">
         <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">
+          {/* <Typography variant="h5" color="blue-gray">
             
-          </Typography>
+          </Typography> */}
         </div>
         <List>
-          <ListItem>
+          <ListItem onClick={()=>navigate("dashboard")}>
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -44,7 +44,7 @@ import { useNavigate } from "react-router-dom";
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Create Hubs
+            My Hubs
             <ListItemSuffix>
               <Chip value="4" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
             </ListItemSuffix>

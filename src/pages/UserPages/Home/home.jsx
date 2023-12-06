@@ -3,7 +3,7 @@ import { Typography } from "@material-tailwind/react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function  Home() {
 
     const navigate = useNavigate()
 

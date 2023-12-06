@@ -1,27 +1,80 @@
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Tooltip,
-  } from "@material-tailwind/react";
-   
-  export default function HubProfile() {
-    return (
-        <div className="flex justify-center my-24">
-      <Card className=" w-[50rem] h-[40rem] bg-deep-orange-200">
-        <CardHeader floated={false} className="flex justify-center h-80 ">
-         <img src="https://docs.material-tailwind.com/img/team-3.jpg" alt="profile-picture" />
-        </CardHeader>
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Tooltip,
+  Button,
+} from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { HubProfile } from "../../Api/HubAdminApi";
+import AddhubForm from "./AddHub";
+import EditHubAdminProfile from "./EditProfile";
+
+
+export default function HubProfileForm() {
+  const [Prodata, setProData] = useState({});
+  const [child,setChild] = useState()
+
+  const onDataUpdate =(data)=>{
+      setChild(data)
+  }
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await HubProfile();
+       setChild(false)
+      setProData(response.data.profile,"iam the data of the profile of the user");
+      
+    };
+    fetchProfile();
+  }, [child]);
+
+  console.log("Prodatada of the profile state", Prodata);
+  return (
+    <div className="flex justify-center my-24  ">
+      <Card className="mt-10 w-[60rem] h-[40rem] bg-[#b1b9ff] shadow-xl ">
+        <div className="flex mx-80 w-[20rem] -mt-24 bg-transparent ">
+          <div
+            floated={false}
+            className="flex justify-center h-80  rounded-lg overflow-hidden transition-transform transform bg-transparent"
+          >
+            <img
+              src="https://docs.material-tailwind.com/img/team-3.jpg"
+              alt="profile-picture"
+              className="object-cover w-72 h-72 rounded-full"
+            />
+          </div>
+        </div>
+
         <CardBody className="text-center">
-          <Typography variant="h4" color="blue-gray" className="mb-2">
-            Natalie Paisley
+          <Typography variant="h2" color="blue-gray" className="mb-2">
+            {Prodata ? Prodata.name : ""}
           </Typography>
-          <Typography color="blue-gray" className="font-medium" textGradient>
-            CEO / Co-Founder
+          <Typography
+            color="blue-gray"
+            variant="h4"
+            className="font-medium"
+            textGradient
+          >
+            {Prodata ? Prodata.email : ""}
+          </Typography>
+          <Typography
+            color="blue-gray"
+            variant="h4"
+            className="font-medium"
+            textGradient
+          >
+            {Prodata ? Prodata.mobile : ""}
           </Typography>
         </CardBody>
+
+        <div className="mt-10 flex justify-evenly ">
+         <AddhubForm/>
+         <EditHubAdminProfile data = {Prodata} onDataUpdate={onDataUpdate}/>
+        </div>
+
         <CardFooter className="flex justify-center gap-7 pt-2">
           <Tooltip content="Like">
             <Typography
@@ -57,7 +110,7 @@ import {
             </Typography>
           </Tooltip>
         </CardFooter>
-      </Card>
-      </div>
-    );
-  }
+      </Card> 
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   // Navbar,
   MobileNav,
@@ -7,28 +7,28 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { logoutDetails } from "../../../Redux/UserSlice/UsserSlice";
-
+import { EmailVerify } from "../../../Api/HubAdminApi";
 export default function HubNavbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     console.log("Logout button clicked");
-    localStorage.removeItem("admintoken");
-    console.log()
+    localStorage.removeItem("hubtoken");
+    console.log();
     dispatch(
       logoutDetails({
-        id:'',
-      name:'',
-      email:'',
-      mobile:'',
-      is_admin:'',
+        id: "",
+        name: "",
+        email: "",
+        mobile: "",
       })
     );
-    navigate("/admin/login");
+    navigate("/hub/login");
   };
+
   const [openNav, setOpenNav] = React.useState(false);
   React.useEffect(() => {
     window.addEventListener(
@@ -55,7 +55,7 @@ export default function HubNavbar() {
         color="blue-gray"
         className="p-1 font-normal text-red-600 mr-10"
       >
-        <a href="#" className="flex items-center" >
+        <a href="#" className="flex items-center">
           Account
         </a>
       </Typography>
@@ -72,6 +72,24 @@ export default function HubNavbar() {
     </ul>
   );
 
+  const params = useParams();
+  const { id, token } = params;
+
+  useEffect(() => {
+    const verifyEmailUrl = async () => {
+      try {
+        const response = await EmailVerify(id, token);
+        console.log(response, "i am the response of the email verify");
+        if (response.data.status) {
+          localStorage.getItem("hubtoken", response.data.token);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    verifyEmailUrl();
+  }, [id, token,params.id,params.token]);
+
   return (
     // <navbar className=" w-screen py-2 bg-blue-gray-500 lg:px-8 lg:py-4">
     //   <div className=" flex items-center justify-between bg-blue-gray-800 text-blue-gray-900">
@@ -86,7 +104,7 @@ export default function HubNavbar() {
           GRAB YOUR SPACE
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        
+
         <Button onClick={handleLogout}>logout</Button>
 
         <IconButton

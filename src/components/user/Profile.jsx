@@ -22,22 +22,30 @@
 
     const { isLoading, error, data, refetch } = useQuery({
       queryKey: ['profile'],
-      queryFn: async () => {
-        try {
-          const res = await Profileview();
-          console.log(res,'gfdghgfjg');
-          return res.data;
-        } catch (err) {
-          console.error("Error:", err);
-    
-          // Log more details about the error
-          console.log("Error details:", err.response);
-    
-          // Rethrow the error to let React Query handle it
-          throw err;
-        }
-      }
+      queryFn: () => Profileview()
     });
+    if (data) {
+      
+      console.log(data,"profile");
+    }
+    // const { isLoading, error, data, refetch } = useQuery({
+    //   queryKey: ['profile'],
+    //   queryFn: async () => {
+    //     try {
+    //       const res = await Profileview();
+    //       console.log(res,'gfdghgfjg');
+    //       return res.data;
+    //     } catch (err) {
+    //       console.error("Error:", err);
+    
+    //       // Log more details about the error
+    //       console.log("Error details:", err.response);
+    
+    //       // Rethrow the error to let React Query handle it
+    //       throw err;
+    //     }
+    //   }
+    // });
   
     
 if (isLoading) {
@@ -56,21 +64,21 @@ if (error) {
 
           <CardBody className="text-center">
             <Typography variant="h4" color="blue-gray" className="mb-2">
-              {data ? data.data.name: ""}
+              {data ? data.data.profile.name: ""}
             </Typography>
             <Typography color="blue-gray" className="font-semibold" textGradient>
-              {data.data ? data.data.email: ""}
+              {data.data ? data.data.profile.email: ""}
             </Typography>
             <Typography color="blue-gray" className="font-semibold" textGradient>
-              {data.data ? data.data.mobile: ""}
+              {data.data ? data.data.profile.mobile: ""}
             </Typography>
           
             <div className="flex justify-center mt-5">
               <div className="flex items-center">
-                <ProfileEdit refetch={refetch} data={data.data}/>
+                <ProfileEdit refetch={refetch} data={data.data.profile}/>
                 <Button className="mx-10">Change Password</Button>
               </div>
-            </div>
+            </div>  
           </CardBody>
           <CardFooter className="flex justify-center gap-7 pt-2">
             <Tooltip content="Like">

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import HubNavbar from "../../../components/Common/HubAdmin/Navbar"
 import Sidebar from "../../../components/Common/HubAdmin/Sidebar"
 import Footer from "../../../components/Common/HubAdmin/Footer"
+import { ToastContainer } from "react-toastify"
 function HubLayout(){
     return(
   
@@ -29,6 +30,7 @@ function HubLayout(){
       </div>
 
     </div>
+   <ToastContainer />   
   </>
     )
 }

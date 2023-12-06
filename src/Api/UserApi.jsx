@@ -29,22 +29,20 @@ export  const userSignup = async (data) => {
 
 export const userLogin = async (loginData) => {
   try {
-    console.log(loginData)
     const data = await userRequest.post('/login',loginData,{
 withCredentials:true
-    })
+    }) 
     return data
   } catch (error) {
-    console.log(error,"mmmm")
     console.log(error.response.data,"")
     toast(error.response.data.message)
   }
 }
 
-export const Profileview = ()=>{
+export const Profileview = async ()=>{
   try {
     console.log("id")
-     const Prodata = userRequest.get(`/profile`);
+     const Prodata = await userRequest.get(`/profile`);
      console.log(Prodata);
      return Prodata
   } catch (error) {

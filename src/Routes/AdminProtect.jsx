@@ -5,7 +5,7 @@ function AdminProtect(){
         // eslint-disable-next-line react/prop-types
         return <Outlet/>
     }else{
-        return <Navigate to='/admin' />
+        return <Navigate to='/admin/login' />
     }
 }
 

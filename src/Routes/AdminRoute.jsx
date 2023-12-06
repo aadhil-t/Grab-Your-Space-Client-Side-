@@ -13,8 +13,8 @@ function AdminRoute(){
             </Route>
             
             <Route element={<AdminProtect/>}> 
-            <Route path="/" element={<AdminLayout></AdminLayout>}>
-                <Route index element={<Dashboard/>}/>
+            <Route path="/" element={<AdminLayout />}>
+                <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>        
             </Route>    
             </Route>
