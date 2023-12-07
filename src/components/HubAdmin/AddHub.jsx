@@ -14,11 +14,13 @@ import {
 import { Select, Option } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { HubCreateSchema } from "../../Yup/Validations";
-
+import { HubCreate } from "../../Api/HubAdminApi";
+import { useNavigate } from "react-router-dom";
 
 export default function AddhubForm() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
+  const navigate = useNavigate()
  
 const initialValues = {
     name:"",
@@ -38,8 +40,12 @@ const {
 } = useFormik({
     initialValues : initialValues,
     validationSchema : HubCreateSchema,
-    onSubmit : async(values)=>{
+    onSubmit : async(values,{resetForm})=>{
         const response = await HubCreate(values);   
+        if(response){
+          resetForm(initialValues)
+          handleOpen()
+        }
     }
 })
   return (
@@ -138,7 +144,7 @@ const {
 
           </CardBody>
           <CardFooter className="pt-0">
-            <Button type="submit" variant="gradient" onClick={handleOpen} fullWidth>
+            <Button type="submit" variant="gradient" fullWidth>
               Create 
             </Button>
           </CardFooter>

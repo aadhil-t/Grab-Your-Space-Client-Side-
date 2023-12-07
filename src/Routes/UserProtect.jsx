@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-function UserProtect(){
+function UserProtect(){   
+
     if(localStorage.getItem('token')){
         return <Outlet />;
     }

@@ -55,3 +55,13 @@ export const EditHubAdminPro = async(values)=>{
         console.log(error);
     }
 }   
+
+export const HubCreate = async(values)=>{
+    try {
+        console.log(values,"enter to Hubcreate Api");
+        const data = await HubRequest.post('/createhub',values);
+        return data
+    } catch (error) {
+        
+    }
+}
