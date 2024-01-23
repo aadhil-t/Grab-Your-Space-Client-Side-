@@ -8,6 +8,7 @@ import EmailVerify from "../components/HubAdmin/VerifyEmail";
 import AddhubForm from "../components/HubAdmin/AddHub";
 import HubAdminProtect from "./HubAdminProtect";
 import HubAdminPublic from "./HubAdminPublic";
+import HubList from "../components/HubAdmin/HubList"
 function HubAdminRoute(){
     return(
         <Routes>
@@ -23,6 +24,7 @@ function HubAdminRoute(){
                 <Route path="/dashboard/:id/:token" element={<Dashborad/>}/>
                 <Route path="/hubprofile" element={<HubProfileForm/>}/>
                 <Route path="/addhub" element={<AddhubForm/>}/>
+                <Route path="/hublist" element={<HubList/>}/>
             </Route>  
             </Route>  
         </Routes>

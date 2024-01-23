@@ -40,7 +40,8 @@ import { useNavigate } from "react-router-dom";
             </ListItemPrefix>
             User List
           </ListItem>
-          <ListItem>
+
+          <ListItem onClick={()=>navigate('hublist')}>
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>

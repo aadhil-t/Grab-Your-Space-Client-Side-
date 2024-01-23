@@ -65,3 +65,14 @@ export const HubCreate = async(values)=>{
         
     }
 }
+
+export const HubData = async()=>{
+    try {
+        console.log("enter to api hublist")
+        const data = await HubRequest.get('/hubdata')
+        console.log(data)
+        return data
+    } catch (error) {
+     console.log(error)   
+    }
+}

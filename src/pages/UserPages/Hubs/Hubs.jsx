@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react';
+import { HubList } from '../../../Api/UserApi';
 
 function Hubs() {
   const cardData = [
@@ -12,6 +13,18 @@ function Hubs() {
       
       // Add more data items as needed
   ];
+
+  const [hubList,setHubList] = useState()
+
+  useEffect(()=>{
+    const fetchHubList = async()=>{
+      const response = await HubList();
+      if(response){
+
+      }
+    }
+    fetchHubList()
+  },[])
 
   return (
     <>

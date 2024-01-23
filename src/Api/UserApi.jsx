@@ -133,3 +133,15 @@ export const ChangePassword = async(value,id)=>{
     console.log(error)
   }
 }
+
+
+export const HubList = async()=>{
+  try {
+    console.log("enter to user api")
+    const data = await userApi.get('/hublisting')
+    console.log(data)
+    return data
+  } catch (error) {
+    
+  }
+}
