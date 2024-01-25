@@ -5,12 +5,10 @@ const userRequest = axios.create({
 });
 
 userRequest.interceptors.request.use((req) => {
-  console.log("req in");
   if (localStorage.getItem("token")) {
     req.headers.Authorization = "Bearer " + localStorage.getItem("token");
-    console.log(req);
   }
-  return req;
+  return req; 
 });
 
 export default userRequest;

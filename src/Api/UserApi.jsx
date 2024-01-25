@@ -137,11 +137,22 @@ export const ChangePassword = async(value,id)=>{
 
 export const HubList = async()=>{
   try {
-    console.log("enter to user api")
-    const data = await userApi.get('/hublisting')
-    console.log(data)
+    const data = await userRequest.get("/hublisting")
+    console.log(data,"reached back")
     return data
   } catch (error) {
-    
+    console.log(error);
+  }
+}
+
+
+export const Singlehub = async(objId)=>{
+  try {
+    console.log(objId,"entered to api singlehub")
+    const data = await userRequest.get(`/singlehub/${objId}`)
+    console.log(data,"data reached")
+    return data
+  } catch (error) {
+    console.log(error)
   }
 }

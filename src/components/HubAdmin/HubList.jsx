@@ -66,7 +66,7 @@ function HubList() {
              Name: {hub.hubname}
             </Typography>
             <Typography variant="h5" color="blue-gray" className="mb-2">
-             Location: {hub.hubname}
+             Location: {hub.hublocation}
             </Typography>
             <Typography variant="h5" color  ="blue-gray" className="mb-2">
              Mobile: {hub.hubmobile}

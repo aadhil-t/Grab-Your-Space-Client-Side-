@@ -9,6 +9,7 @@ import AddhubForm from "../components/HubAdmin/AddHub";
 import HubAdminProtect from "./HubAdminProtect";
 import HubAdminPublic from "./HubAdminPublic";
 import HubList from "../components/HubAdmin/HubList"
+import AddHu from "../components/HubAdmin/AddHu";
 function HubAdminRoute(){
     return(
         <Routes>
@@ -25,6 +26,7 @@ function HubAdminRoute(){
                 <Route path="/hubprofile" element={<HubProfileForm/>}/>
                 <Route path="/addhub" element={<AddhubForm/>}/>
                 <Route path="/hublist" element={<HubList/>}/>
+                <Route path="/addbuh" element={<AddHu/>}/>
             </Route>  
             </Route>  
         </Routes>
