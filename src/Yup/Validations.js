@@ -74,6 +74,7 @@ export const HubCreateSchema = Yup.object({
   .test('len', 'Mobile number must have 10 digits', val => val && val.toString().length === 10),
   location: Yup.string().required("Please Select a Location"),
   seatcount: Yup.number().required("Please Enter Seat Count"),
+  price: Yup.number().required("Please Enter Seat Price"),
 })
 
 export const EditHubAdminProfileSchema = Yup.object({

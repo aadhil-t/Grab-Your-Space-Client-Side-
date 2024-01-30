@@ -1,11 +1,36 @@
 import { Carousel } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import Map from "../../../assets/UserAssets/Map.png";
 import { useEffect, useState } from "react";
 import { Singlehub } from "../../../Api/UserApi";
-import { useLocation } from "react-router-dom";
-import Booking from "../BookingPage/Booking";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BookingApi } from "../../../Api/UserApi";
 
 function SeatSlot() {
+  
+  const [singleHubData, setSingleData] = useState([]);
+  console.log(singleHubData, "uuuuuuuuuuuu");
+  const navigate = useNavigate();
+
+
+  const sendDatatoApi = async () => {
+    try {
+      const Data = { selected, singleHubData, selectedDate, newTotalAmount};
+      console.log(Data,"jjjjjjjjjjjjjjjjjjjjj")
+      const response = await BookingApi(Data);
+      console.log(response, "kokokokokokk");
+      if (response.data.booked) {
+        let id = response.data.data._id;
+        navigate('/booking', { state: { id } });  
+      } else {
+        // Handle the case where booking is not successful
+        console.log("Booking failed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   const { state } = useLocation();
   const { objId } = state;
 
@@ -16,7 +41,9 @@ function SeatSlot() {
   for (let i = 0; i < 60; i++) {
     repeatComponent.push(i + 1);
   }
+
   const [selected, setSelected] = useState([]);
+  console.log(selected.length,"selected")
   const [selectedDate, setSelectedDate] = useState(
     currentDate.toISOString().split("T")[0]
   );
@@ -26,7 +53,7 @@ function SeatSlot() {
 
   const selectSeat = (id) => {
     const selectedIndex = selected.indexOf(id);
-
+    
     if (selected.includes(id)) {
       const newSelected = [...selected];
       newSelected.splice(selectedIndex, 1);
@@ -34,16 +61,16 @@ function SeatSlot() {
     } else {
       setSelected([...selected, id]);
     }
-
-    console.log(selected);
   };
+  const seatPrice = singleHubData.price
+  const newTotalAmount = selected.length * seatPrice;
+  // setTotalAmount(newTotalAmount);
+  console.log(newTotalAmount,"amountttttt");
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
 
-  const [singleHubData, setSingleData] = useState([]);
-  console.log(singleHubData, "responseee");
 
   const fetchdata = async () => {
     const response = await Singlehub(objId);
@@ -167,10 +194,9 @@ function SeatSlot() {
                     </div>
 
                     <div></div>
-                    <div className="flex justify-center mt-5">
-                      <Booking />
+                    <div className="flex justify-center mt-5 ">
+                      <Button onClick={sendDatatoApi} className="w-32 h-10">Book</Button>
                     </div>
-                    
                   </div>
                 </div>
               </div>

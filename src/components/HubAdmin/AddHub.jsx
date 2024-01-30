@@ -28,6 +28,7 @@ const initialValues = {
     mobile:"",
     location:"",
     seatcount:"",
+    price:"",
 }    
 
 const {
@@ -140,6 +141,18 @@ const {
             />
               {touched.seatcount && errors.seatcount && (
                 <div className="text-red-500 text-sm">{errors.seatcount}</div>
+            )}
+            
+            <Typography className="-mb-2" variant="h6">
+              Price per seat
+            </Typography>
+            <Input label="price" size="lg" 
+              name="price"
+              onChange={handleChange}
+              value={values.price}
+            />
+              {touched.price && errors.price && (
+                <div className="text-red-500 text-sm">{errors.price}</div>
             )}
 
           </CardBody>

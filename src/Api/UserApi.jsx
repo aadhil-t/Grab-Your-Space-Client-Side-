@@ -156,3 +156,28 @@ export const Singlehub = async(objId)=>{
     console.log(error)
   }
 }
+
+
+export const BookingApi = async(data)=>{
+  try {
+    console.log("enter in backend booking")
+    console.log(data,"reached booking apiiiiiiiiiiii")
+    const Data = await userRequest.post('/booking',data)
+    console.log(Data,"reached booking api")
+    return Data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const bookedData = async(bookedId)=>{
+  try {
+    console.log(bookedId,"reached to api booked d")
+  const data = await userRequest.get(`/bookeddetails/${bookedId}`);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

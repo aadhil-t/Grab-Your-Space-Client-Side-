@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react';
 import { HubList } from '../../../Api/UserApi';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const cardData = [
     {
@@ -50,6 +51,7 @@ function Hubs() {
                 <Typography>Email: {card.hubemail}</Typography>
                 <Typography>Mobile: {card.hubmobile}</Typography>
                 <Typography variant='h6'>Seat Count: {card.seatcount}</Typography>
+                <Typography variant='h6'>Price: {card.price}</Typography>
               </CardBody>
               <CardFooter className='pt-0'>
                 <a href='/seatslot'>

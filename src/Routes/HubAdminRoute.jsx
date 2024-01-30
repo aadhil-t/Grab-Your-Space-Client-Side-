@@ -26,7 +26,7 @@ function HubAdminRoute(){
                 <Route path="/hubprofile" element={<HubProfileForm/>}/>
                 <Route path="/addhub" element={<AddhubForm/>}/>
                 <Route path="/hublist" element={<HubList/>}/>
-                <Route path="/addbuh" element={<AddHu/>}/>
+              
             </Route>  
             </Route>  
         </Routes>
