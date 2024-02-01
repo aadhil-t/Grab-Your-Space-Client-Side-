@@ -13,6 +13,7 @@ import PassOtp from "../pages/UserPages/OtpPassChange/Otp";
 import SeatSlot from "../pages/UserPages/SeatSlot/SeatSlot";
 import Hubs from "../pages/UserPages/Hubs/Hubs";
 import Booking from "../pages/UserPages/BookingPage/Booking";
+import SuccesPay from "../components/user/SuccesPay";
 function UserRoutes(){
  return(
     <Routes>
@@ -33,6 +34,7 @@ function UserRoutes(){
             <Route path="/seatslot" element={<SeatSlot/>}/>
             <Route path="/hubs" element={<Hubs/>}/>
             <Route path="/booking" element={<Booking/>}/>
+            <Route path="/success" element={<SuccesPay/>}/>
             </Route>
         </Route>
     </Routes>

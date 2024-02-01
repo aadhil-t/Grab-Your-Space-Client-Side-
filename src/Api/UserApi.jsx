@@ -181,3 +181,15 @@ export const bookedData = async(bookedId)=>{
     console.log(error);
   }
 }
+
+
+export const updateStatus = async(id)=>{
+  try {
+    console.log("apiiiiiiii")
+    const data = await userRequest.put("/updatepaystatus",id);
+    console.log(data,"statusssssss")
+    return data;
+  } catch (error) {
+   console.log(error) 
+  }
+}

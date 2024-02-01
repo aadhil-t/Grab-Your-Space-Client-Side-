@@ -5,22 +5,31 @@ import { Card, Typography } from "@material-tailwind/react";
 import { useLocation } from "react-router-dom";
 import { bookedData } from "../../../Api/UserApi";
 import { data } from "autoprefixer";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../../../components/user/CheckoutForm";
+const stripePromise = loadStripe(
+  "pk_test_51O11IzSJfBiixPMTXmoUugjdZRkftipLrwEqi3g4tNLnAHnARpN3IRSijAKk4NbRDbaW8Y2kIUa8hJT79i2S00zI00707Kncmo"
+);
 
 export default function Booking() {
   const location = useLocation();
   const { state } = location;
   const id = state?.id; // Get the id from the state
-  console.log(state);
+  
 
   const [datas, setdatas] = useState([]);
-  console.log(datas, "state");
-  console.log(datas,"monuseeeeeee")
+  const [clientSecret, setClientSecret] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
       const response = await bookedData(id);
       if (response.status === 200) {
-        setdatas(response.data); // Update the state with the fetched data
+        console.log(response,"responsesssssssssssssss")
+        setdatas(response.data.data[0]); // Update the state with the fetched data
+        setClientSecret(response.data.clientSecret);
+        setLoading(false)
       } else {
         console.log(response.statusText);
       }
@@ -28,39 +37,51 @@ export default function Booking() {
       console.error(error);
     }
   };
-
   useEffect(() => {
-    fetchData();
-  }, [id]);
+      fetchData();
+    }, [id]);
+    
+    console.log(datas,"state")
+    // console.log(datas.date,"state")
+  const appearance = {
+    theme:"stripe"
+  } 
+  const options = {
+    clientSecret: clientSecret ,
+    appearance,
+  };
 
-  return datas[0] ? (
-      <div className=" mt-9 w-full h-full"  style={{ backgroundColor: "#1B4965" }}>
-      <span className=' flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50'>PAYMENT</span>
-        <Card className="flex-row justify-between items-center  h-[40rem] w-full" >
+  return  (
+    <>
+    { loading ? (
+        <Typography variant="h1">loading</Typography>
+    ) : (
+        <div className=" mt-9 w-full h-full" style={{ backgroundColor: "#1B4965" }}>
+      <span className=" flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50">
+        PAYMENT
+      </span>
+      <Card className="flex-row justify-between items-center  h-[40rem] w-full">
         <div className="mx-10 my-10">
-          <Typography className=" text-black text-2xl ">
-            HUB DETAILS
+          <Typography className=" text-black text-2xl ">HUB DETAILS</Typography>
+          <Typography className="text-black text-lg">
+            Hub Name: {datas.bookedhubid.hubname}
           </Typography>
           <Typography className="text-black text-lg">
-            Hub Name: {datas[0].bookedhubid.hubname}
+            Location: {datas.bookedhubid.hublocation}
           </Typography>
           <Typography className="text-black text-lg">
-            Location: {datas[0].bookedhubid.hublocation}
-          </Typography>
-          <Typography className="text-black text-lg">
-            Date: {datas[0].date}
+            Date: {datas.date}
           </Typography>
 
           <Typography className="text-black text-lg">
-            No Of Seats: {" "}
-            {datas[0].selectedseats.map((seat, index) => (
+            No Of Seats:{" "}
+            {datas.selectedseats.map((seat, index) => (
               <Fragment key={index}>
                 {index > 0 && ", "}
                 {seat}
               </Fragment>
             ))}
           </Typography>
-
         </div>
 
         <div className="mx-10 my-10 ">
@@ -69,13 +90,13 @@ export default function Booking() {
           </Typography>
           <Typography className="text-black text-lg">
             {" "}
-            Name: {datas[0].bookeduserid.name}
+            Name: {datas.bookeduserid.name}
           </Typography>
           <Typography className="text-black text-lg">
-            mobile: {datas[0].bookeduserid.mobile}
+            mobile: {datas.bookeduserid.mobile}
           </Typography>
           <Typography className="text-black text-lg">
-            email: {datas[0].bookeduserid.email}
+            email: {datas.bookeduserid.email}
           </Typography>
         </div>
 
@@ -91,15 +112,20 @@ export default function Booking() {
                 label="Online Payment"
               />
               <Typography className="text-black text-2xl mx-16">
-                Total Amount: {""}{datas[0].totalamount}
+                Total Amount: {""}
+                {datas.totalamount}
               </Typography>
             </Typography>
           </Card>
-          <Button className=" w-full ">procced</Button>
+        
+          {clientSecret && (<Elements stripe={stripePromise} options={options}>
+            <CheckoutForm fee={datas.totalamount} id={datas._id}/>
+          </Elements>)}
         </div>
       </Card>
     </div>
-  ) : (
-    ""
-  );
+    )
+}
+    </>
+  )
 }

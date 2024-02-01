@@ -17,12 +17,15 @@
     "@mui/material": "^5.14.19",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.7",
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^2.4.0",
     "@tanstack/react-query": "^5.0.5",
     "axios": "^1.5.1",
     "dispatch": "^1.0.2",
     "dotenv": "^16.3.1",
     "formik": "^2.4.5",
     "moment-timezone": "^0.5.43",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
@@ -45,6 +48,6 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
-    "vite": "^5.0.12"
+    "vite": "^4.2.0"
   }
 }
