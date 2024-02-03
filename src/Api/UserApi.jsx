@@ -193,3 +193,15 @@ export const updateStatus = async(id)=>{
    console.log(error) 
   }
 }
+
+
+export const Bookedhistory = async()=>{
+  try {
+    console.log("zzzzzzzzzzzzzzzzzzz")
+    const data = await userRequest.get("/bookedhistory");
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}

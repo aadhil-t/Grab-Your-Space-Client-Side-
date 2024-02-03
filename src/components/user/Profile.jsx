@@ -54,8 +54,11 @@ export default function ProfileCard() {
     return <div>fghj</div>;
   }
   return (
-    <div className="h-[50rem] flex items-center justify-center mt-24 mr-48 ml-96 w-auto md:w-[1200px] bg-blue-900">
-      <Card className="h-[40rem] w-[40rem] mt-32 mb-20">
+
+    <>
+  <div className="p-4 ">
+      <div className="flex items-center justify-center mt-6 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <Card className="h-[40rem] w-[40rem] mt-20 mb-20">
         <CardHeader floated={false} className="h-80">
           <img
             src="../../../src/assets/UserAssets/kkk.jpg"
@@ -119,7 +122,9 @@ export default function ProfileCard() {
             </Typography>
           </Tooltip>
         </CardFooter>
-      </Card>
-    </div>
+      </Card> 
+      </div>
+  </div>
+    </>
   );
 }

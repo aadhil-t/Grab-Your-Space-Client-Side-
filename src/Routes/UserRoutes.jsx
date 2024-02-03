@@ -14,6 +14,7 @@ import SeatSlot from "../pages/UserPages/SeatSlot/SeatSlot";
 import Hubs from "../pages/UserPages/Hubs/Hubs";
 import Booking from "../pages/UserPages/BookingPage/Booking";
 import SuccesPay from "../components/user/SuccesPay";
+import { BookedList } from "../components/user/BookedList";
 function UserRoutes(){
  return(
     <Routes>
@@ -35,6 +36,7 @@ function UserRoutes(){
             <Route path="/hubs" element={<Hubs/>}/>
             <Route path="/booking" element={<Booking/>}/>
             <Route path="/success" element={<SuccesPay/>}/>
+            <Route path="/bookedlist" element={<BookedList/>}/>
             </Route>
         </Route>
     </Routes>
