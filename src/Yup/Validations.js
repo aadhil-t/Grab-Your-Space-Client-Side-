@@ -46,7 +46,7 @@ export const ChangepassSchema = Yup.object({
   password: Yup.string().min(3).required("Please enter password"),
   confirmpassword: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "Passwords must match"
+    "Passwords must match"
   ),
 });
 
@@ -55,6 +55,18 @@ export const OtppassSchema = Yup.object({
     .min(4, "otp should contain minimum 4 characters")
     .max(4, "otp should contain maximum 4 characters"),
 });
+
+export const ChangeProPassSchema = Yup.object({
+  changepassword :Yup.string().min(4).required("Please enter password"),
+})
+
+export const SettingNewPassSchema = Yup.object({
+  Newpassword: Yup.string().min(3).required("Please enter password"),
+  ConfirmPassword: Yup.string().oneOf(
+    [Yup.ref("Newpassword"), null],
+    "Passwords must match"
+  ),
+})
 
 /////////////// HUB ADMIN VALIDATION ////////////////
 export const HubAdminSignupSchema = Yup.object({

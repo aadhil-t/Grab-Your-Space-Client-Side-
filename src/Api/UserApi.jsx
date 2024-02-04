@@ -205,3 +205,35 @@ export const Bookedhistory = async()=>{
     console.log(error)
   }
 }
+
+
+export const ChangeProPassword = async(values)=>{
+  try {
+    console.log("reached in ChangeProPassword")
+    const data = await userRequest.post("/changepropass",values);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const SetNewPassword = async(values)=>{
+  try {
+    console.log("reached in SetNewPassword ")
+    const data = await userRequest.post("/setnewpass",values)
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const ResendOtp = async(id)=>{
+  try {
+    console.log("reache")
+    const data = await userRequest.get("/resendotp",id)
+  } catch (error) {
+    console.log(error)
+  }
+}

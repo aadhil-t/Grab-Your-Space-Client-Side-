@@ -54,77 +54,88 @@ export default function ProfileCard() {
     return <div>fghj</div>;
   }
   return (
-
     <>
-  <div className="p-4 ">
-      <div className="flex items-center justify-center mt-6 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-      <Card className="h-[40rem] w-[40rem] mt-20 mb-20">
-        <CardHeader floated={false} className="h-80">
-          <img
-            src="../../../src/assets/UserAssets/kkk.jpg"
-            alt="profile-picture"
-          />
-        </CardHeader>
-        <ChangeProfile />
+      <div className=" ">
+        <div
+          className="flex flex-col items-center justify-center mt-6 mb-4 rounded dark:bg-gray-800"
+          style={{ backgroundColor: "#1B4965" }}
+        >
+          <span className="text-[3rem] my-4 font-extrabold text-cyan-50">
+            PROFILE
+          </span>
+          <Card className="h-[40rem] w-[40rem] mt-20 mb-20">
+            <CardHeader floated={false} className="h-80">
+              <img
+                src="../../../src/assets/UserAssets/kkk.jpg"
+                alt="profile-picture"
+              />
+            </CardHeader>
+            <ChangeProfile />
 
-        <CardBody className="text-center">
-          <Typography variant="h4" color="blue-gray" className="mb-2">
-            {data ? data.data.profile.name : ""}
-          </Typography>
-          <Typography color="blue-gray" className="font-semibold" textGradient>
-            {data.data ? data.data.profile.email : ""}
-          </Typography>
-          <Typography color="blue-gray" className="font-semibold" textGradient>
-            {data.data ? data.data.profile.mobile : ""}
-          </Typography>
+            <CardBody className="text-center">
+              <Typography variant="h4" color="blue-gray" className="mb-2">
+                {data ? data.data.profile.name : ""}
+              </Typography>
+              <Typography
+                color="blue-gray"
+                className="font-semibold"
+                textGradient
+              >
+                {data.data ? data.data.profile.email : ""}
+              </Typography>
+              <Typography
+                color="blue-gray"
+                className="font-semibold"
+                textGradient
+              >
+                {data.data ? data.data.profile.mobile : ""}
+              </Typography>
 
-          <div className="flex justify-center mt-5">
-            <div className="flex items-center">
-              <ProfileEdit refetch={refetch} data={data.data.profile} />
-              <Button className="mx-10" onClick={() => navigate("/forgot")}>
-                Change Password
-              </Button>
-            </div>
-          </div>
-        </CardBody>
-        <CardFooter className="flex justify-center gap-7 pt-2">
-          <Tooltip content="Like">
-            <Typography
-              as="a"
-              href="#facebook"
-              variant="lead"
-              color="blue"
-              textGradient
-            >
-              <i className="fab fa-facebook" />
-            </Typography>
-          </Tooltip>
-          <Tooltip content="Follow">
-            <Typography
-              as="a"
-              href="#twitter"
-              variant="lead"
-              color="light-blue"
-              textGradient
-            >
-              <i className="fab fa-twitter" />
-            </Typography>
-          </Tooltip>
-          <Tooltip content="Follow">
-            <Typography
-              as="a"
-              href="#instagram"
-              variant="lead"
-              color="purple"
-              textGradient
-            >
-              <i className="fab fa-instagram" />
-            </Typography>
-          </Tooltip>
-        </CardFooter>
-      </Card> 
+              <div className="flex justify-center mt-5">
+                <div className="flex items-center">
+                  <ProfileEdit refetch={refetch} data={data.data.profile} />
+                  <Button className="mx-10" onClick={()=>navigate("/passchangepro")}>Change Password</Button>
+                </div>
+              </div>
+            </CardBody>
+            <CardFooter className="flex justify-center gap-7 pt-2">
+              <Tooltip content="Like">
+                <Typography
+                  as="a"
+                  href="#facebook"
+                  variant="lead"
+                  color="blue"
+                  textGradient
+                >
+                  <i className="fab fa-facebook" />
+                </Typography>
+              </Tooltip>
+              <Tooltip content="Follow">
+                <Typography
+                  as="a"
+                  href="#twitter"
+                  variant="lead"
+                  color="light-blue"
+                  textGradient
+                >
+                  <i className="fab fa-twitter" />
+                </Typography>
+              </Tooltip>
+              <Tooltip content="Follow">
+                <Typography
+                  as="a"
+                  href="#instagram"
+                  variant="lead"
+                  color="purple"
+                  textGradient
+                >
+                  <i className="fab fa-instagram" />
+                </Typography>
+              </Tooltip>
+            </CardFooter>
+          </Card>
+        </div>
       </div>
-  </div>
     </>
   );
 }

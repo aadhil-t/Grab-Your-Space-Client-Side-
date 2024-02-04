@@ -39,6 +39,13 @@
   background-position:center; 
   
 }
+.Changeproimg{
+  background-image: url("./assets/UserAssets/PassChangeImg.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center; 
+  
+}
 
 
 .Adminloginimg{

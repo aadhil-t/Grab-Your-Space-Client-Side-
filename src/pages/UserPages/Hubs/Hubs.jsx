@@ -34,7 +34,7 @@ function Hubs() {
 
   return (
     <>
-       <div className='flex flex-col items-center mt-8' style={{ backgroundColor: '#1B4965' }}>
+       <div className='flex flex-col items-center mt-8 h-screen' style={{ backgroundColor: '#1B4965' }}>
       <span className='text-[3rem] my-4 font-extrabold text-cyan-50'>HUBS</span>
       <div className='h-full w-full p-8'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>

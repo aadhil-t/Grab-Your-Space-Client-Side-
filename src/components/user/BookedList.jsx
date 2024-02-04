@@ -27,13 +27,15 @@ export function BookedList() {
     fetchData();
   }, []);
   return (
+    <div className="flex-col mt-9  " style={{ backgroundColor: '#1B4965' }}>
+            <span className=' flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50'>PROFILE</span>
+
     <div className="container mx-auto py-16">
       {bookedData.map((item, index) => (
         <a
           key={index}
           href="#"
-          className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-7xl h-52 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mb-4"
-        >
+          className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-7xl h-52 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mb-4" >
           {/* <img
             className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
             src={item.imageUrl}
@@ -88,6 +90,7 @@ export function BookedList() {
           <Button className=" mx-auto">view</Button>
         </a>
       ))}
+    </div>
     </div>
   );
 }

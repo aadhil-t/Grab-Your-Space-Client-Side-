@@ -15,6 +15,8 @@ import Hubs from "../pages/UserPages/Hubs/Hubs";
 import Booking from "../pages/UserPages/BookingPage/Booking";
 import SuccesPay from "../components/user/SuccesPay";
 import { BookedList } from "../components/user/BookedList";
+import ProfileChangePassword from "../components/user/ChangeProPassword";
+import SettingNewPassword from "../components/user/NewPasswordSetting";
 function UserRoutes(){
  return(
     <Routes>
@@ -37,6 +39,8 @@ function UserRoutes(){
             <Route path="/booking" element={<Booking/>}/>
             <Route path="/success" element={<SuccesPay/>}/>
             <Route path="/bookedlist" element={<BookedList/>}/>
+            <Route path="/passchangepro" element={<ProfileChangePassword/>}/>
+            <Route path="/setnewpass" element={<SettingNewPassword/>}/>
             </Route>
         </Route>
     </Routes>
