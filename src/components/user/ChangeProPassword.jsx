@@ -31,7 +31,7 @@ export default function ProfileChangePassword() {
   })
 
   return (
-    
+    <div className="flex h-screen PasswordChangePro">
     <div className="grid grid-cols-2 bg-blue-500 h-[50rem] w-[70rem] mt-20 ml-96">
       <div className="Changeproimg col-span-1 h-[50rem] w-[35rem]"></div>
 
@@ -75,6 +75,7 @@ export default function ProfileChangePassword() {
         </Card>
           <ToastContainer/>
       </div>
+    </div>
     </div>
   );
 }

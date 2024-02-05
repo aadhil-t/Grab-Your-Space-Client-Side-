@@ -22,6 +22,29 @@
   
 }
 
+.Backgroundloginimg{
+  background-image: url("./assets/UserAssets/background.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+}
+
+.BackgroundSigninimg{
+  background-image: url("./assets/UserAssets/background111.jpg");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+}
+/* .PasswordChangePro{
+  background-image: url("./assets/UserAssets/");
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  background-position:center;
+  
+} */
+
 
 .signinimg{
   background-image: url("./assets/UserAssets/top-view-tidy-Crop.jpg");

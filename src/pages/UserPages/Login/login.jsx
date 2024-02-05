@@ -99,11 +99,12 @@ export default function Login() {
   }, [guser]);
 
   return (
-    <div className=" grid grid-cols-2 bg-blue-500 h-[50rem] w-[70rem] mt-20 ml-96">
+    <div className="flex h-screen Backgroundloginimg">
+    <div className=" grid grid-cols-2 bg-blue-gray-300 h-[50rem] w-[70rem] mt-20 ml-96 bg-opacity-5 ">
       <div className="loginimg col-span-1 h-[50rem] w-[35rem]  "></div>
 
       {/* Right side with the login form, centered horizontally and vertically */}
-      <div className="col-span-1 bg-opacity-100  bg-brown-50 h-[50rem] flex justify-center items-center">
+      <div className="col-span-1 bg-opacity-40  bg-brown-50 h-[50rem] flex justify-center items-center ">
         <Card color="transparent" className=" shadow-none">
           <div>
             <Typography variant="h4" color="blue-gray">
@@ -185,6 +186,7 @@ export default function Login() {
           </div>
         </Card>
       </div>
+    </div>
     </div>
   );
 }

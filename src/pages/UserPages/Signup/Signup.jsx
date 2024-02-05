@@ -114,10 +114,11 @@ export default function SimpleRegistrationForm() {
 
 
   return (
-    <div className="grid grid-cols-2 bg-blue-gray-300 h-[50rem] w-[70rem] mt-20 ml-96 ">
-      <div className="signinimg col-span-1 h-[50rem] w-[35rem]  "></div>
+    <div className="flex h-screen BackgroundSigninimg ">
+    <div className="grid grid-cols-2 bg-blue-gray-300 h-[50rem] w-[70rem] mt-20 ml-96 bg-opacity-5  ">
+      <div className="signinimg col-span-1 h-[50rem] w-[35rem] "></div>
 
-      <div className="col-span-1 bg-brown-50 h-[50rem] w-[38rem] flex justify-center items-center ">
+      <div className="col-span-1 bg-brown-50  h-[50rem] w-[38rem] flex justify-center items-center bg-opacity-40 ">
         <Card color="transparent" shadow={false}>
           <Typography variant="h4" color="blue-gray">
             Sign Up
@@ -200,6 +201,7 @@ export default function SimpleRegistrationForm() {
         </Card>
         <ToastContainer />
       </div>
+    </div>
     </div>
   );
 }
