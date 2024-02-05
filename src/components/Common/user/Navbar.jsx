@@ -79,8 +79,8 @@ export default function Navbar() {
   return (
     // <navbar className=" w-screen py-2 bg-blue-gray-500 lg:px-8 lg:py-4">
     //   <div className=" flex items-center justify-between bg-blue-gray-800 text-blue-gray-900">
-    <navbar className="  lg:rounded-none   fixed top-0 left-0 right-0 bg-[#fcfdff] z-50">
-      <div className="relative mx-auto flex items-center  justify-around text-blue-gray-900 py-3 bg-[#fcfdff] ">
+    <navbar className="  lg:rounded-none   fixed top-0 left-0 right-0 bg-[#e5e5e5] z-50">
+      <div className="relative mx-auto flex items-center container justify-between text-blue-gray-900 py-3  ">
         <Typography
           as="a"
           href="#"
@@ -89,7 +89,8 @@ export default function Navbar() {
         >
           GRAB YOUR SPACE
         </Typography>
-        <div className="hidden lg:block">{navList}</div>
+      <div className="flex items-center gap-10">
+      <div className="hidden lg:block">{navList}</div>
         {/* <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -224,6 +225,7 @@ export default function Navbar() {
             </Typography>
           </Button>
         )}
+      </div>
       </div>
 
       <MobileNav open={openNav}>

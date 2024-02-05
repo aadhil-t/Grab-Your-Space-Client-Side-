@@ -57,7 +57,7 @@ export default function ProfileCard() {
     <>
       <div className=" ">
         <div
-          className="flex flex-col items-center justify-center mt-6 mb-4 rounded dark:bg-gray-800"
+          className="flex flex-col items-center justify-center mt-12 mb-4 rounded dark:bg-gray-800"
           style={{ backgroundColor: "#1B4965" }}
         >
           <span className="text-[3rem] my-4 font-extrabold text-cyan-50">

@@ -168,7 +168,7 @@ export default function Login() {
                   Already have an account?{" "}
                   <Link to={"/signup"}>
                     <a href="#" className="font-medium text-gray-900">
-                      Sign In
+                      Sign Up
                     </a>
                   </Link>
                 </Typography>

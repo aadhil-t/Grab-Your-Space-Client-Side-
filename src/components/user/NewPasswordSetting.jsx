@@ -33,7 +33,8 @@ export default function SettingNewPassword() {
   });
 
   return (
-    <div className="grid grid-cols-2 bg-blue-500 h-[50rem] w-[70rem] mt-20 ml-96">
+    <div className="flex h-screen ">
+    <div className="grid grid-cols-2 bg-blue-500 h-[50rem] w-[70rem] mt-28 ml-96">
       <div className="Changeproimg col-span-1 h-[50rem] w-[35rem]"></div>
 
       <div className="col-span-1 bg-opacity-100 bg-white h-[50rem] flex justify-center items-center">
@@ -99,6 +100,7 @@ export default function SettingNewPassword() {
           </form>
         </Card>
       </div>
+    </div>
     </div>
   );
 }

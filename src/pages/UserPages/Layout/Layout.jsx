@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "../../../components/Common/user/NavBar";
+import Footer from "../../../components/Common/user/Footer";
 
 
 function Layout(){
     return(
         <>
-        <div className='grid grid-rows-[1.9rem]'>
+        {/* <div className='grid grid-rows-[1.9rem]'> */}
           <div>
             <Navbar/>
           </div>
@@ -13,9 +14,9 @@ function Layout(){
             <Outlet/>
           </div>
           <div>
-            {/* <Footer/> */}
+            <Footer/>
           </div>
-        </div>
+        {/* </div> */}
       </>
     )
 }
