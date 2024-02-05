@@ -56,7 +56,7 @@ export default function SignupOtp() {
   });
 
   const handleResend = async () => {
-    const response = await ResendOtp(id); // API function for resending OTP
+    const response = await ResendOtp({id}); // API function for resending OTP
     if (response) {
       setTimer(60); // Reset the timer
       setResendEnabled(false);

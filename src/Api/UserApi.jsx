@@ -231,8 +231,9 @@ export const SetNewPassword = async(values)=>{
 
 export const ResendOtp = async(id)=>{
   try {
-    console.log("reache")
-    const data = await userRequest.get("/resendotp",id)
+    console.log("reached")
+    const data = await userRequest.post("/resendotp",id)
+    return data
   } catch (error) {
     console.log(error)
   }
