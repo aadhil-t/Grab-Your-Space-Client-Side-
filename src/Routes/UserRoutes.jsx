@@ -18,6 +18,7 @@ import { BookedList } from "../components/user/BookedList";
 import ProfileChangePassword from "../components/user/ChangeProPassword";
 import SettingNewPassword from "../components/user/NewPasswordSetting";
 function UserRoutes(){
+
  return(
     <Routes>
         <Route element={<UserPublic/>}> 

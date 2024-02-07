@@ -1,6 +1,6 @@
 .img{
   background-image: url("./assets/UserAssets/Web_150DPI-20191106_WeWork_Gateway-1-Salt-Lake-City_004-1120x630.jpg");
-  border-image:fill 0 linear-gradient(rgba(117, 106, 106, 0.2),#282323);
+  border-image:fill 0 linear-gradient(rgba(34, 25, 25, 0.259),#181313ec);
   background-size: cover ;
   width: 100%;
   height: 100%;
@@ -25,6 +25,15 @@
   background-position:center;
   
 }
+
+
+/* .PaymentBgImg{
+  background-image: url("./assets/logos/gys-high-resolution-logo-black-transparent.png");
+  background-size:10%; 
+  background-repeat:space; /* Prevent image repetition for both images */
+  /* background-position:left;  */
+/* } */ 
+
 .footerimg{
   background-image: url("./assets/logos/logowhite.png");
   background-size:cover; 

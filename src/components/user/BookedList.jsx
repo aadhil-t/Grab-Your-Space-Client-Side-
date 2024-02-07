@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react"; // Import React
 import { Bookedhistory } from "../../Api/UserApi";
 import moment from "moment";
 
-const data = [
-  {
-    imageUrl: "src/assets/logos/gys-high-resolution-logo-black-transparent.png",
-    title: "Noteworthy technology acquisitions 2021",
-    description:
-      "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.",
-  },
-];
+  const data = [
+    {
+      imageUrl: "src/assets/logos/gys-high-resolution-logo-black-transparent.png",
+      title: "Noteworthy technology acquisitions 2021",
+      description:
+        "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.",
+    },
+  ];
 
 export function BookedList() {
   const [bookedData, setBookedData] = useState([]);
@@ -27,11 +27,11 @@ export function BookedList() {
     fetchData();
   }, []);
   return (
-    <div className="flex-col mt-9  " style={{ backgroundColor: '#1B4965' }}>
-            <span className=' flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50'>PROFILE</span>
+    <div className="flex-col mt-16 h-screen  " style={{ backgroundColor: '#1B4965' }}>
+            <span className=' flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50'> BOOKINGS</span>
 
     <div className="container mx-auto py-16">
-      {bookedData.map((item, index) => (
+      {bookedData.slice().reverse().map((item, index) => (
         <a
           key={index}
           href="#"

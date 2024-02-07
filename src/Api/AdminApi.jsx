@@ -35,3 +35,14 @@ export async function UserBlock(id){
         console.log(error)
     }
 }
+
+export const Hubadminlist = async()=>{
+    try {
+        console.log("reached Admin Api")
+        const data = await adminApi.get('/hubadminlist')
+        console.log(data)
+        return data
+    } catch (error) {
+     console.log(error)   
+    }
+}

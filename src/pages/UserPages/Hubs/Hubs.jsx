@@ -38,7 +38,7 @@ function Hubs() {
       <span className='text-[3rem] my-4 font-extrabold text-cyan-50'>HUBS</span>
       <div className='h-full w-full p-8'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
-          {hubList.map((card) => (
+          {hubList.slice().reverse().map((card) => (
             <Card key={card.id} className='mt-6 md:w-96 mx-auto'>
               <CardHeader color='blue-gray' className='relative h-56'>
                 <img src={card.imageUrl} className='h-full w-full object-cover' alt='card-image' />

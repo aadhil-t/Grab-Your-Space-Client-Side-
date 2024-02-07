@@ -47,7 +47,7 @@ export default function Navbar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-black-600 mr-10"
+        className="text-lg p-1 font-normal text-black-600 mr-10"
       >
         <a href="#" className="flex items-center">
           Pages
@@ -57,7 +57,7 @@ export default function Navbar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-black-600 mr-10"
+        className="text-lg p-1 font-normal text-black-600 mr-10"
       >
         <a href="/hubs" className="flex items-center">
           Hubs
@@ -67,7 +67,7 @@ export default function Navbar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-black-600 "
+        className="text-lg p-1 font-normal text-black-600 "
       >
         <a href="#" className="flex items-center">
           Blocks
@@ -83,8 +83,8 @@ export default function Navbar() {
       <div className="relative mx-auto flex items-center container justify-between text-blue-gray-900 py-3  ">
         <Typography
           as="a"
-          href="#"
-          className="mr-4 cursor-pointer py-1.5 font-medium"
+          href="/"
+          className="text-lg mr-4 cursor-pointer py-1.5 font-medium"
           color="black"
         >
           GRAB YOUR SPACE

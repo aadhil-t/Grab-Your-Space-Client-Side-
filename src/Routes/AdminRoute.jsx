@@ -5,6 +5,7 @@ import { Routes,Route } from "react-router-dom"
 import AdminLayout from "../pages/AdminPages/AdminLayout/AdminLayout"
 import AdminProtect from "./AdminProtect"
 import Users from "../components/Admin/Users"
+import HubAdminList from "../components/Admin/HubAdminList"
 function AdminRoute(){
     return(
         <Routes>
@@ -16,6 +17,7 @@ function AdminRoute(){
             <Route path="/" element={<AdminLayout />}>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>        
+                <Route path="/hubadminlist" element={<HubAdminList/>}/>        
             </Route>    
             </Route>
         </Routes>       

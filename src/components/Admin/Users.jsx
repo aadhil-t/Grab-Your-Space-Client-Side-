@@ -117,7 +117,7 @@ export default function Users() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
+            {TABLE_ROWS.slice().reverse().map(
               (
                 {
                   img,

@@ -52,7 +52,7 @@ function HubList() {
     <div>
         <div className='flex flex-col items-center mt-8'>
         <div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 '>
-      {hubData && hubData.map((hub) => (
+      {hubData && hubData.slice().reverse() .map((hub) => (
         
         <Card key={hub.id} className="mt-6 w-96">
           <CardHeader color="blue-gray" className="relative h-56">

@@ -76,3 +76,14 @@ export const HubData = async()=>{
      console.log(error)   
     }
 }
+
+export const BookedhistoryHubAdmin = async()=>{
+    try {
+        console.log("Entered at BookedhistoryHubAdmin Api")
+        const data = await HubRequest.get('/bookedhistory')
+        console.log(data)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

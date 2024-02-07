@@ -40,15 +40,17 @@ import { useNavigate } from "react-router-dom";
             </ListItemPrefix>
             User List
           </ListItem>
-          <ListItem>
+
+          <ListItem onClick={()=> navigate('/admin/hubadminlist')}>
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Inbox
+            Hub Admin List
             <ListItemSuffix>
               <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
             </ListItemSuffix>
           </ListItem>
+
           <ListItem>
             <ListItemPrefix>
               <UserCircleIcon className="h-5 w-5" />

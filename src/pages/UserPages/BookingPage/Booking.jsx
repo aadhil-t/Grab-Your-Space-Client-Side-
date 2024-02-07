@@ -56,7 +56,7 @@ export default function Booking() {
     { loading ? (
         <Typography variant="h1">loading</Typography>
     ) : (
-        <div className=" mt-9 w-full h-full" style={{ backgroundColor: "#1B4965" }}>
+        <div className=" mt-16 w-full h-screen" style={{ backgroundColor: "#1B4965" }}>
       <span className=" flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50">
         PAYMENT
       </span>

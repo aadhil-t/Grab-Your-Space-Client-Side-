@@ -34,11 +34,12 @@ import { useNavigate } from "react-router-dom";
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <ListItem>
+
+          <ListItem onClick={()=>navigate("bookedlist")}>
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>
-            User List
+            Booked Hubs
           </ListItem>
 
           <ListItem onClick={()=>navigate('hublist')}>
