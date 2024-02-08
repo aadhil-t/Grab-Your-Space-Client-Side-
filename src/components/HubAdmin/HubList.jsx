@@ -49,9 +49,9 @@ function HubList() {
     }, []);
 
   return (
-    <div>
-        <div className='flex flex-col items-center mt-8'>
-        <div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 '>
+    <div className='h-screen ' style={{ backgroundColor: "#1B4965"}}>
+        <div className='flex flex-col items-center ml-6 '>
+        <div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 my-5'>
       {hubData && hubData.slice().reverse() .map((hub) => (
         
         <Card key={hub.id} className="mt-6 w-96">
