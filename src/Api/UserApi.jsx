@@ -209,6 +209,7 @@ export const Bookedhistory = async()=>{
 
 export const ChangeProPassword = async(values)=>{
   try {
+    console.log(values,"oooooooo")
     console.log("reached in ChangeProPassword")
     const data = await userRequest.post("/changepropass",values);
     console.log(data);
@@ -236,5 +237,21 @@ export const ResendOtp = async(id)=>{
     return data
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const DpApi = async(formdata)=>{
+  try {
+    console.log("reached in dp API")
+    const data = await userRequest.post("/dpchange",formdata,{
+      withCredentials : true,
+      headers : {
+        "Content-Type" : "multipart/form-data"
+      }
+    });
+    console.log(data,"dp changed")
+    return data
+  } catch (error) {
+    console.log(error) 
   }
 }

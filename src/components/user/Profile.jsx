@@ -28,24 +28,7 @@ export default function ProfileCard() {
   if (data) {
     console.log(data, "profile");
   }
-  // const { isLoading, error, data, refetch } = useQuery({
-  //   queryKey: ['profile'],
-  //   queryFn: async () => {
-  //     try {
-  //       const res = await Profileview();
-  //       console.log(res,'gfdghgfjg');
-  //       return res.data;
-  //     } catch (err) {
-  //       console.error("Error:", err);
 
-  //       // Log more details about the error
-  //       console.log("Error details:", err.response);
-
-  //       // Rethrow the error to let React Query handle it
-  //       throw err;
-  //     }
-  //   }
-  // });
 
   if (isLoading) {
     return <div>fghj</div>;
@@ -66,7 +49,7 @@ export default function ProfileCard() {
           <Card className="h-[40rem] w-[40rem] mt-20 mb-20">
             <CardHeader floated={false} className="h-80">
               <img
-                src="../../../src/assets/UserAssets/kkk.jpg"
+                src={data ? data.data.profile.profileimage :"" }
                 alt="profile-picture"
               />
             </CardHeader>

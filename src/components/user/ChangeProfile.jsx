@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import Dp from "../../assets/logos/gys-high-resolution-logo-black - Copy.png"
+
 // import { useQueryClient } from "@tanstack/react-query";
 import {
   Button,
@@ -11,10 +13,14 @@ import {
 } from "@material-tailwind/react";
 // import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../../Redux/UserSlice/UsserSlice";
+import { useFormik } from "formik";
+import { DpApi } from "../../Api/UserApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ChangeProfile() {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const queryClient = useQueryClient()
 //   const { id, image } = useSelector((state) => state.lawyer);
 //   const queryClient = useQueryClient();
 //   const dispatch = useDispatch()
@@ -22,12 +28,12 @@ export default function ChangeProfile() {
   const handleOpen = () => setOpen(!open);
 
   const handleImageChange = (e) => {
-    setSelectedImage(e.target.files[0]);
+    setSelectedImage(e.currenttarget.files[0]);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // try {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // try {
     //   const response = await UpdateImage(id, selectedImage);
     //   if (response.status === 200) {
     //       const detail = response.data.data;
@@ -52,7 +58,32 @@ export default function ChangeProfile() {
     //   //setisLoading(false);
     //   console.error("Error uploading image:", error);
     // }
-  };
+  // };
+  const initialValue = {
+    dp: ""
+}
+
+const {
+  values,
+  handleSubmit,
+  setFieldValue,
+  touched,
+  errors
+} = useFormik ({
+  initialValues : initialValue,
+  onSubmit : async (values)=>{
+    const formdata =new FormData()
+    formdata.append("dp", values.dp)
+    const response = await DpApi(formdata);
+    if(response){
+      console.log(response,"dpppppppppp")
+      queryClient.invalidateQueries("profile")
+      handleOpen()
+    }else{
+      console.log("error")
+    }
+  }
+})
 
   return (
     <>
@@ -71,21 +102,24 @@ export default function ChangeProfile() {
       >
         <DialogHeader>EDIT PROFILE IMAGE</DialogHeader>
         <DialogBody className="flex justify-center">
-          {/* <div className="w-20 h-20 me-6">
+          <div className="w-20 h-20 me-6">
             <img
               size=""
-              src={selectedImage ? selectedImage : image}
+              src={values.dp ? URL.createObjectURL(values.dp) : Dp} 
               alt="tania andrew"
               className="rounded-full  m-5 lg:w-20 lg:h-20 w-20 h-20 me-10"
             />
-          </div> */}
-          <form onSubmit={handleSubmit}>
+          </div>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="mt-8 mb-2 w-70 max-w-screen-lg sm:w-96">
               <Input
                 type="file"
-                name="image"
+                name="dp"
                 label="Choose Image"
-                onChange={handleImageChange}
+                onChange={(e) => {
+                  const selectedFile = e.currentTarget.files[0];
+                  setFieldValue("dp", selectedFile);
+              }}
               />
             </div>
 
