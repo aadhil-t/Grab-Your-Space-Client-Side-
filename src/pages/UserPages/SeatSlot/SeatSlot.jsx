@@ -5,23 +5,23 @@ import { useEffect, useState } from "react";
 import { Singlehub } from "../../../Api/UserApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BookingApi } from "../../../Api/UserApi";
+import image from "../../../assets/logos/gys-high-resolution-logo-black - Copy.png"
+import { element } from "prop-types";
 
 function SeatSlot() {
-  
   const [singleHubData, setSingleData] = useState([]);
   console.log(singleHubData, "uuuuuuuuuuuu");
   const navigate = useNavigate();
 
-
   const sendDatatoApi = async () => {
     try {
-      const Data = { selected, singleHubData, selectedDate, newTotalAmount};
-      console.log(Data,"jjjjjjjjjjjjjjjjjjjjj")
+      const Data = { selected, singleHubData, selectedDate, newTotalAmount };
+      console.log(Data, "jjjjjjjjjjjjjjjjjjjjj");
       const response = await BookingApi(Data);
       console.log(response, "kokokokokokk");
       if (response.data.booked) {
         let id = response.data.data._id;
-        navigate('/booking', { state: { id } });  
+        navigate("/booking", { state: { id } });
       } else {
         // Handle the case where booking is not successful
         console.log("Booking failed");
@@ -30,7 +30,7 @@ function SeatSlot() {
       console.log(error);
     }
   };
-  
+
   const { state } = useLocation();
   const { objId } = state;
 
@@ -43,7 +43,7 @@ function SeatSlot() {
   }
 
   const [selected, setSelected] = useState([]);
-  console.log(selected.length,"selected")
+  console.log(selected.length, "selected");
   const [selectedDate, setSelectedDate] = useState(
     currentDate.toISOString().split("T")[0]
   );
@@ -53,7 +53,7 @@ function SeatSlot() {
 
   const selectSeat = (id) => {
     const selectedIndex = selected.indexOf(id);
-    
+
     if (selected.includes(id)) {
       const newSelected = [...selected];
       newSelected.splice(selectedIndex, 1);
@@ -62,15 +62,14 @@ function SeatSlot() {
       setSelected([...selected, id]);
     }
   };
-  const seatPrice = singleHubData.price
+  const seatPrice = singleHubData.price;
   const newTotalAmount = selected.length * seatPrice;
   // setTotalAmount(newTotalAmount);
-  console.log(newTotalAmount,"amountttttt");
+  console.log(newTotalAmount, "amountttttt");
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
-
 
   const fetchdata = async () => {
     const response = await Singlehub(objId);
@@ -88,10 +87,10 @@ function SeatSlot() {
       // Render content when singleHubData is available
       <>
         <div
-          className="grid w-full grid-cols-12 h-[30rem] mt-[2rem]"
+          className="flex 2 h-[35rem] mt-[2rem] "
           style={{ backgroundColor: "#1B4965" }}
         >
-          <div className="col-span-4 w-full h-full">
+          <div className="col-span-4 w-1/3 h-full">
             <div className="flex w-full h-full justify-center items-center">
               <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
                 <span className="text-red-300">“</span>Dont wish for it work for
@@ -102,10 +101,43 @@ function SeatSlot() {
               </h1>
             </div>
           </div>
-          <div className="col-span-8 h-full hidden md:block p-8">
-            <div className="seat-img1 h-full overflow-hidden"></div>
+
+          <div className="mr-5 pb-12 mt-10 w-[79rem] ">
+            <Carousel
+              className="rounded-xl"
+              navigation={({ setActiveIndex, activeIndex, length }) => (
+                <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+                  {new Array(length).fill("").map((_, i) => (
+                    <span
+                      key={i}
+                      className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                        activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                      }`}
+                      onClick={() => setActiveIndex(i)}
+                    />
+                  ))}
+                </div>
+              )}
+            >
+                <img
+                  src={singleHubData.images && singleHubData.images[0]}
+                  alt="image 1"
+                  className="h-full w-full object-cover"
+                />
+                <img
+                  src={singleHubData.images && singleHubData.images[1]}
+                  alt="image 2"
+                  className="h-full w-full object-cover"
+                />
+                <img
+                  src={singleHubData.images && singleHubData.images[2]}
+                  alt="image 3"
+                  className="h-full w-full object-cover"
+                />
+            </Carousel>
           </div>
         </div>
+
         <div
           className="h-[60rem] w-full  p-4"
           style={{ backgroundColor: "#1B4965" }}
@@ -158,13 +190,13 @@ function SeatSlot() {
               </div>
 
               <div className="flex justify-center">
-                <div className=" w-11/12 h-[52rem] ">
-                  <div className="grid grid-cols-3 grid-rows-1 gap-0 h-[50rem]">
+                <div className=" w-11/12 h-[54rem] ">
+                  <div className="grid grid-cols-3 grid-rows-1 gap-0 h-[54rem]">
                     <div
-                      className="bg-blue-gray-50 grid  col-span-3 p-16"
+                      className="bg-blue-gray-50 rounded-lg grid col-span-3 p-15"
                       style={{ backgroundColor: "#1B4965" }}
                     >
-                      <div className="grid grid-cols-12 col-span-3 p-16 gap-14">
+                      <div className="grid grid-cols-10 col-span-3 p-16 gap-14">
                         {Array.from(
                           { length: singleHubData.seatcount },
                           (_, index) => (
@@ -173,7 +205,7 @@ function SeatSlot() {
                               onClick={() => {
                                 selectSeat(index + 1);
                               }}
-                              className="bg-white w-24 h-24 p-2 col-span-1"
+                              className="bg-white rounded-lg w-24 h-24 p-2 col-span-1"
                             >
                               <div
                                 key={index + 1}
@@ -194,8 +226,10 @@ function SeatSlot() {
                     </div>
 
                     <div></div>
-                    <div className="flex justify-center mt-5 ">
-                      <Button onClick={sendDatatoApi} className="w-32 h-10">Book</Button>
+                    <div className="flex justify-center mt-6 ">
+                      <Button onClick={sendDatatoApi} className="w-32 h-10">
+                        Book
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -205,10 +239,47 @@ function SeatSlot() {
         </div>
 
         <div
-          className="grid w-full grid-cols-12 h-[30rem] "
+          className="flex 2 h-[35rem]"
           style={{ backgroundColor: "#1B4965" }}
         >
-          <div className="col-span-4 w-full h-full">
+
+          <div className="ml-5 pb-12 mt-10 w-[79rem] ">
+            <Carousel
+              className="rounded-xl"
+              navigation={({ setActiveIndex, activeIndex, length }) => (
+                <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+                  {new Array(length).fill("").map((_, i) => (
+                    <span
+                      key={i}
+                      className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                        activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+                      }`}
+                      onClick={() => setActiveIndex(i)}
+                    />
+                  ))}
+                </div>
+              )}
+            >
+                <img
+                  src={singleHubData.images && singleHubData.images[0]}
+                  alt="image 1"
+                  className="h-full w-full object-cover"
+                />
+                <img
+                  src={singleHubData.images && singleHubData.images[1]}
+                  alt="image 2"
+                  className="h-full w-full object-cover"
+                />
+                <img
+                  src={singleHubData.images && singleHubData.images[2]}
+                  alt="image 3"
+                  className="h-full w-full object-cover"
+                />
+
+            </Carousel>
+          </div>
+
+          <div className="col-span-4 w-1/3 h-full">
             <div className="flex w-full h-full justify-center items-center">
               <h1 className="text-[3.30rem] mx-4 leading-[4rem] font-extrabold text-center text-white">
                 <span className="text-red-300">“</span>Dont wish for it work for
@@ -219,9 +290,7 @@ function SeatSlot() {
               </h1>
             </div>
           </div>
-          <div className="col-span-8 h-full hidden md:block p-8">
-            <div className="seat-img1 h-full overflow-hidden"></div>
-          </div>
+
         </div>
       </>
     </>

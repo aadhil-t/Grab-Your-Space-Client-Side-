@@ -3,6 +3,7 @@ import HubAdminRequest from "../Utils/HubAdminRequest"
 const HubRequest = HubAdminRequest
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { config } from "dotenv";
 
 
 
@@ -58,8 +59,15 @@ export const EditHubAdminPro = async(values)=>{
 
 export const HubCreate = async(values)=>{
     try {
+        const config = {
+            headers:{
+                "content-type" : "multipart/form-data",
+            },
+            withCredentials:true,
+        };
+
         console.log(values,"enter to Hubcreate Api");
-        const data = await HubRequest.post('/createhub',values);
+        const data = await HubRequest.post('/createhub',values,config);
         return data
     } catch (error) {
         

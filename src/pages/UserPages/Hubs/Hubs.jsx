@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react';
 import { HubList } from '../../../Api/UserApi';
 import { useNavigate } from 'react-router-dom';
+import image from "../../../assets/logos/gys-high-resolution-logo-black - Copy.png"
 import { Link } from 'react-router-dom';
 
 const cardData = [
@@ -34,14 +35,14 @@ function Hubs() {
 
   return (
     <>
-       <div className='flex flex-col items-center mt-12 h-screen' style={{ backgroundColor: '#1B4965' }}>
+       <div className='flex flex-col items-center mt-12 ' style={{ backgroundColor: '#1B4965' }}>
       <span className='text-[3rem] my-4 font-extrabold text-cyan-50'>HUBS</span>
       <div className='h-full w-full p-8'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
           {hubList.slice().reverse().map((card) => (
             <Card key={card.id} className='mt-6 md:w-96 mx-auto'>
               <CardHeader color='blue-gray' className='relative h-56'>
-                <img src={card.imageUrl} className='h-full w-full object-cover' alt='card-image' />
+                <img src={card.images[0] ?? image} className='h-full w-full object-cover' alt='card-image' />
               </CardHeader>
               <CardBody>
                 <Typography variant='h5' color='blue-gray' className='mb-2'>
