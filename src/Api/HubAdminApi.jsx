@@ -57,22 +57,49 @@ export const EditHubAdminPro = async(values)=>{
     }
 }   
 
-export const HubCreate = async(values)=>{
+// export const HubCreate = async(values)=>{
+//     try {
+//         const config = {
+//             headers:{
+//                 "content-type" : "multipart/form-data",
+//             },
+//             withCredentials:true,
+//         };
+
+//         console.log(values,"enter to Hubcreate Api");
+//         const data = await HubRequest.post('/createhub',values,config);
+//         return data
+//     } catch (error) {
+        
+//     }
+// }
+
+export const HubCreate = async (values) => {
     try {
         const config = {
-            headers:{
-                "content-type" : "multipart/form-data",
+            headers: {
+                "content-type": "multipart/form-data",
             },
-            withCredentials:true,
+            withCredentials: true,
         };
 
-        console.log(values,"enter to Hubcreate Api");
-        const data = await HubRequest.post('/createhub',values,config);
-        return data
-    } catch (error) {
+        console.log(values, "entering HubCreate API");
+        const response = await HubRequest.post('/createhub', values, config);
         
+        // Check if the request was successful
+        if (response.status === 200) {
+            console.log("Hub created successfully:", response.data);
+            return response.data; // Return the response data if needed
+        } else {
+            console.error("Hub creation failed with status:", response.status);
+            throw new Error("Hub creation failed"); // Throw an error to be caught by the caller
+        }
+    } catch (error) {
+        console.error("Error creating hub:", error);
+        throw error; // Re-throw the error to be caught by the caller
     }
-}
+};
+
 
 export const HubData = async()=>{
     try {

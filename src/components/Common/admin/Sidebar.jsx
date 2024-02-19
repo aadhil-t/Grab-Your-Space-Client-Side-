@@ -38,25 +38,26 @@ import { useNavigate } from "react-router-dom";
             <ListItemPrefix>
               <ShoppingBagIcon className="h-5 w-5" />
             </ListItemPrefix>
-            User List
+            User 
           </ListItem>
 
           <ListItem onClick={()=> navigate('/admin/hubadminlist')}>
             <ListItemPrefix>
-              <InboxIcon className="h-5 w-5" />
+            <UserCircleIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Hub Admin List
+            Hub Admin 
             <ListItemSuffix>
               <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
             </ListItemSuffix>
           </ListItem>
 
-          <ListItem>
+          <ListItem onClick={()=> navigate('/admin/hubaproval')}>
             <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
+            <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Profile
+            Approval Hub
           </ListItem>
+
           <ListItem>
             <ListItemPrefix>
               <Cog6ToothIcon className="h-5 w-5" />

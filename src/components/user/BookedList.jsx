@@ -2,6 +2,7 @@ import { Button } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react"; // Import React
 import { Bookedhistory } from "../../Api/UserApi";
 import moment from "moment";
+import { Fragment } from "react";
 
   const data = [
     {
@@ -19,7 +20,7 @@ export function BookedList() {
     const fetchData = async () => {
       try {
         const response = await Bookedhistory();
-        console.log(response, "pppppppppppppppppppp");
+        console.log(response.data.data, "pppppppppppppppppppp");
 
         setBookedData(response.data.data);
       } catch (error) {}
@@ -27,7 +28,7 @@ export function BookedList() {
     fetchData();
   }, []);
   return (
-    <div className="flex-col mt-16 h-screen  " style={{ backgroundColor: '#1B4965' }}>
+    <div className="flex-col mt-16" style={{ backgroundColor: '#1B4965' }}>
             <span className=' flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50'> BOOKINGS</span>
 
     <div className="container mx-auto py-16">
@@ -64,7 +65,12 @@ export function BookedList() {
           <div className="flex flex-col justify-between mx-10 leading-norma">
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
               <span className="text-base text-gray-700"> BOOKED SLOTS : </span>{" "}
-              {item.selectedseats.join(", ")}
+              {item.selectedseats.map((seat, index) => (
+              <Fragment key={index}>
+                {index > 0 && ", "}
+                {seat.label}
+              </Fragment>
+            ))}
             </h5>
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
               <span className="text-base text-gray-700">BOOKED DATE:</span>{" "}

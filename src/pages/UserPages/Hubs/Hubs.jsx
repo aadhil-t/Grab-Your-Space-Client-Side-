@@ -55,11 +55,11 @@ function Hubs() {
                 <Typography variant='h6'>Price: {card.price}</Typography>
               </CardBody>
               <CardFooter className='pt-0'>
-                <a href='/seatslot'>
+                <a href='/seatarrangment'>
                   
                   <Button onClick={() => {
                    if (localStorage.getItem("token")) {
-                       navigate(`/seatslot`, { state: { objId:card._id } });
+                       navigate(`/seatarrangment`, { state: { objId:card._id } });
                     }
                 }}> View More </Button>
 

@@ -89,31 +89,25 @@ export const HubAdminLoginSchema = Yup.object({
   password: Yup.string().min(4).max(20).required("Please enter your password"),
 });
 
-export const HubCreateSchema = Yup.object({
+export const HubCreateSchema =Yup.object().shape({
   name: Yup.string()
     .min(2, "Name must be at least 2 characters")
     .max(20, "Name must be at most 20 characters")
     .trim()
     .matches(/^[^\d\s]+$/, "Name cannot contain numbers or whitespace")
     .required("Please Enter Your Name"),
-  email: Yup.string().email().required("Please Enter Your Email"),
-  mobile: Yup.number()
+  email: Yup.string().email().required("Please Enter a Valid Email"),
+  mobile: Yup.string()
     .required("Please Enter Your Mobile Number")
-    .positive("Mobile number must be positive")
-    .integer("Mobile number must be an integer")
-    .test(
-      "len",
-      "Mobile number must have 10 digits",
-      (val) => val && val.toString().length === 10
-    ),
+    .matches(/^\d{10}$/, "Mobile number must have 10 digits"),
   location: Yup.string().required("Please Select a Location"),
   seatcount: Yup.number()
-    .positive("Please Enter a Positive Seat Price")
-    .max(60)
+    .positive("Please Enter a Positive Seat Count")
+    .max(60, "Seat count must be less than or equal to 60")
     .required("Please Enter Seat Count"),
   price: Yup.number()
     .positive("Please Enter a Positive Seat Price")
-    .max(1000)
+    .max(1000, "Price must be less than or equal to 1000")
     .required("Please Enter Seat Price"),
 });
 

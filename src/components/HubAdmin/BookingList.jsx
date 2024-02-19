@@ -2,6 +2,7 @@ import { Button } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react"; // Import React
 import { BookedhistoryHubAdmin } from "../../Api/HubAdminApi";
 import moment from "moment";    
+import { Fragment } from "react";
 
 const data = [
     {
@@ -17,7 +18,7 @@ function BookingList() {
 
     const [bookedData, setBookedData] = useState([]);
     useEffect(() => {
-        console.log(bookedData, "booking list at Hub Admin Side");
+        console.log(bookedData[0], "booking list at Hub Admin Side");
       const fetchData = async () => {
         try {
           const response = await BookedhistoryHubAdmin();
@@ -32,7 +33,7 @@ function BookingList() {
     <div className="h-screen"style={{ backgroundColor: "#1B4965"}}>
 
 <div className="container mx-auto py-16" >
-{bookedData && bookedData.map((item, index) => (
+{bookedData && bookedData.slice().reverse().map((item, index) => (
 <a
   key={index}
   href="#"
@@ -78,7 +79,12 @@ function BookingList() {
   <div className="flex flex-col justify-between mx-10 leading-norma">
     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base text-gray-700"> BOOKED SLOTS : </span>{" "}
-      {item.selectedseats.join(',')}
+      {item.selectedseats.map((seat, index) => (
+              <Fragment key={index}>
+                {index > 0 && ", "}
+                {seat.label}
+              </Fragment>
+            ))}
     </h5>
     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base text-gray-700">BOOKED DATE:</span>{" "}

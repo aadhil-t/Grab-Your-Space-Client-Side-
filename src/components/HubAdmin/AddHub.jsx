@@ -30,6 +30,7 @@ export default function AddhubForm() {
     seatcount: "",
     price: "",
     images: [],
+    // certificate: '',
   };
 
   const { values, errors, touched, handleSubmit, handleChange, setFieldValue } =
@@ -37,35 +38,66 @@ export default function AddhubForm() {
       initialValues: initialValues,
       validationSchema: HubCreateSchema,
       onSubmit: async (values, { resetForm }) => {
+        console.log("object");
         try {
           const formData = new FormData();
-          formData.append("name",values.name);
-          formData.append("email",values.email);
-          formData.append("mobile",values.mobile);
-          formData.append("location",values.location);
-          formData.append("seatcount",values.seatcount);
-          formData.append("price",values.price);
-        
-          for(let i=0; i< values.images.length; i++){
-            formData.append("images",values.images[i])
+          formData.append("name", values.name);
+          formData.append("email", values.email);
+          formData.append("mobile", values.mobile);
+          formData.append("location", values.location);
+          formData.append("seatcount", values.seatcount);
+          formData.append("price", values.price);
+
+          for (let i = 0; i < values.images.length; i++) {
+            formData.append("images", values.images[i]);
           }
-          
-          console.log(formData,"registration")
+
+          if (values.certificate) {
+            formData.append("certificate", values.certificate);
+          }
+
+          console.log(formData, "registration");
           const response = await HubCreate(formData);
           if (response) {
             resetForm(initialValues);
             handleOpen();
           }
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       },
     });
 
-  const handleFileChange = (event) => {
+  // const handleFileChange = (event) => {
+  //   const selectedFiles = Array.from(event.currentTarget.files);
+  //   setFieldValue("images", selectedFiles);
+
+  //     if (fieldName === "images") {
+  //       console.log("this is the images", selectedFiles);
+  //     } else if (fieldName === "certificate") {
+  //       if (selectedFiles.length > 0) {
+  //         setFieldValue(fieldName, selectedFiles[0]);
+  //       } else {
+  //         setFieldValue(fieldName, null);
+  //       }
+  //     }
+  // };
+
+  const handleFileChange = (event, fieldName) => {
     const selectedFiles = Array.from(event.currentTarget.files);
-    console.log("this is the images", selectedFiles);
-    setFieldValue("images", selectedFiles);
+
+    if (fieldName === "images") {
+      setFieldValue("images", selectedFiles);
+      console.log("Selected Images:", selectedFiles);
+    } else if (fieldName === "certificate") {
+      if (selectedFiles.length > 0) {
+        setFieldValue(fieldName, selectedFiles[0]);
+        console.log("Selected Certificate:", selectedFiles[0]);
+      } else {
+        setFieldValue(fieldName, null);
+        console.log("No Certificate selected");
+      }
+    }
   };
 
   return (
@@ -166,11 +198,11 @@ export default function AddhubForm() {
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={(e) => handleFileChange(e)}
+                onChange={(e) => handleFileChange(e, "images")}
                 style={{ display: "none" }}
                 id="image-selector"
               />
-      
+
               <label htmlFor="image-selector" className="cursor-pointer">
                 <div className="border border-gray-300 rounded-lg p-4 hover:bg-gray-100">
                   <svg
@@ -188,7 +220,9 @@ export default function AddhubForm() {
                     />
                   </svg>
                   <p className="mt-1 text-sm text-gray-600 text-center">
-                    {values.images ? values.images.name : "No image selected"}
+                    {values.images.length > 0
+                      ? values.images.map((file) => file.name).join(", ")
+                      : "No image selected"}
                   </p>
                 </div>
               </label>
@@ -200,12 +234,12 @@ export default function AddhubForm() {
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={(e) => handleFileChange(e)}
+                onChange={(e) => handleFileChange(e, "certificate")}
                 style={{ display: "none" }}
-                id="image-selector"
+                id="certificate-selector"
               />
-      
-              <label htmlFor="image-selector" className="cursor-pointer">
+
+              <label htmlFor="certificate-selector" className="cursor-pointer">
                 <div className="border border-gray-300 rounded-lg p-4 hover:bg-gray-100">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +256,9 @@ export default function AddhubForm() {
                     />
                   </svg>
                   <p className="mt-1 text-sm text-gray-600 text-center">
-                    {values.images ? values.images.name : "No image selected"}
+                    {values.certificate
+                      ? values.certificate.name
+                      : "No certificate selected"}
                   </p>
                 </div>
               </label>

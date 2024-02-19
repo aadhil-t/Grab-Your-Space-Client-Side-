@@ -8,6 +8,7 @@ import { data } from "autoprefixer";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../../components/user/CheckoutForm";
+import { date } from "yup";
 const stripePromise = loadStripe(
   "pk_test_51O11IzSJfBiixPMTXmoUugjdZRkftipLrwEqi3g4tNLnAHnARpN3IRSijAKk4NbRDbaW8Y2kIUa8hJT79i2S00zI00707Kncmo"
 );
@@ -19,6 +20,7 @@ export default function Booking() {
   
 
   const [datas, setdatas] = useState([]);
+  console.log(datas,"kkkk")
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -26,9 +28,10 @@ export default function Booking() {
     try {
       const response = await bookedData(id);
       if (response.status === 200) {
-        console.log(response,"responsesssssssssssssss")
+        console.log(response.data.data[0],"responsesssssssssssssss")
         setdatas(response.data.data[0]); // Update the state with the fetched data
         setClientSecret(response.data.clientSecret);
+
         setLoading(false)
       } else {
         console.log(response.statusText);
@@ -41,8 +44,7 @@ export default function Booking() {
       fetchData();
     }, [id]);
     
-    console.log(datas,"state")
-    // console.log(datas.date,"state")
+
   const appearance = {
     theme:"stripe"
   } 
@@ -70,7 +72,7 @@ export default function Booking() {
             Location: {datas.bookedhubid.hublocation}
           </Typography>
           <Typography className="text-black text-lg">
-            Date: {datas.date}
+            Date:  {new Date(datas.date).toLocaleDateString()}
           </Typography>
 
           <Typography className="text-black text-lg">
@@ -78,7 +80,7 @@ export default function Booking() {
             {datas.selectedseats.map((seat, index) => (
               <Fragment key={index}>
                 {index > 0 && ", "}
-                {seat}
+                {seat.label}
               </Fragment>
             ))}
           </Typography>
@@ -113,7 +115,7 @@ export default function Booking() {
               />
               <Typography className="text-black text-2xl mx-16">
                 Total Amount: {""}
-                {datas.totalamount}
+                {/* {datas.totalamount} */}
               </Typography>
             </Typography>
           </Card>

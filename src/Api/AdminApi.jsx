@@ -46,3 +46,15 @@ export const Hubadminlist = async()=>{
      console.log(error)   
     }
 }
+
+
+export const HubApproved = async()=>{
+    try {
+        console.log("Entered To HubApproval Api")
+        const Data = await adminApi.get('/hubapproval');
+        console.log(Data,"Data reached")
+        return Data
+    } catch (error) {
+        console.log(error)
+    }
+}

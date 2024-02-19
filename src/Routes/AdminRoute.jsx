@@ -6,6 +6,7 @@ import AdminLayout from "../pages/AdminPages/AdminLayout/AdminLayout"
 import AdminProtect from "./AdminProtect"
 import Users from "../components/Admin/Users"
 import HubAdminList from "../components/Admin/HubAdminList"
+import HubAproval from "../components/Admin/HubAproval"
 function AdminRoute(){
     return(
         <Routes>
@@ -18,6 +19,7 @@ function AdminRoute(){
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>        
                 <Route path="/hubadminlist" element={<HubAdminList/>}/>        
+                <Route path="/hubaproval" element={<HubAproval/>}/>        
             </Route>    
             </Route>
         </Routes>       
