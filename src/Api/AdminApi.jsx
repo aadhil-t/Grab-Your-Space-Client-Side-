@@ -1,17 +1,19 @@
-import axios from "axios"
 
-export const adminApi = axios.create({
-    baseURL: import.meta.env.VITE_AdminBaseUrl 
-})
+import adminRedquest from "../Utils/AdminRequest"
 
+// export const adminApi = axios.create({
+//     baseURL: import.meta.env.VITE_AdminBaseUrl 
+// })
+const   adminApi = adminRedquest
 
 // ******** ADMIN LOGIN DATA PASSING AREA **********//
 export async function Adminlogin(loginData){
     try {
-        const data = await adminApi.post('login',loginData)
+        console.log("object")
+        const data = await adminApi.post('/login',loginData)
         return data
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
     }
 }
 
@@ -48,12 +50,24 @@ export const Hubadminlist = async()=>{
 }
 
 
-export const HubApproved = async()=>{
+export const HubApprovalDetails = async()=>{
     try {
         console.log("Entered To HubApproval Api")
-        const Data = await adminApi.get('/hubapproval');
+        const Data = await adminApi.get('/hubapprovaldetails');
         console.log(Data,"Data reached")
         return Data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const HubApprovalChange = async(value,id)=>{
+    console.log(value,id,"dddd")
+    try {
+        console.log(value,"Hub verify Api")
+        const Data = await adminApi.post('/hubverifychange',value,id)
+        console.log(Data,"Hub Admin verify Api")
+        return Data 
     } catch (error) {
         console.log(error)
     }

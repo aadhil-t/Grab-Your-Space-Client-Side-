@@ -149,7 +149,7 @@ export const HubList = async()=>{
 export const Singlehub = async(objId)=>{
   try {
     console.log(objId,"entered to api singlehub")
-    const data = await userRequest.get(`/singlehub/${objId}`)
+    const data = await userRequest.get(`/singlehub/${objId.objId}/${objId.selectedDate}`)
     console.log(data,"data reached")
     return data
   } catch (error) {

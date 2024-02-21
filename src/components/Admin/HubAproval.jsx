@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import { useEffect } from "react";
-import { HubApproved } from "../../Api/AdminApi";
+import { HubApprovalChange, HubApprovalDetails } from "../../Api/AdminApi";
 import {
   Button,
   Dialog,
@@ -10,6 +10,7 @@ import {
   DialogFooter,
   Typography,
 } from "@material-tailwind/react";
+import HubApprovalModal from "./HubApprovalModal";
 
 
 const TABLE_HEAD = ["Name", "Location", "Date", ""];
@@ -28,16 +29,16 @@ const TABLE_ROWS = [
 ];
 
 function HubAproval() {
-
- 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(!open);
-
+const [fetch , Setfetch] = useState(false)
+const manageFetch = (state)=>{
+    Setfetch(state)
+}
+//////////////// DATA FETCHING //////////////
   const [data, setData] = useState([]);
   console.log(data, "jjjjjjjjj");
   useEffect(() => {
     const fetchData = async () => {
-      const response = await HubApproved();
+      const response = await HubApprovalDetails();
       if (response) {
         console.log(response.data, "response reached");
         setData(response.data.data);
@@ -46,11 +47,12 @@ function HubAproval() {
       }
     };
     fetchData();
-  }, []);
+  }, [fetch]);
 
   return (
     <div>
-      <Card className="h-screen w-full overflow-scroll">
+      <Card className="h-screen w-full">
+        {data.length > 0 ?(
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -71,14 +73,14 @@ function HubAproval() {
             </tr>
           </thead>
           <tbody>
-            {data.map(({ hubname, hublocation, hubemail, price, hubmobile, certificate, images }, index) => {
+            {data.map(({hubname, hublocation, hubemail, price, hubmobile, certificate,_id}, index) => {
               const isLast = index === TABLE_ROWS.length - 1;
               const classes = isLast
                 ? "p-4"
                 : "p-4 border-b border-blue-gray-50";
 
               return (
-                <tr key={name}>
+                <tr key={hubname}>
                   <td className={classes}>
                     <Typography
                       variant="small"
@@ -108,67 +110,23 @@ function HubAproval() {
                   </td>
 
                   <td className={classes}>
-                    <Button onClick={handleOpen}>view</Button>
-                    <Dialog open={open} handler={handleOpen}>
-                      <DialogHeader className="font-extrabold flex justify-center">HUB APPROVAL</DialogHeader>
-                      <DialogBody className="h-[42rem] ">
-                        <div className="">
-                          <Typography className="font-normal mb-3">
-                            <span className="font-bold text-black">
-                              Hub Name:{" "}
-                            </span>
-                            {hubname}
-                          </Typography>
-                          <Typography className="font-normal mb-3">
-                            <span className="font-bold text-black">
-                              Hub Location:{" "}
-                            </span>
-                            {hublocation}
-                          </Typography>
-                          <Typography className="font-normal mb-3">
-                            <span className="font-bold text-black">
-                              Hub Mobile:{" "}
-                            </span>
-                            {hubmobile}
-                          </Typography>
-                          <Typography className="font-normal mb-3">
-                            <span className="font-bold text-black">
-                              Hub Email:{" "}
-                            </span>
-                            {hubemail}
-                          </Typography>
-                          <Typography className="font-normal mb-3">
-                            <span className="font-bold text-black">
-                              Hub price:{" "}
-                            </span>
-                            {price}
-                          </Typography>
-                          <img src={certificate} alt=""/>
-                        </div>
-                      </DialogBody>
-                      <DialogFooter className="space-x-2">
-                        <Button
-                          variant="text"
-                          color="blue-gray"
-                          onClick={handleOpen}
-                        >
-                          cancel
-                        </Button>
-                        <Button
-                          variant="gradient"
-                          color="green"
-                          onClick={handleOpen}
-                        >
-                          confirm
-                        </Button>
-                      </DialogFooter>
-                    </Dialog>
+                  {data && (
+  <HubApprovalModal 
+    data={{ hubname, hublocation, hubemail, price, hubmobile, certificate ,_id }} fn ={manageFetch}
+  />
+)}
                   </td>
                 </tr>
               );
             })}
           </tbody>
-        </table>
+        </table>):(
+              <div className="flex justify-center items-center h-full">
+              <Typography variant="h4" color="blue-gray">
+                No data available !
+              </Typography>
+            </div>
+          )}
       </Card>
     </div>
   );

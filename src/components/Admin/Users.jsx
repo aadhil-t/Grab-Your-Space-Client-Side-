@@ -18,7 +18,7 @@ import {
 } from "@material-tailwind/react";
 
 import { useEffect, useState } from "react";
-import { UsersList, adminApi } from "../../Api/AdminApi";
+import { UsersList } from "../../Api/AdminApi";
 import { UserBlock } from "../../Api/AdminApi";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 

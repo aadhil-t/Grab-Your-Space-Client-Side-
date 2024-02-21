@@ -32,9 +32,9 @@ import 'react-toastify/dist/ReactToastify.css'
         }
         else{
           const response = await Adminlogin(value);
+          console.log(response,"Admin token")
           if(response.data.status){
-            console.log(response.status)
-            localStorage.setItem('admintoken',response.data.token);
+            localStorage.setItem('admintoken',response.data.adminToken);
             dispatch(setUserDetails({
               id:response.data.adminData._id,
               name:response.data.adminData.name,
@@ -48,7 +48,7 @@ import 'react-toastify/dist/ReactToastify.css'
             }
         }
       } catch (error) {
-        console.log(error)
+        console.log(error.message)
       }
     }
     return (

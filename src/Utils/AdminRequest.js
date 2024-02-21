@@ -1,14 +1,15 @@
 import axios from "axios";
-const baseURL = import.meta.env.VITE_AdminBaseUrl 
-const adminRequest = axios.create({
-    baseUrl:baseURL
-})
 
-adminRequest.interceptors.request.use((req)=>{
-    if(localStorage.getItem("currentAdmin")){
-        req.headers.Authorization = "Bearer" + localStorage.getItem("currentAdmin")
-    }
-     return req
-})
+const adminRequest = axios.create({
+  baseURL: import.meta.env.VITE_ADMIN_URL,
+});
+
+adminRequest.interceptors.request.use((req) => {
+  if (localStorage.getItem("admintoken")) {
+    req.headers.Authorization =
+      "Bearer " + localStorage.getItem("admintoken");
+  }
+  return req;
+});
 
 export default adminRequest

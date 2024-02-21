@@ -15,44 +15,50 @@ function SeatArrangement() {
   //   ];
 
   ////////////// SENDING BOOK DATA //////////////
-  const navigate = useNavigate()
-  const SendToApi = async()=>{
+  const navigate = useNavigate();
+  const SendToApi = async () => {
     try {
-        const Data = {selected, selectedDate, TotalAmount, SingleHubData}
-        console.log(Data,"sending Data");
-        const response = await BookingApi(Data);
-        console.log(response,"Send Data RESPONSE reached");
-        if(response.data.booked){
-            let id = response.data.data._id;
-            navigate("/booking", { state: { id } });
-        }else{
-            console.log("Booking Failed")
-        }
+      const Data = { selected, selectedDate, TotalAmount, SingleHubData };
+      console.log(Data, "sending Data");
+      const response = await BookingApi(Data);
+      console.log(response, "Send Data RESPONSE reached");
+      if (response.data.booked) {
+        let id = response.data.data._id;
+        navigate("/booking", { state: { id } });
+      } else {
+        console.log("Booking Failed");
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
-   ///////////// FETCHING SINGLE HUB DATA ////////////
-   const [SingleHubData, SetSingleHubData] = useState([]);
-   console.log(SingleHubData, "enter to Adil");
-   const { state } = useLocation();
-   const { objId } = state;
- 
-   const fetchData = async () => {
-     const response = await Singlehub(objId);
-     if (response) {
-       SetSingleHubData(response.data);
-     }
-   };
-   useEffect(() => {
-     fetchData();
-   }, []);
- 
+  };
+  ///////////// FETCHING SINGLE HUB DATA ////////////
+  const [SingleHubData, SetSingleHubData] = useState([]);
+  const [disable, SetDisable] = useState([]);
+  console.log(disable, "log by ar");
+  console.log(SingleHubData, "enter to Adil");
+  const { state } = useLocation();
+  const { objId } = state;
+  //  let data = {selectedDate,objId}
+  const fetchData = async () => {
+    const response = await Singlehub({ objId, selectedDate });
+    if (response) {
+      SetSingleHubData(response.data.singleData);
+      SetDisable(response.data.selectedSeatsValues);
+    }
+  };
+
   ///////////// SEAT SELETION //////////////
   const [selected, setSelected] = useState([]);
+  const book = [];
   const options = [];
   for (let i = 0; i < SingleHubData.seatcount; i++) {
-    options.push({ label: `${i + 1}`, value: `${i + 1}` });
+    const isDisabled = disable.includes(`${i + 1}`);
+    options.push({
+      label: `${i + 1}`,
+      value: `${i + 1}`,
+      disabled: isDisabled,
+    });
     // options.push(i + 1);
   }
   console.log(selected, "SelectedSeat");
@@ -70,18 +76,19 @@ function SeatArrangement() {
   const [selectedDate, setSelectedDate] = useState(
     currentDate.toISOString().split("T")[0]
   );
-  console.log(selectedDate, "Date");
+  useEffect(() => {
+    fetchData();
+  }, [selectedDate]);
 
- ////////////// TOTAL AMOUNT //////////////
- const SeatPrice = SingleHubData.price;
- const TotalAmount = selected.length * SeatPrice
- console.log(TotalAmount,"its the total amount")
- 
- 
+  ////////////// TOTAL AMOUNT //////////////
+  const SeatPrice = SingleHubData.price;
+  const TotalAmount = selected.length * SeatPrice;
+  console.log(TotalAmount, "its the total amount");
+
   return (
     <div className="bg-white">
-      <div className="flex container mx-auto mt-16">
-        <div className=" w-full bg-deep-orange-300">
+      <div className="flex w-[80%] mx-auto mt-16">
+        <div className=" w-full bg-white">
           <Typography className="mt-5" variant="h2">
             {SingleHubData.hubname}
           </Typography>
@@ -148,23 +155,50 @@ function SeatArrangement() {
           </div>
         </div>
 
-        <div className="ml-5 w-1/2 bg-blue-gray-500">
           {/* <div className="mx-10 my-7 bg-white w-96 ">
         <div className="flex flex-row justify-center gap-8">
-            <div className="w-80 h-10 bg-red-400"></div>
-            <div className="w-80 h-10 bg-red-200"></div>
+        <div className="w-80 h-10 bg-red-400"></div>
+        <div className="w-80 h-10 bg-red-200"></div>
         </div>
         <div className="flex flex-row justify-center my-3 gap-8">
-            <div className="w-80 h-10 bg-black"></div>
-            <div className="w-80 h-10 bg-blue-gray-50"></div>
+        <div className="w-80 h-10 bg-black"></div>
+        <div className="w-80 h-10 bg-blue-gray-50"></div>
         </div>
     </div> */}
-          <div className="h-44 mt-16 bg-blue-gray-50">
-            <Typography className="font-serif">
-                Per seat :{SingleHubData.price}
-                </Typography>
-            <div className="grid grid-cols-2   ">
-              <div className="flex justify-center h-20 rounded-md my-3 mx-5 me-2 bg-blue-gray-200 col-span-1">
+    <div className=" ml-5 w-1/2 bg-white">
+        <div className="my-32">
+          <div className=" ">
+            <div className="">
+              <img
+                className="w-full h-72 object-cover rounded-lg"
+                src={SingleHubData.images && SingleHubData.images[1]}
+                alt=""
+              />
+            </div>
+            <div className="my-5">
+              <img
+                className="w-full h-72 object-cover rounded-lg"
+                src={SingleHubData.images && SingleHubData.images[2]}
+                alt=""
+              />
+            </div>
+          </div>
+
+          <div className=" bg-blue-gray-50 ">
+            <Typography className="font-serif my-10" variant="h5">
+              <span className="m-2 text-black font-bold "> Per seat :</span>{" "}
+              {SingleHubData.price}
+            </Typography>
+
+            <div className=" flex justify-evenly ">
+              <Typography className="text-gray-700">Pick a date</Typography>
+              <Typography className="text-gray-700 ">
+                Select your slot
+              </Typography>
+            </div>
+
+            <div className=" grid grid-cols-2   ">
+              <div className="flex justify-center h-20 rounded-md mx-5 me-2 bg-blue-gray-200 col-span-1">
                 <input
                   className="text-center w-full"
                   type="date"
@@ -175,8 +209,7 @@ function SeatArrangement() {
                   onChange={handleDateChange}
                 />
               </div>
-              <div className="flex justify-center  h-20 rounded-md my-3 mx-5 bg-blue-gray-200 col-span-1">
-                {/* <pre>{JSON.stringify(selected)}</pre> */}
+              <div className=" flex justify-center  h-20 rounded-md mx-5 bg-blue-gray-200 col-span-1">
                 <MultiSelect
                   className="w-full"
                   options={options}
@@ -186,13 +219,17 @@ function SeatArrangement() {
                 />
               </div>
             </div>
-            <Typography>
-                Total Amount :{TotalAmount}
+            <Typography className="font-serif my-2 " variant="h5">
+              <span className="m-2 text-black font-bold">Total Amount :</span>
+              {TotalAmount}
             </Typography>
           </div>
 
           <div>
-            <Button onClick={SendToApi} className="w-full">Book</Button>
+            <Button onClick={SendToApi} className="w-full">
+              Book
+            </Button>
+          </div>
           </div>
         </div>
       </div>
