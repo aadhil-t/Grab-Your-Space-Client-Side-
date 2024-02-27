@@ -255,3 +255,15 @@ export const DpApi = async(formdata)=>{
     console.log(error) 
   }
 }
+
+export const UserRating = async(value,objId)=>{
+  try {
+    const requestData = { ...value, objId }; // Combine value and objId into a single object
+    console.log(requestData,"Entered in User Rating Api");
+    const data = await userRequest.post("/userrating",requestData)
+    console.log(data,"data ethipoyiii")
+    return data;
+  } catch (error) {
+    console.log(error.message)
+  }
+}

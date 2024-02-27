@@ -39,9 +39,9 @@ function Footer() {
       </div>
       <hr className="my-6 border-black sm:mx-auto dark:border-gray-700 lg:my-8" />
       <span className="block text-sm hover:text-black  sm:text-center dark:text-gray-400">
-        © 2023{" "}
-        <a href="https://flowbite.com/" className="hover:underline">
-          Flowbite™
+        © 2024{" "}
+        <a href="https://www.linkedin.com/in/aadhil-t/" className="hover:underline">
+          GYS™
         </a>
         . All Rights Reserved.
       </span>

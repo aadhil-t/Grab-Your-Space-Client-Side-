@@ -58,13 +58,21 @@ export default function Booking() {
     { loading ? (
         <Typography variant="h1">loading</Typography>
     ) : (
-        <div className=" mt-16 w-full h-screen" style={{ backgroundColor: "#1B4965" }}>
-      <span className=" flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50">
-        PAYMENT
-      </span>
-      <Card className="flex-row justify-between items-center  h-[40rem] w-full">
-        <div className="mx-10 my-10">
-          <Typography className=" text-black text-2xl ">HUB DETAILS</Typography>
+      
+        <div className=" flex mt-24 w-full  ">
+         <div> 
+          <img  className=" p-4  w-[100rem] object-cover"
+           alt="card-image" 
+           src={datas.bookedhubid.images[1]} />
+          <img  className="p-4 my-2 w-[100rem] object-cover"
+           alt="card-image" 
+           src={datas.bookedhubid.images[2]} />
+           </div>
+      <Card className="flex-row justify-between items-center  h-screen w-full">
+
+<div className="flex flex-col p-10 gap-16">
+        <div className="mx-10 my-28">
+          <Typography variant="h2" className=" text-black text-3xl ">HUB DETAILS</Typography>
           <Typography className="text-black text-lg">
             Hub Name: {datas.bookedhubid.hubname}
           </Typography>
@@ -87,7 +95,7 @@ export default function Booking() {
         </div>
 
         <div className="mx-10 my-10 ">
-          <Typography className=" text-black text-2xl ">
+          <Typography variant="h2" className=" text-black text-3xl ">
             USER DETAILS
           </Typography>
           <Typography className="text-black text-lg">
@@ -101,11 +109,13 @@ export default function Booking() {
             email: {datas.bookeduserid.email}
           </Typography>
         </div>
+        </div>
 
-        <div className="w-[20%] mr-5 border-black h-40">
+        <div className="w-[40%] mr-14 border-black">
           <Card>
-            <Typography className="text-black text-2xl mx-20">
-              Price details
+            <div className="flex flex-col justify-evenly  h-[20rem] shadow-black">
+            <Typography variant="h2" className="text-black text-3xl mx-28">
+              PAYMENT
             </Typography>
             <Typography>
               <Radio
@@ -115,9 +125,10 @@ export default function Booking() {
               />
               <Typography className="text-black text-2xl mx-16">
                 Total Amount: {""}
-                {/* {datas.totalamount} */}
+                {datas.totalamount}
               </Typography>
             </Typography>
+            </div>
           </Card>
         
           {clientSecret && (<Elements stripe={stripePromise} options={options}>

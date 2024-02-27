@@ -54,9 +54,11 @@ const CheckoutForm = ({fee,id}) => {
 
   return (
     <>
-      <Button className=" w-full " onClick={handleOpen}>
+    <div className="flex justify-center">
+      <Button className="m-3 w-full shadow-lg rounded-lg bg-black transition duration-300 transform hover:scale-105 hover:shadow-xl " onClick={handleOpen}>
         procced
       </Button>
+    </div>
 
       <Dialog
         size="xs"

@@ -68,6 +68,14 @@ export const SettingNewPassSchema = Yup.object({
   ),
 })
 
+export const ReviewRatingSchema = Yup.object({
+  rating: Yup.number()
+  .required("Rating is required")
+  .min(1, "Rating must be at least 1")
+  .max(5, "Rating must be at most 5"),
+review: Yup.string().required("Please Fill Something")
+})
+
 /////////////// HUB ADMIN VALIDATION ////////////////
 export const HubAdminSignupSchema = Yup.object({
   name: Yup.string().min(2).max(20).required("Please Enter Your Name"),
