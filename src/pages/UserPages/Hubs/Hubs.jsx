@@ -11,6 +11,9 @@ import { HubList } from "../../../Api/UserApi";
 import { useNavigate } from "react-router-dom";
 import image from "../../../assets/logos/gys-high-resolution-logo-black - Copy.png";
 import { Link } from "react-router-dom";
+import { IconButton } from "@material-tailwind/react";
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+ 
 
 const cardData = [
   {
@@ -26,6 +29,30 @@ const cardData = [
 ];
 
 function Hubs() {
+
+  const [active, setActive] = useState(1);
+
+  // Function to set the props for each item based on its index
+  const getItemProps = (index) => ({
+    variant: active === index ? "filled" : "text",
+    color: "gray",
+    onClick: () => setActive(index),
+  });
+
+  // Function to go to the next item
+  const next = () => {
+    if (active === 5) return; // Assuming you have 5 items
+
+    setActive(active + 1);
+  };
+
+  // Function to go to the previous item
+  const prev = () => {
+    if (active === 1) return;
+
+    setActive(active - 1);
+  };
+
   const navigate = useNavigate();
   const [hubList, setHubList] = useState([]);
   console.log(hubList, "hhhhhhhh");
@@ -46,7 +73,7 @@ function Hubs() {
         <span className="text-[3rem] my-4 font-extrabold "></span>
         <div className="h-full w-full p-10">
           {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9"> */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9">
+          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9">
             {hubList
               .slice()
               .reverse()
@@ -91,10 +118,38 @@ function Hubs() {
                 </Card>
               ))}
           </div>
-          
+
+        <div className=" flex justify-center items-center gap-4">
+      <Button
+        variant="text"
+        className="flex items-center gap-2"
+        onClick={prev}
+        disabled={active === 1}
+      >
+        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+      </Button>
+      <div className="flex items-center gap-2">
+        <IconButton {...getItemProps(1)}>1</IconButton>
+        <IconButton {...getItemProps(2)}>2</IconButton>
+        <IconButton {...getItemProps(3)}>3</IconButton>
+        <IconButton {...getItemProps(4)}>4</IconButton>
+        <IconButton {...getItemProps(5)}>5</IconButton>
+      </div>
+      <Button
+        variant="text"
+        className="flex items-center gap-2"
+        onClick={next}
+        disabled={active === 5}
+      >
+        Next
+        <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+      </Button>
+    </div>
         </div>
+
       </div>
     </>
+
   );
 }
 
