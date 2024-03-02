@@ -135,9 +135,10 @@ export const ChangePassword = async(value,id)=>{
 }
 
 
-export const HubList = async()=>{
+export const HubList = async(active,search)=>{
   try {
-    const data = await userRequest.get("/hublisting")
+    console.log(active,search,"ososososososos")
+    const data = await userRequest.get("/hublisting",{params:{active,search}})
     console.log(data,"reached back")
     return data
   } catch (error) {
