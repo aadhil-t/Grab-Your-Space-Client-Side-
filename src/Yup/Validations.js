@@ -131,3 +131,14 @@ export const EditHubAdminProfileSchema = Yup.object({
       (val) => val && val.toString().length === 10
     ),
 });
+
+export const AddOfferSchema = Yup.object({
+  offername: Yup.string().min(2).max(20).required("Please Enter Your Name"),
+  offerpercentage: Yup.number()
+  .required("Please Enter Your Percentage")
+  .positive("Percentage  must be positive")
+  .integer("Percentage  must be an integer"),
+  seatcount: Yup.number()
+  .required("Please Enter Your Seat Count")
+  .positive("Seat Count must be positive").max(10).min(2)
+})

@@ -51,6 +51,16 @@ import { useNavigate } from "react-router-dom";
               <Chip value="4" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
             </ListItemSuffix>
           </ListItem>
+
+          <ListItem onClick={()=>navigate('')}>
+            <ListItemPrefix>
+              <InboxIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Add Offers
+            <ListItemSuffix>
+              <Chip value="4" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            </ListItemSuffix>
+          </ListItem>
           
           <ListItem onClick={()=>navigate('hubprofile')}>
             <ListItemPrefix>

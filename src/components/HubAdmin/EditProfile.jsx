@@ -46,7 +46,7 @@ export default function EditHubAdminProfile({data,onDataUpdate}) {
       name: data.name || "",
       mobile: data.mobile || "",
     });
-  }, [data]);
+  }, [data]); 
 
 
   return (

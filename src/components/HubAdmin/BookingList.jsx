@@ -30,7 +30,7 @@ function BookingList() {
     }, []);
 
   return (
-    <div className="h-screen"style={{ backgroundColor: "#1B4965"}}>
+    <div className=""style={{ backgroundColor: "#1B4965"}}>
 
 <div className="container mx-auto py-16" >
 {bookedData && bookedData.slice().reverse().map((item, index) => (

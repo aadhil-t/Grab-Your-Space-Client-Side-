@@ -57,22 +57,6 @@ export const EditHubAdminPro = async(values)=>{
     }
 }   
 
-// export const HubCreate = async(values)=>{
-//     try {
-//         const config = {
-//             headers:{
-//                 "content-type" : "multipart/form-data",
-//             },
-//             withCredentials:true,
-//         };
-
-//         console.log(values,"enter to Hubcreate Api");
-//         const data = await HubRequest.post('/createhub',values,config);
-//         return data
-//     } catch (error) {
-        
-//     }
-// }
 
 export const HubCreate = async (values) => {
     try {
@@ -118,6 +102,17 @@ export const BookedhistoryHubAdmin = async()=>{
         const data = await HubRequest.get('/bookedhistory')
         console.log(data)
         return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const AddOfferApi = async({values,hubId})=>{
+    try {
+        console.log(values,hubId,"Reached AddOfferApi")
+        const data = await HubRequest.post('/addoffer',{ ...values, hubId });
+        console.log(data,"Data AddOfferApi")
+        return data;
     } catch (error) {
         console.log(error)
     }

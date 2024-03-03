@@ -33,7 +33,7 @@
 
     console.log("Prodatada of the profile state", Prodata);
     return (
-      <div className="flex flex-col h-screen" style={{ backgroundColor: "#1B4965"}}>
+      <div className="flex flex-col " style={{ backgroundColor: "#1B4965"}}>
       <div className="flex my-24  justify-center ">
         <Card className="mt-10 w-[60rem] h-[40rem] bg-[#f1f1fc] shadow-xl ">
           <div className="flex mx-80 w-[20rem] -mt-24 bg-transparent ">

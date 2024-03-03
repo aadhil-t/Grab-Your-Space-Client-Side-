@@ -28,10 +28,10 @@ export function BookedList() {
     fetchData();
   }, []);
   return (
-    <div className="flex-col mt-16" style={{ backgroundColor: '#1B4965' }}>
+    <div className="flex-col mt-16  " style={{ backgroundColor: '#1B4965' }}>
             <span className=' flex justify-center text-[3rem] my-4 font-extrabold text-cyan-50'> BOOKINGS</span>
 
-    <div className="container mx-auto py-16">
+    <div className="container mx-auto py-16 ">
       {bookedData.slice().reverse().map((item, index) => (
         <a
           key={index}

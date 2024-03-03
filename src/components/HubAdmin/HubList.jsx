@@ -8,6 +8,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { HubData } from '../../Api/HubAdminApi';
+import AddOffer from "./AddOffer";
 import HubImg from "../../assets/logos/gys-high-resolution-logo-black - Copy.png"
 // useEffect(()=>{
 //     const fetchHubdata = async()=>{
@@ -77,8 +78,8 @@ function HubList() {
              Seat count: {hub.seatcount}
             </Typography>
           </CardBody>
-          <CardFooter className="pt-0">
-            <Button>Read More</Button>
+          <CardFooter className=" pt-0">
+          <AddOffer hubId={hub._id}/>
           </CardFooter>
         </Card>
       ))}

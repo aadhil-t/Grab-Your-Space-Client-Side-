@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { Button, Typography } from "@material-tailwind/react";
+import { CardHeader, CardBody, Avatar } from "@material-tailwind/react";
+import { Button, Card, Typography } from "@material-tailwind/react";
 import { Rating } from "@material-tailwind/react";
 import { useState } from "react";
 import img from "../../../assets/UserAssets/background.jpg";
+import offerImg from "../../../assets/UserAssets/Web_150DPI-20191106_WeWork_Gateway-1-Salt-Lake-City_004-1120x630.jpg"
 import { MultiSelect } from "react-multi-select-component";
 import { BookingApi, Singlehub, UserRating } from "../../../Api/UserApi";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -104,7 +106,18 @@ function SeatArrangement() {
 
   ////////////// TOTAL AMOUNT //////////////
   const SeatPrice = SingleHubData.price;
-  const TotalAmount = selected.length * SeatPrice;
+  const selectedSeatsCount = selected.length;
+
+  //   const TotalAmount = selected.length * SeatPrice;
+  let discountAmount = 0;
+
+  let TotalAmount = selectedSeatsCount * SeatPrice;
+  // Apply discount if 5 or more seats are selected
+  if (selectedSeatsCount >= 5) {
+    const discountPercentage = 20; // 20% discount
+    discountAmount = (TotalAmount * discountPercentage) / 100;
+    TotalAmount -= discountAmount;
+  }
   console.log(TotalAmount, "its the total amount");
 
   return (
@@ -260,21 +273,20 @@ function SeatArrangement() {
                 />
               </div>
             </div>
-
-            <div className=" bg-blue-gray-50 ">
+            <div className="bg-blue-gray-50">
               <Typography className="font-serif my-10" variant="h5">
-                <span className="m-2 text-black font-bold "> Per seat :</span>{" "}
+                <span className="m-2 text-black font-bold">Per seat :</span>{" "}
                 {SingleHubData.price}
               </Typography>
 
-              <div className=" flex justify-evenly ">
+              <div className="flex justify-evenly">
                 <Typography className="text-gray-700">Pick a date</Typography>
-                <Typography className="text-gray-700 ">
+                <Typography className="text-gray-700">
                   Select your slot
                 </Typography>
               </div>
 
-              <div className=" grid grid-cols-2   ">
+              <div className="grid grid-cols-2">
                 <div className="flex justify-center h-20 rounded-md mx-5 me-2 bg-white col-span-1">
                   <input
                     className="text-center w-full"
@@ -286,7 +298,7 @@ function SeatArrangement() {
                     onChange={handleDateChange}
                   />
                 </div>
-                <div className=" flex justify-center  h-20 rounded-md mx-5 bg-white col-span-1">
+                <div className="flex justify-center h-20 rounded-md mx-5 bg-white col-span-1">
                   <MultiSelect
                     className="w-full"
                     options={options}
@@ -296,12 +308,19 @@ function SeatArrangement() {
                   />
                 </div>
               </div>
-              <Typography className="font-serif my-2 " variant="h5">
-                <span className="m-2 text-black font-bold">Total Amount :</span>
+
+              <Typography className="font-serif my-2" variant="h5">
+                <span className="m-2 text-black font-bold">Total Amount :</span>{" "}
                 {TotalAmount}
               </Typography>
-            </div>
 
+              {selectedSeatsCount >= 5 && (
+                <Typography className="font-serif my-2" variant="h5">
+                  <span className="m-2 text-black font-bold">Discount :</span>{" "}
+                  {discountAmount}
+                </Typography>
+              )}
+            </div>
             <div>
               <Button
                 onClick={SendToApi}
@@ -310,6 +329,37 @@ function SeatArrangement() {
                 Book
               </Button>
             </div>
+
+            <div className="flex justify-center my-16">
+              <Card
+                shadow={false}
+                className="relative grid h-[30rem] w-full max-w-[28rem] items-end justify-center overflow-hidden text-center"
+              >
+                <CardHeader
+                  floated={false}
+                  shadow={false}
+                  color="transparent"
+                  className={`absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center`}
+                  style={{ backgroundImage: `url(${offerImg})` }}
+
+                  >
+                  <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+                </CardHeader>
+                <CardBody className="relative py-14 px-6 md:px-12">
+                  <Typography
+                    variant="h2"
+                    color="white"
+                    className="mb-16 font-bold text-white leading-[1.5]"
+                  >
+                    20% Discount on Booking a Row of 5 Seats   
+                  </Typography>
+                  <Typography variant="h5" className="mb-4 text-gray-400">
+                 {SingleHubData.hubname}
+                  </Typography>
+                </CardBody>
+              </Card>
+            </div>
+
           </div>
         </div>
       </div>
