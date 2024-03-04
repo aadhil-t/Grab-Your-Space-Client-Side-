@@ -12,6 +12,7 @@ import HubList from "../components/HubAdmin/HubList"
 import BookingList from "../components/HubAdmin/BookingList";
 import AddHu from "../components/HubAdmin/AddHu";
 import AddOffer from "../components/HubAdmin/AddOffer";
+import { OfferListing } from "../components/HubAdmin/OfferList";
 function HubAdminRoute(){
     return(
         <Routes>
@@ -30,6 +31,7 @@ function HubAdminRoute(){
                 <Route path="/hublist" element={<HubList/>}/>
                 <Route path="/bookedlist" element={<BookingList/>}/>
                 <Route path="/addoffer" element={<AddOffer/>}/>
+                <Route path="/listoffer" element={<OfferListing/>}/>
               
             </Route>  
             </Route>  

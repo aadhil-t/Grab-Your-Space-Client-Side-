@@ -52,11 +52,11 @@ import { useNavigate } from "react-router-dom";
             </ListItemSuffix>
           </ListItem>
 
-          <ListItem onClick={()=>navigate('')}>
+          <ListItem onClick={()=>navigate('listoffer')}>
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Add Offers
+             Offers
             <ListItemSuffix>
               <Chip value="4" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
             </ListItemSuffix>

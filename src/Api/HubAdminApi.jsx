@@ -125,3 +125,14 @@ export const AddOfferApi = async({values,hubId})=>{
         }
     }
 }
+
+export const OfferListApi = async()=>{
+    try {
+        console.log("Reached Offer Api")
+        const data = await HubRequest.get("/offerlist");
+        console.log(data,"Reached Offer list Api")
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
+}
