@@ -9,6 +9,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../../components/user/CheckoutForm";
 import { date } from "yup";
+import { GenerateSuccess } from "../../../Toast/toast";
 const stripePromise = loadStripe(
   "pk_test_51O11IzSJfBiixPMTXmoUugjdZRkftipLrwEqi3g4tNLnAHnARpN3IRSijAKk4NbRDbaW8Y2kIUa8hJT79i2S00zI00707Kncmo"
 );
@@ -31,7 +32,6 @@ export default function Booking() {
         console.log(response.data.data[0],"responsesssssssssssssss")
         setdatas(response.data.data[0]); // Update the state with the fetched data
         setClientSecret(response.data.clientSecret);
-
         setLoading(false)
       } else {
         console.log(response.statusText);

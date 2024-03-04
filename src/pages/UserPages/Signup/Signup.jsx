@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import { UserSignupWithGoogle, userSignup } from "../../../Api/UserApi";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ import google from "../../../assets/UserAssets/google.png";
 import { useFormik } from "formik";
 import { SignupSchema } from "../../../Yup/Validations";
 import SignupOtp from "../SignupOtp/SignupOtp";
+import { GenerateSuccess } from "../../../Toast/toast";
 
 export default function SimpleRegistrationForm() {
 
@@ -58,14 +59,9 @@ export default function SimpleRegistrationForm() {
             email: response.data.email,
           })
         );
+        GenerateSuccess(response.data.message)
         navigate(`/signupotp/${response.data._id}`);
       }else{
-        if (response.data.error) {
-          toast(response.data.error);
-        } else {
-          
-          toast("An error occurred.");
-        }
       }
 
     },

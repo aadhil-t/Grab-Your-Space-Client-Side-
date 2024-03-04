@@ -18,6 +18,7 @@ import google from "../../../assets/UserAssets/google.png";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { GenerateSuccess } from "../../../Toast/toast";
 
 export default function Login() {
   const [guser, setGUser] = useState([]);
@@ -44,6 +45,9 @@ export default function Login() {
       const response = await userLogin(values);
       console.log(response,"kkkkkk")
       if (response.data.created) {
+        setTimeout(() => {
+          GenerateSuccess(response.data.message);
+        }, 200);        
         const userDetails = {
           name: response.data.userData.name,
           email: response.data.userData.email,

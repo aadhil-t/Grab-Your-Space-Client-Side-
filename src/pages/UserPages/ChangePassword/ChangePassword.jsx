@@ -5,6 +5,7 @@ import { ChangepassSchema } from "../../../Yup/Validations";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { ChangePassword } from "../../../Api/UserApi";
+import { GenerateSuccess } from "../../../Toast/toast";
 
 export default function ChangePass() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function ChangePass() {
       console.log(values, "nottttt");
       const response = await ChangePassword(values, id);
       if (response) {
+        GenerateSuccess(response.data.message)
         navigate("/");
       } else {
         toast(response.data.alert);

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ChangeProPassword } from "../../Api/UserApi";
 import { ChangeProPassSchema } from "../../Yup/Validations";
+import { GenerateSuccess } from "../../Toast/toast";
 
 export default function ProfileChangePassword() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function ProfileChangePassword() {
       console.log("ChangeProPassword")
       const response = await ChangeProPassword(values);
       if(response){
-        toast.success("Password changed successfully");
+        GenerateSuccess(response.data.message)
         navigate("/setnewpass")
       }else{
         toast.error(response.data.alert);

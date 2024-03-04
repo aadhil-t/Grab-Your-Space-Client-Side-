@@ -13,6 +13,7 @@ import { UserProfileEditing } from "../../Api/UserApi";
 import { EditProfileSchema } from "../../Yup/Validations";
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
+import { GenerateSuccess } from "../../Toast/toast";
 
 export default function ProfileEdit({ data, refetch }) {
   const [open, setOpen] = React.useState(false);
@@ -36,10 +37,12 @@ export default function ProfileEdit({ data, refetch }) {
     onSubmit: async (values) => {
       try {
         const response = await UserProfileEditing(values);
-        refetch()
-        // Handle the response or update your UI as needed
-        console.log("Updated profile:", response);
-        setOpen(false); // Close the dialog after successful submission
+        if(response){
+          refetch()
+          // Handle the response or update your UI as needed
+          console.log(response,"edited");
+          setOpen(false); // Close the dialog after successful submission
+        }
       } catch (error) {
         // Handle any errors here
         console.error(error);

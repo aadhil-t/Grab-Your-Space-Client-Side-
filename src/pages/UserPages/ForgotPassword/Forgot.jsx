@@ -8,8 +8,10 @@ import { useState } from "react";
 import { ForgotPassword } from "../../../Api/UserApi";
 import { useFormik } from "formik";
 import { ForgotMailSchema } from "../../../Yup/Validations";
-import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { GenerateSuccess } from "../../../Toast/toast";
 
 export default function Forgot() {
 
@@ -45,11 +47,10 @@ export default function Forgot() {
       const response = await ForgotPassword(values); 
       console.log("koiiii")
       console.log(response.data,"otp ill keriii")
-
-      if(response){
-        // localStorage.setItem("token", response.data.token);
-        // setOtpVisible(true); 
-        navigate(`/passotp/${response.data.id}`)
+      
+      if (response) {
+          GenerateSuccess(response.data.message);
+          navigate(`/passotp/${response.data.id}`);
         }
         else{
           toast(response.data.alert)

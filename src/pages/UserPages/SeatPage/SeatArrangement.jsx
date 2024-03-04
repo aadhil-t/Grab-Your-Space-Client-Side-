@@ -10,26 +10,28 @@ import { BookingApi, Singlehub, UserRating } from "../../../Api/UserApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { ReviewRatingSchema } from "../../../Yup/Validations";
+import { GenerateSuccess } from "../../../Toast/toast";
 
 function SeatArrangement() {
-  //   const options = [
-  //     { label: "Grapes 🍇", value: "grapes" },
-  //     { label: "Mango 🥭", value: "mango" },
-  //     { label: "Strawberry 🍓", value: "strawberry", disabled: true },
-  //   ];
+//////////////// REVIEW PAGE RERENDER /////////////
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
   ///////////// FETCHING SINGLE HUB DATA ////////////
   const [SingleHubData, SetSingleHubData] = useState([]);
   const [ReviewData, SetReviewData] = useState([]);
+  const [OfferData, SetOfferData] = useState([]);
+  console.log(OfferData,"ohohoooo")
   const [disable, SetDisable] = useState([]);
   const { state } = useLocation();
   const { objId } = state;
   //  let data = {selectedDate,objId}
+
   const fetchData = async () => {
     const response = await Singlehub({ objId, selectedDate });
     console.log(response.data.ReviewData, "revieeeeeeeeeeeeew");
     if (response) {
       SetReviewData(response.data.ReviewData);
+      SetOfferData(response.data.offerData);
       SetSingleHubData(response.data.singleData);
       SetDisable(response.data.selectedSeatsValues);
     }
@@ -40,7 +42,7 @@ function SeatArrangement() {
     rating: 0,
     review: "",
   };
-  const { values, errors, touched, handleSubmit, handleChange, setFieldValue } =
+  const { values, errors, touched, handleSubmit, handleChange, setFieldValue, resetForm } =
     useFormik({
       initialValues: initialValues,
       validationSchema: ReviewRatingSchema,
@@ -49,12 +51,21 @@ function SeatArrangement() {
         const response = await UserRating(values, objId);
         console.log(response, "response reached");
         if (response) {
+          setTimeout(() => {
+            GenerateSuccess(response.data.message)
+          }, 200);
+          setReviewSubmitted(true);
+          console.log(reviewSubmitted,'heloooooooooooo'); // Set reviewSubmitted state to true on successful submission
           console.log("successfull");
+          setFieldValue("rating", 0);
+
         } else {
           console.log("Something went wrong");
         }
       },
     });
+
+  
 
   ////////////// SENDING BOOK DATA //////////////
   const navigate = useNavigate();
@@ -63,6 +74,7 @@ function SeatArrangement() {
       const Data = { selected, selectedDate, TotalAmount, SingleHubData };
       const response = await BookingApi(Data);
       if (response.data.booked) {
+          GenerateSuccess(response.data.message)
         let id = response.data.data._id;
         navigate("/booking", { state: { id } });
       } else {
@@ -113,12 +125,23 @@ function SeatArrangement() {
 
   let TotalAmount = selectedSeatsCount * SeatPrice;
   // Apply discount if 5 or more seats are selected
-  if (selectedSeatsCount >= 5) {
-    const discountPercentage = 20; // 20% discount
+  if (OfferData && OfferData.seatcount && selectedSeatsCount >= OfferData.seatcount) {
+    const discountPercentage = OfferData.offerpercentage; // 20% discount
     discountAmount = (TotalAmount * discountPercentage) / 100;
     TotalAmount -= discountAmount;
   }
   console.log(TotalAmount, "its the total amount");
+
+/////////////// USEEFECT FOR REVIEW RE-RENDER /////////////
+  useEffect(() => {
+    if (reviewSubmitted) {
+      // Refetch data after review submission
+      fetchData();
+      resetForm()
+      setReviewSubmitted(false); // Reset reviewSubmitted state
+    }
+  }, [reviewSubmitted]);
+ 
 
   return (
     <div className="bg-white">
@@ -314,7 +337,7 @@ function SeatArrangement() {
                 {TotalAmount}
               </Typography>
 
-              {selectedSeatsCount >= 5 && (
+              {OfferData && selectedSeatsCount >= OfferData.seatcount && (
                 <Typography className="font-serif my-2" variant="h5">
                   <span className="m-2 text-black font-bold">Discount :</span>{" "}
                   {discountAmount}
@@ -331,7 +354,8 @@ function SeatArrangement() {
             </div>
 
             <div className="flex justify-center my-16">
-              <Card
+              {OfferData ?(
+                <Card
                 shadow={false}
                 className="relative grid h-[30rem] w-full max-w-[28rem] items-end justify-center overflow-hidden text-center"
               >
@@ -351,13 +375,44 @@ function SeatArrangement() {
                     color="white"
                     className="mb-16 font-bold text-white leading-[1.5]"
                   >
-                    20% Discount on Booking a Row of 5 Seats   
+                 { `${OfferData ? OfferData.offerpercentage:""}% Discount on Booking a Row of ${OfferData ?OfferData.seatcount:"" } Seats` }
                   </Typography>
                   <Typography variant="h5" className="mb-4 text-gray-400">
-                 {SingleHubData.hubname}
+                 {OfferData ? OfferData.offername :""}
                   </Typography>
                 </CardBody>
+              </Card>) :(
+
+<Card
+                shadow={false}
+                className="relative grid h-[30rem] w-full max-w-[28rem] items-end justify-center overflow-hidden text-center"
+              >
+                <CardHeader
+                  floated={false}
+                  shadow={false}
+                  color="transparent"
+                  className={`absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center`}
+                  style={{ backgroundImage: `url(${offerImg})` }}
+
+                  >
+                  <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+                </CardHeader>
+                <CardBody className="relative py-14 px-6 md:px-12">
+                  <Typography
+                    variant="h2"
+                    color="white"
+                    className="mb-28 font-bold text-white leading-[1.5]"
+                  >
+                    Currently No Offers Available
+                  </Typography>
+                  
+                </CardBody>
               </Card>
+
+
+              )
+              
+              }
             </div>
 
           </div>

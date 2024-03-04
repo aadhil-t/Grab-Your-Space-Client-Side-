@@ -3,9 +3,11 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { ResendOtp, SignupOtpVerify } from "../../../Api/UserApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { SignupOtpSchema } from "../../../Yup/Validations";
 import { useEffect, useState } from "react";
+import { GenerateSuccess } from "../../../Toast/toast";
 
 export default function SignupOtp() {
   const navigate = useNavigate();
@@ -47,10 +49,10 @@ export default function SignupOtp() {
       console.log(response.data, "urapalle");
 
       if (response) {
+        GenerateSuccess(response.data.message)
         localStorage.setItem("token", response.data);
         navigate("/");
       } else {
-        toast(response.data.alert);
       }
     },
   });
@@ -60,9 +62,8 @@ export default function SignupOtp() {
     if (response) {
       setTimer(60); // Reset the timer
       setResendEnabled(false);
-      toast.success("OTP Resent Successfully");
+      GenerateSuccess(response.data.message)
     } else {
-      toast.error(response.data.alert);
     }
   };
 

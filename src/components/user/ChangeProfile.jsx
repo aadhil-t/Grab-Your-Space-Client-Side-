@@ -16,6 +16,10 @@ import { setUserDetails } from "../../Redux/UserSlice/UsserSlice";
 import { useFormik } from "formik";
 import { DpApi } from "../../Api/UserApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { GenerateSuccess } from "../../Toast/toast";
 
 export default function ChangeProfile() {
   const [open, setOpen] = useState(false);
@@ -79,6 +83,7 @@ const {
       console.log(response,"dpppppppppp")
       queryClient.invalidateQueries("profile")
       handleOpen()
+      GenerateSuccess(response.data.message)
     }else{
       console.log("error")
     }

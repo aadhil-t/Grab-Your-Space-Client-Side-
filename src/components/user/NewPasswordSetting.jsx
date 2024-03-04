@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SetNewPassword } from "../../Api/UserApi";
 import { SettingNewPassSchema } from "../../Yup/Validations";
+import { GenerateSuccess } from "../../Toast/toast";
 
 export default function SettingNewPassword() {
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ export default function SettingNewPassword() {
     onSubmit: async (values) => {
       const response = await SetNewPassword(values);
       if (response) {
+        setTimeout(() => {
+          GenerateSuccess(response.data.message)
+        }, 200);
         navigate("/login");
       } else {
         toast(response.data.alert);

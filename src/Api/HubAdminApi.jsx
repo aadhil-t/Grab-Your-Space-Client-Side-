@@ -110,10 +110,18 @@ export const BookedhistoryHubAdmin = async()=>{
 export const AddOfferApi = async({values,hubId})=>{
     try {
         console.log(values,hubId,"Reached AddOfferApi")
-        const data = await HubRequest.post('/addoffer',{ ...values, hubId });
-        console.log(data,"Data AddOfferApi")
+        const data = await HubRequest.post('/addoffer', values, {
+            params: {
+                hubId: hubId
+            }
+        });
+                console.log(data,"Data AddOfferApi")
         return data;
     } catch (error) {
-        console.log(error)
+        if (error.response && error.response.data && error.response.data.message) {
+            toast.error(error.response.data.message);
+        } else {
+            toast.error("An error occurred while processing your request.");
+        }
     }
 }

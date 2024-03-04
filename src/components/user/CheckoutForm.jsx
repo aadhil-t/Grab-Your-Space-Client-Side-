@@ -17,6 +17,7 @@ import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateStatus } from "../../Api/UserApi";
+import { GenerateSuccess } from "../../Toast/toast";
 
 const CheckoutForm = ({fee,id}) => {
   const [open, setOpen] = useState(false);
