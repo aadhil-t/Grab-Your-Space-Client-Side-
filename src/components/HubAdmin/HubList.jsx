@@ -79,7 +79,7 @@ function HubList() {
             </Typography>
           </CardBody>
           <CardFooter className=" pt-0">
-          <AddOffer hubId={hub._id}/>
+          <AddOffer hubId={hub._id} hubAdminId={hub.hubadminId}/>
           </CardFooter>
         </Card>
       ))}

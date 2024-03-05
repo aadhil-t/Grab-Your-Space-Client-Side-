@@ -12,8 +12,8 @@ import { useFormik } from "formik";
 import { AddOfferSchema } from "../../Yup/Validations";
 import { AddOfferApi } from "../../Api/HubAdminApi";
 
-function AddOffer({hubId}) {
-  console.log(hubId,"jjjjj")
+function AddOffer({hubId, hubAdminId}) {
+  console.log(hubId,hubAdminId,"jjjjj")
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -27,7 +27,7 @@ function AddOffer({hubId}) {
     initialValues: initialValues,
     validationSchema: AddOfferSchema,
     onSubmit: async (values) => {
-      const response = await AddOfferApi({ values: { ...values, hubId } });
+      const response = await AddOfferApi({ values: { ...values, hubId,hubAdminId } });
       console.log(response,"response aadhil")
     },
   });

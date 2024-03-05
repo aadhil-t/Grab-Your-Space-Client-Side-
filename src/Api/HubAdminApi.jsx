@@ -107,12 +107,13 @@ export const BookedhistoryHubAdmin = async()=>{
     }
 }
 
-export const AddOfferApi = async({values,hubId})=>{
+export const AddOfferApi = async({values,hubId,hubAdminId})=>{
     try {
         console.log(values,hubId,"Reached AddOfferApi")
         const data = await HubRequest.post('/addoffer', values, {
             params: {
-                hubId: hubId
+                hubId: hubId,
+                hubAdminId:hubAdminId
             }
         });
                 console.log(data,"Data AddOfferApi")
@@ -132,6 +133,16 @@ export const OfferListApi = async()=>{
         const data = await HubRequest.get("/offerlist");
         console.log(data,"Reached Offer list Api")
         return data;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const OfferDelete = async(id)=>{
+    try {
+        console.log("Reached at Offerdelet Api")
+        const data = await HubRequest.post("/offerdelete",id)
+        return data
     } catch (error) {
         console.log(error)
     }

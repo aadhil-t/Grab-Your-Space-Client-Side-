@@ -1,6 +1,6 @@
 import { Card, Typography } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { OfferListApi } from "../../Api/HubAdminApi";
+import { OfferDelete, OfferListApi } from "../../Api/HubAdminApi";
 
 const TABLE_HEAD = ["OfferName", "Percentage", "Seatcount", "Delete"];
 
@@ -19,6 +19,8 @@ const TABLE_ROWS = [
 
 export function OfferListing() {
   const [OfferData, SetOfferData] = useState([]);
+  const [Delete , RefetchDelete] = useState(false)
+  console.log(OfferData)
   console.log(OfferData, "state");
   const fetchData = async () => {
     const response = await OfferListApi();
@@ -32,8 +34,20 @@ export function OfferListing() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [Delete]);
 
+  const handleDelete = async(id)=>{
+      console.log(id,"idddddddddddddddddddd")
+    try {
+        const response = await OfferDelete({id});
+        if(response){
+            RefetchDelete(!Delete)
+        }
+        console.log(response)
+    } catch (error) {
+        console.log(error);
+    }
+  }
   return (
     <div className="flex justify-center ">
       <Card className="my-4 h-full w-[98rem] overflow-scroll">
@@ -58,7 +72,7 @@ export function OfferListing() {
           </thead>
           <tbody>
             {OfferData.map(
-              ({ offername, offerpercentage, seatcount }, index) => {
+              ({ offername, offerpercentage, seatcount,_id }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -100,7 +114,9 @@ export function OfferListing() {
                           href="#"
                           variant="small"
                           color="blue-gray"
-                          className="font-medium text-red-500 hover:text-white cursor-pointer"
+                          className="font-medium  hover:text-white cursor-pointer"
+                          onClick={()=>handleDelete(_id)}
+
                         >
                           Delete
                         </Typography>
