@@ -17,6 +17,7 @@ import { BookedList } from "../components/user/BookedList";
 import ProfileChangePassword from "../components/user/ChangeProPassword";
 import SettingNewPassword from "../components/user/NewPasswordSetting";
 import SeatArrangement from "../pages/UserPages/SeatPage/SeatArrangement";
+import BookedSinglePage from "../components/user/BookedSinglePage";
 function UserRoutes(){
 
  return(
@@ -41,6 +42,7 @@ function UserRoutes(){
             <Route path="/passchangepro" element={<ProfileChangePassword/>}/>
             <Route path="/setnewpass" element={<SettingNewPassword/>}/>
             <Route path="/seatarrangment" element={<SeatArrangement/>}/>
+            <Route path="/bookedsinglepage" element={<BookedSinglePage/>}/>
             </Route>
         </Route>
     </Routes>
