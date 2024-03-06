@@ -264,6 +264,30 @@ export const UserRating = async(value,objId)=>{
     console.log(data,"data ethipoyiii")
     return data;
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
+  }
+}
+
+export const BookedSinglePageApi = async(BookedId)=>{
+  try {
+    console.log(BookedId,"Reached")
+    const data = await userRequest.get(`/bookedsingledata/${BookedId}`);
+    console.log(data,"Reached at BookedSinglePageApi ")
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const CancelBookApi = async(BookedId)=>{
+  try{
+    console.log("Reached at Cancel book Api")
+    console.log(BookedId,"both Reached")
+    const data = await userRequest.post('/cancelbook',{BookedId});
+    console.log(data,"Data gottt")
+    return data;
+  }
+  catch(error){
+    console.log(error)
   }
 }
