@@ -10,9 +10,9 @@ import HubAdminProtect from "./HubAdminProtect";
 import HubAdminPublic from "./HubAdminPublic";
 import HubList from "../components/HubAdmin/HubList"
 import BookingList from "../components/HubAdmin/BookingList";
-import AddHu from "../components/HubAdmin/AddHu";
 import AddOffer from "../components/HubAdmin/AddOffer";
 import { OfferListing } from "../components/HubAdmin/OfferList";
+import AdminChatBox from "../pages/HubAdminPages/HubChat/AdminChatBox";
 function HubAdminRoute(){
     return(
         <Routes>
@@ -32,6 +32,7 @@ function HubAdminRoute(){
                 <Route path="/bookedlist" element={<BookingList/>}/>
                 <Route path="/addoffer" element={<AddOffer/>}/>
                 <Route path="/listoffer" element={<OfferListing/>}/>
+                <Route path="/chathub" element={<AdminChatBox/>}/>
               
             </Route>  
             </Route>  

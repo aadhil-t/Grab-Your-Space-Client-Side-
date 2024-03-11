@@ -1,20 +1,12 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { Input } from '@material-tailwind/react';
-import img from '../../../assets/UserAssets/depositphotos_167655496-stock-photo-directly-above-view-of-human.jpg'
 import React, { useEffect, useState } from 'react';
-import { AdminsChat } from '../../../Api/UserApi';
+import { UserChat } from '../../../Api/HubAdminApi';
 
-const users = [
-  { id: 1, name: 'User 1' },
-  { id: 2, name: 'User 2' },
-  // Add more users as needed
-];
-
-const ChatBox = () => {
-  const [selectedUser, setSelectedUser] = useState(null); // Change the initial state to null
+const AdminChatBox = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [AdminData, setAdminData] = useState({});
-  console.log(AdminData,"Admin Data")
+  const [UserData, setUserData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
   const handleUserSelect = (user) => {
@@ -28,28 +20,32 @@ const ChatBox = () => {
     }
   };
 
-  useEffect(()=>{
-    const fetchData = async()=>{
-        const response = await AdminsChat();
-        setAdminData(response.data.AdminData)
-        console.log(response,"response reached")
-    }
-    fetchData()
-  },[])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await UserChat();
+        setUserData(response.data.UserData || []);
+        console.log(response, "response reached");
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
-      <div className="flex mt-16 bg-gray-100">
+      <div className="flex bg-gray-100">
         {/* User Listing Sidebar */}
         <div className="w-1/6 bg-gray-200 p-4">
-          <h1 className="text-2xl font-bold  mb-4">Users</h1>
+          <h1 className="text-2xl font-bold mb-4">Users</h1>
           <Input
             label="Search"
             icon={<MagnifyingGlassIcon className="h-5 w-5" />}
             variant="outlined"
           />
           <ul>
-            {Array.isArray(AdminData) && AdminData.map((user) => (
+            {UserData.map((user) => (
               <li
                 key={user.id}
                 className={`flex items-center cursor-pointer ${
@@ -57,7 +53,7 @@ const ChatBox = () => {
                 } p-2 rounded hover:bg-gray-300 transition-all duration-300`}
                 onClick={() => handleUserSelect(user)}
               >
-                <img src={img} alt={user.name} className="w-8 h-8 rounded-full mr-2" />
+                <img src={user.profileimage} alt={user.name} className="w-8 h-8 rounded-full mr-2" />
                 <span>{user.name}</span>
               </li>
             ))}
@@ -72,7 +68,7 @@ const ChatBox = () => {
               <h1 className="mt-4 mx-2 text-2xl font-bold mb-4">{selectedUser.name}</h1>
             </div>
           )}
-          <div className="mt-2 border p-4 mb-4 h-[44rem] overflow-y-auto bg-white rounded shadow">
+          <div className=" mt-2 border p-4 mb-4 h-[44rem] overflow-y-auto bg-white rounded shadow">
             {messages.map((message, index) => (
               <div key={index} className="mb-2">
                 <span className="font-bold">{message.user.name}:</span> {message.text}
@@ -102,4 +98,4 @@ const ChatBox = () => {
   );
 };
 
-export default ChatBox;
+export default AdminChatBox;

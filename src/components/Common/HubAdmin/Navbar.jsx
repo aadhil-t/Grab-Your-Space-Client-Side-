@@ -65,7 +65,7 @@ export default function HubNavbar() {
         color="blue-gray"
         className="p-1 font-normal text-black "
       >
-        <a href="#" className="flex items-center">
+        <a href="" className="flex items-center">
           Chat
         </a>
       </Typography>

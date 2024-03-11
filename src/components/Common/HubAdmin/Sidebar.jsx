@@ -68,12 +68,14 @@ import { useNavigate } from "react-router-dom";
             </ListItemPrefix>
             Profile
           </ListItem>
-          <ListItem>
+
+          <ListItem onClick={()=>navigate("chathub")}>
             <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
+              <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Settings
+            Chat
           </ListItem>
+
           <ListItem>
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />

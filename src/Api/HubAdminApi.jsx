@@ -147,3 +147,14 @@ export const OfferDelete = async(id)=>{
         console.log(error)
     }
 }
+
+export const UserChat = async()=>{
+    try {
+        console.log("Reached at UserChat Api")
+        const data = await HubRequest.get('/userdatachat');
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log(error)   
+    }
+}
