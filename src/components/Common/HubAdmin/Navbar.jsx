@@ -43,7 +43,7 @@ export default function HubNavbar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-red-600 mr-10"
+        className="p-1 font-normal text-black mr-10"
       >
         <a href="#" className="flex items-center">
           Pages
@@ -53,7 +53,7 @@ export default function HubNavbar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-red-600 mr-10"
+        className="p-1 font-normal text-black mr-10"
       >
         <a href="#" className="flex items-center">
           Account
@@ -63,10 +63,10 @@ export default function HubNavbar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal text-red-600 "
+        className="p-1 font-normal text-black "
       >
         <a href="#" className="flex items-center">
-          Blocks
+          Chat
         </a>
       </Typography>
     </ul>
@@ -94,12 +94,12 @@ export default function HubNavbar() {
     // <navbar className=" w-screen py-2 bg-blue-gray-500 lg:px-8 lg:py-4">
     //   <div className=" flex items-center justify-between bg-blue-gray-800 text-blue-gray-900">
     <navbar className="  lg:rounded-none   fixed top-0 left-0 right-0 bg-[#1749ea] z-50">
-      <div className="relative mx-auto flex items-center  justify-around text-blue-gray-900 py-3 bg-[#d341fb] ">
+      <div className="relative mx-auto flex items-center  justify-around text-blue-gray-900 py-3 bg-[#ffffff] ">
         <Typography
           as="a"
           href="#"
           className="mr-4 cursor-pointer py-1.5 font-medium"
-          color="yellow"
+          color="black"
         >
           GRAB YOUR SPACE
         </Typography>

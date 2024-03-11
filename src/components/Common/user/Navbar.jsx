@@ -71,8 +71,8 @@ export default function Navbar() {
         color="blue-gray"
         className="text-lg p-1 font-normal text-black-600 "
       >
-        <a href="#" className="flex items-center group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1">
-          Blocks
+        <a href="/chat" className="flex items-center group relative ml-0 mr-0 font-bold md:ml-2 md:mr-2 lg:mr-4 sm:mr-4 transition-color hover:text-red-600 transition-transform duration-300 hover:translate-x-1">
+          Chat
           <span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 transform origin-bottom scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
         </a>
       </Typography>

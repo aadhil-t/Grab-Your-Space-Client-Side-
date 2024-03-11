@@ -134,10 +134,10 @@ export const ChangePassword = async(value,id)=>{
 }
 
 
-export const HubList = async(active,search)=>{
+export const HubList = async(active,search,sortData)=>{
   try {
     console.log(active,search,"ososososososos")
-    const data = await userRequest.get("/hublisting",{params:{active,search}})
+    const data = await userRequest.get("/hublisting",{params:{active,search,sortData}})
     console.log(data,"reached back")
     return data
   } catch (error) {
@@ -195,10 +195,11 @@ export const updateStatus = async(id)=>{
 }
 
 
-export const Bookedhistory = async()=>{
+export const Bookedhistory = async(active,search)=>{
   try {
-    console.log("zzzzzzzzzzzzzzzzzzz")
-    const data = await userRequest.get("/bookedhistory");
+    console.log("Reached Bookedhistory Api ")
+    console.log(active,search,"oooooooo")
+    const data = await userRequest.get("/bookedhistory",{params:{active,search}});
     console.log(data);
     return data;
   } catch (error) {
@@ -288,6 +289,17 @@ export const CancelBookApi = async(BookedId)=>{
     return data;
   }
   catch(error){
+    console.log(error)
+  }
+}
+
+export const AdminsChat = async()=>{
+  try {
+    console.log("Reached AdminChat Api")
+    const data = await userRequest.get('/admindatachat');
+    console.log(data)
+    return data
+  } catch (error) {
     console.log(error)
   }
 }

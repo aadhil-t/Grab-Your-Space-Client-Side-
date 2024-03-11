@@ -11,10 +11,12 @@ import {
 import { HubList } from "../../../Api/UserApi";
 import { useNavigate } from "react-router-dom";
 import image from "../../../assets/logos/gys-high-resolution-logo-black - Copy.png";
-import { Link } from "react-router-dom";
 import { IconButton } from "@material-tailwind/react";
-import { ArrowRightIcon, ArrowLeftIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
+import {
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 const cardData = [
   {
     id: 1,
@@ -33,19 +35,23 @@ function Hubs() {
   const [hubList, setHubList] = useState([]);
   const [pages, setPages] = useState([]);
   const [search, setSearch] = useState("");
-  console.log(search,"Searched values")
+  console.log(search, "Searched values");
   const [active, setActive] = useState(1);
   const per = pages.perpage;
   console.log(hubList, "wwwwwwwwww");
   console.log(pages, "hhhhhhhh");
   console.log(per, "pppppppp");
+  const [sortData, setSortData] = useState();
+  console.log(sortData, "sosososososo");
+  const handleChange = (e) => {
+    setSortData(e);
+  };
 
-
- /////////////// SEARCH /////////////// 
- const handleSearchChange = (event)=>{
-  setSearch(event.target.value);
- }
- /////////////// PAGINATION /////////////// 
+  /////////////// SEARCH ///////////////
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+  /////////////// PAGINATION ///////////////
   // Function to go to the next item
   const next = () => {
     const totalPages = Math.ceil(pages.Count / pages.perpage);
@@ -64,10 +70,8 @@ function Hubs() {
     onClick: () => setActive(index),
   });
 
-
-
   const fetchHubList = async () => {
-    const response = await HubList(active,search);
+    const response = await HubList(active, search, sortData);
     console.log(response, "ksksksksks");
     if (response.status === 200) {
       setHubList(response.data.HubData);
@@ -77,27 +81,39 @@ function Hubs() {
 
   useEffect(() => {
     fetchHubList();
-  }, [active,search]);
+  }, [active, search, sortData]);
 
   return (
     <>
       <div className="flex flex-col items-center mt-12">
         <span className="text-[3rem] my-4 font-extrabold "></span>
         <div className="h-full w-full p-10">
+          <div className="flex justify-between">
+            <div className="flex w-1/5 ml-7  rounded-md ">
+              <Input
+                label="Search"
+                // placeholder="Search"
+                icon={<MagnifyingGlassIcon className=" h-5 w-5" />}
+                value={search}
+                onChange={handleSearchChange}
+                variant="outlined"
+              />
+            </div>
 
-          <div className="flex w-1/5 ml-7 border border-gray-500 rounded-md ">
-            <Input
-              // label="Search"
-              placeholder="Search"
-              icon={<MagnifyingGlassIcon className=" h-5 w-5" />}
-              value={search}
-              onChange={handleSearchChange}
-              variant="standard"
-            />
+            <div className="mr-7 relative inline-block text-left w-full md:w-52">
+              <div className="font-bold mb-2">Price Sort:</div>
+              <select
+                onChange={(e) => handleChange(e.target.value)}
+                className="block appearance-none w-full bg-white border border-gray-500 hover:border-gray-400 px-4 py-2 pr-8 rounded-md leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="lowToHigh">Price: Low to High</option>
+                <option value="highToLow">Price: High to Low</option>
+              </select>
+            </div>
           </div>
 
           {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9"> */}
-          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 mt-8">
+          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-9 mt-10">
             {hubList.map((card) => (
               // <Card key={card.id} className="mt-6 md:w-96 mx-auto">
               <Card

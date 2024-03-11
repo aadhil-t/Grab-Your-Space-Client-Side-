@@ -1,9 +1,11 @@
-import { Button } from "@material-tailwind/react";
+import { Button, IconButton, Input } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react"; // Import React
 import { Bookedhistory } from "../../Api/UserApi";
 import moment from "moment";
 import { Fragment } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { ArrowLeftIcon, ArrowRightIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
 
 const data = [
   {
@@ -16,22 +18,51 @@ const data = [
 
 export function BookedList() {
   const [bookedData, setBookedData] = useState([]);
+  const [pages, setPages] = useState([]);
+  const [active , setActive] = useState(1)
+  console.log(active,"activeeeeeee")
   const navigate = useNavigate()
   console.log(bookedData, "llllllllllllll");
+
+  ////////////// PAGINATION ////////////////
+    // Function to go to the next item
+  const next = () =>{
+    const totalPages = Math.ceil(pages.count / pages.perpage);
+    if(active === totalPages) return;
+    setActive(active + 1);
+  }
+  // Function to go to the previous item
+  const prev = () =>{
+    if(active === 1) return;
+    setActive(active - 1);
+  }
+   // Function to set the props for each item based on its index
+   const getItemProps = (index) => ({
+    variant: active === index ? "filled" : "text",
+    color: "gray",
+    onClick: () => setActive(index),
+  });
+
+ 
+  ///////////// FETCH DATA //////////////
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Bookedhistory();
+        const response = await Bookedhistory(active);
         console.log(response.data.data, "pppppppppppppppppppp");
 
         setBookedData(response.data.data);
+        setPages(response.data)
       } catch (error) {}
     };
     fetchData();
-  }, []);
+  }, [active]);
+
   return (
-    <div className="flex-col mt-16  ">
-      <div className="container mx-auto py-16 ">
+    <div className="flex-col">
+
+      <div className="container mx-auto py-24 ">
+          
         {bookedData &&
           bookedData
             .slice()
@@ -86,6 +117,37 @@ export function BookedList() {
               </a>
             ))}
       </div>
+
+      <div className=" flex justify-center items-center gap-4">
+          <Button
+            variant="text"
+            className="flex items-center gap-2"
+            onClick={prev} 
+            disabled={active === 1}
+          >
+            <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+          </Button>
+
+          <div className="flex items-center gap-2">
+            {pages.Count &&
+              [...Array(Math.ceil(pages.Count / pages.perpage))].map(
+                (_, index) => (
+                  <IconButton key={index + 1} {...getItemProps(index + 1)}>
+                    {index + 1}
+                  </IconButton>
+                )
+              )}
+          </div>
+
+          <Button
+            variant="text"
+            className="flex items-center gap-2"
+            onClick={next}
+            disabled={active === Math.ceil(pages.Count / pages.perpage)}
+          >
+            Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+          </Button>
+        </div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import ProfileChangePassword from "../components/user/ChangeProPassword";
 import SettingNewPassword from "../components/user/NewPasswordSetting";
 import SeatArrangement from "../pages/UserPages/SeatPage/SeatArrangement";
 import BookedSinglePage from "../components/user/BookedSinglePage";
+import ChatBox from "../pages/UserPages/Chat/ChatBox";
 function UserRoutes(){
 
  return(
@@ -43,6 +44,7 @@ function UserRoutes(){
             <Route path="/setnewpass" element={<SettingNewPassword/>}/>
             <Route path="/seatarrangment" element={<SeatArrangement/>}/>
             <Route path="/bookedsinglepage" element={<BookedSinglePage/>}/>
+            <Route path="/chat" element={<ChatBox/>}/>
             </Route>
         </Route>
     </Routes>
