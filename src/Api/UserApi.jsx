@@ -134,10 +134,12 @@ export const ChangePassword = async(value,id)=>{
 }
 
 
-export const HubList = async(active,search,sortData)=>{
+export const HubList = async(active,search,sortData,selected)=>{
   try {
     console.log(active,search,"ososososososos")
-    const data = await userRequest.get("/hublisting",{params:{active,search,sortData}})
+    const selectedData = JSON.stringify(selected);
+    console.log(selectedData,"location")
+    const data = await userRequest.get("/hublisting",{params:{active,search,sortData,selectedData}})
     console.log(data,"reached back")
     return data
   } catch (error) {
@@ -183,10 +185,10 @@ export const bookedData = async(bookedId)=>{
 }
 
 
-export const updateStatus = async(id)=>{
+export const updateStatus = async(id,paymentIntent)=>{
   try {
-    console.log("apiiiiiiii")
-    const data = await userRequest.put("/updatepaystatus",id);
+    console.log(paymentIntent,"apiiiiiiii")
+    const data = await userRequest.put("/updatepaystatus",id,paymentIntent);
     console.log(data,"statusssssss")
     return data;
   } catch (error) {

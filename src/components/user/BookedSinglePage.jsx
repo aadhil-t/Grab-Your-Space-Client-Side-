@@ -73,6 +73,7 @@ const formatDate = (dateString) => {
                     <Typography variant='h5' className='text-gray-700'>Name :{BookedData?.bookedhubid?.hubname} </Typography>
                     <Typography variant='h5' className='text-gray-700'>Date :{formatDate(BookedData?.date)} </Typography>
                     <Typography variant='h5' className='text-gray-700'>Selected Seats :{BookedData.selectedseats?.map((seat) => seat.label).join(', ') || 'N/A'} </Typography><br/>
+                    <Typography variant='h5' className='p-3 border border-black text-gray-700'>Transaction Id :{BookedData?.transactionid} </Typography><br/>
                     <div className="border border-black p-4 rounded-md">
                     <Typography variant='h5' className='text-gray-700'>Total Amount :{BookedData?.totalamount} </Typography>
                     </div><br />
@@ -92,7 +93,7 @@ const formatDate = (dateString) => {
                 <div className=' w-[30rem]  my-28 '>
                     <img className='object-cover h-[25rem]' src={BookedData?.bookedhubid?.images[0]} alt="" />
                     <div className='flex justify-end my-14'>
-                    <Button onClick={() => handleCancelBook()} className='bg-red-400'>Cancel</Button>
+                    <Button onClick={() => handleCancelBook()} className='bg-red-400'  disabled={BookedData?.paymentstatus === 'cancel'}>Cancel</Button>
                     </div>
                 </div>
             </div>

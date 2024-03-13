@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
   Input,
+  Select,
 } from "@material-tailwind/react";
 import { HubList } from "../../../Api/UserApi";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,8 @@ import {
   ArrowLeftIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { MultiSelect } from "react-multi-select-component";
+
 const cardData = [
   {
     id: 1,
@@ -26,27 +29,42 @@ const cardData = [
     description:
       'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.',
   },
-
-  // Add more data items as needed
 ];
+
+
+
+
+
 
 function Hubs() {
   const navigate = useNavigate();
   const [hubList, setHubList] = useState([]);
+  console.log(hubList,"Multi select perpose")
   const [pages, setPages] = useState([]);
   const [search, setSearch] = useState("");
   console.log(search, "Searched values");
   const [active, setActive] = useState(1);
+  const [selected, setSelected] = useState([]);
+  console.log(selected,"kkkkkkkkkk")
+  console.log(selected,"jsjsjsjs")
   const per = pages.perpage;
-  console.log(hubList, "wwwwwwwwww");
-  console.log(pages, "hhhhhhhh");
   console.log(per, "pppppppp");
   const [sortData, setSortData] = useState();
-  console.log(sortData, "sosososososo");
   const handleChange = (e) => {
     setSortData(e);
   };
 
+  
+
+  // Function to extract unique hub locations from hubList
+  const extractHubLocations = () => {
+    const locations = hubList.map((hub) => hub.hublocation);
+    return [...new Set(locations)].map((location) => ({
+      label: location,
+      value: location,
+    }));
+  };
+  
   /////////////// SEARCH ///////////////
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -71,7 +89,7 @@ function Hubs() {
   });
 
   const fetchHubList = async () => {
-    const response = await HubList(active, search, sortData);
+    const response = await HubList(active, search, sortData, selected);
     console.log(response, "ksksksksks");
     if (response.status === 200) {
       setHubList(response.data.HubData);
@@ -81,7 +99,12 @@ function Hubs() {
 
   useEffect(() => {
     fetchHubList();
-  }, [active, search, sortData]);
+  }, [active, search, sortData, selected]);
+
+
+   // Dynamically generate options array for MultiSelect
+  const options = extractHubLocations();
+
 
   return (
     <>
@@ -92,11 +115,20 @@ function Hubs() {
             <div className="flex w-1/5 ml-7  rounded-md ">
               <Input
                 label="Search"
-                // placeholder="Search"
-                icon={<MagnifyingGlassIcon className=" h-5 w-5" />}
+                 icon={<MagnifyingGlassIcon className=" h-5 w-5" />}
                 value={search}
                 onChange={handleSearchChange}
                 variant="outlined"
+              />
+            </div>
+
+            <div className="mt-2 ml-[60rem]">
+              <h1 className="font-bold">Select Location</h1>
+              <MultiSelect
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                labelledBy="Select"
               />
             </div>
 

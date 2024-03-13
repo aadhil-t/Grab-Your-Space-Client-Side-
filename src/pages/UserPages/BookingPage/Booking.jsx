@@ -21,6 +21,9 @@ export default function Booking() {
 
   const [datas, setdatas] = useState([]);
   console.log(datas, "kkkk");
+  const [transactionID, setTransactionId] = useState([]);
+  console.log(transactionID, "Transaction id"); 
+
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +31,8 @@ export default function Booking() {
     try {
       const response = await bookedData(id);
       if (response.status === 200) {
-        console.log(response.data.data[0], "responsesssssssssssssss");
+        console.log(response.data.data[0], "responsesssssssssssssss"); 
+        setTransactionId(response.data.TransactionId)
         setdatas(response.data.data[0]); // Update the state with the fetched data
         setClientSecret(response.data.clientSecret);
         setLoading(false);
@@ -144,7 +148,7 @@ export default function Booking() {
 
               {clientSecret && (
                 <Elements stripe={stripePromise} options={options}>
-                  <CheckoutForm fee={datas.totalamount} id={datas._id} />
+                  <CheckoutForm fee={datas.totalamount} id={datas._id} TransactionId={transactionID} />
                 </Elements>
               )}
             </div>

@@ -56,7 +56,7 @@ const ChatBox = () => {
                   selectedUser && selectedUser.id === user.id ? 'text-blue-500 font-bold' : ''
                 } p-2 rounded hover:bg-gray-300 transition-all duration-300`}
                 onClick={() => handleUserSelect(user)}
-              >
+              > 
                 <img src={img} alt={user.name} className="w-8 h-8 rounded-full mr-2" />
                 <span>{user.name}</span>
               </li>

@@ -20,7 +20,6 @@ function SeatArrangement() {
   const [SingleHubData, SetSingleHubData] = useState([]);
   const [ReviewData, SetReviewData] = useState([]);
   const [OfferData, SetOfferData] = useState([]);
-  console.log(OfferData,"ohohoooo")
   const [disable, SetDisable] = useState([]);
   const { state } = useLocation();
   const { objId } = state;

@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { updateStatus } from "../../Api/UserApi";
 import { GenerateSuccess } from "../../Toast/toast";
 
-const CheckoutForm = ({fee,id}) => {
+const CheckoutForm = ({fee,id,TransactionId}) => {
   const [open, setOpen] = useState(false);
   const stripe = useStripe()
   const elements = useElements()
@@ -42,7 +42,7 @@ const CheckoutForm = ({fee,id}) => {
     })
     console.log(paymentIntent, id,"payyyyyyyyyyy")
     if(paymentIntent){
-       const status = await updateStatus({id})
+       const status = await updateStatus({id,paymentIntent})
        console.log(status,"xxxxxxxxxxxx")
         navigate("/success")
     }
@@ -84,6 +84,10 @@ const CheckoutForm = ({fee,id}) => {
             <div className="flex justify-between">
               <Typography>Total Seat Booked Fee</Typography>
               <Typography>₹ {fee}</Typography>
+            </div>
+            <div className="flex justify-between">
+              <Typography>Transaction Id :</Typography>
+              <Typography> {TransactionId}</Typography>
             </div>
             <Tabs value="card" className="overflow-visible">
               <TabsHeader className="relative z-0 "></TabsHeader>
