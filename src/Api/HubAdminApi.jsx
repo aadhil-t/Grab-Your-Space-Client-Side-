@@ -148,6 +148,17 @@ export const OfferDelete = async(id)=>{
     }
 }
 
+export const DashBoardData = async()=>{
+    try {
+        console.log("Reached at Dashboard Chart Api")
+        const data = await HubRequest.get('/dashboardchart')
+        console.log(data,"Reached at Dashboard Chart Api")
+        return data
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const UserChat = async()=>{
     try {
         console.log("Reached at UserChat Api")

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Typography } from '@material-tailwind/react';
 import img from "/src/assets/logos/gys-high-resolution-logo-black - Copy.png";
-import { useLocation } from 'react-router-dom';
-import { BookedSinglePageApi, CancelBookApi } from '../../Api/UserApi';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BookedSinglePageApi, CancelBookApi, Createchat } from '../../Api/UserApi';
 import { GenerateSuccess } from '../../Toast/toast';
 
 function BookedSinglePage() {
     const location = useLocation();
     const { state } = location;
+    const navigate = useNavigate();
     const bookedData = state?.bookedData;
 // console.log(bookedData._id)
     if (!bookedData) {
@@ -31,6 +32,24 @@ const formatDate = (dateString) => {
         return 'Date Error';
     }
 };
+
+////////////////// CANCEL DATA SEND ////////////////////
+    const handleChat = async()=>{
+        try {
+            const AdminId = bookedData.bookedhubid.hubadminId
+            const UserId = bookedData.bookeduserid._id
+            console.log(AdminId,UserId,"hub AdminId")
+            const response = await Createchat(AdminId,UserId);
+            console.log(response,"yes got it")
+            if(response.status == 200){
+                alert(AdminId)
+                navigate("/chat", { state: { AdminId: AdminId } });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 ////////////////// CANCEL DATA SEND ////////////////////
     const [refetch , SetRefetch] = useState(false)
@@ -92,8 +111,9 @@ const formatDate = (dateString) => {
                 </div>
                 <div className=' w-[30rem]  my-28 '>
                     <img className='object-cover h-[25rem]' src={BookedData?.bookedhubid?.images[0]} alt="" />
-                    <div className='flex justify-end my-14'>
+                    <div className='flex justify-evenly my-14'>
                     <Button onClick={() => handleCancelBook()} className='bg-red-400'  disabled={BookedData?.paymentstatus === 'cancel'}>Cancel</Button>
+                    <Button onClick={() => handleChat()} className='bg-black' >Chat</Button>
                     </div>
                 </div>
             </div>

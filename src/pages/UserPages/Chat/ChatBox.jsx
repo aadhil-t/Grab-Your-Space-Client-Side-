@@ -1,41 +1,45 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { Input } from '@material-tailwind/react';
-import img from '../../../assets/UserAssets/depositphotos_167655496-stock-photo-directly-above-view-of-human.jpg'
-import React, { useEffect, useState } from 'react';
-import { AdminsChat } from '../../../Api/UserApi';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { Input } from "@material-tailwind/react";
+import img from "../../../assets/UserAssets/depositphotos_167655496-stock-photo-directly-above-view-of-human.jpg";
+import React, { useEffect, useState } from "react";
+import { AdminsChat } from "../../../Api/UserApi";
+import { useLocation } from "react-router-dom";
 
 const users = [
-  { id: 1, name: 'User 1' },
-  { id: 2, name: 'User 2' },
+  { id: 1, name: "User 1" },
+  { id: 2, name: "User 2" },
   // Add more users as needed
 ];
 
 const ChatBox = () => {
+  const location = useLocation();
+  const AdminId = location.state?.AdminId; // Use optional chaining for safer access
+  console.log(AdminId, "Admin Id Reached at ChatBox");
   const [selectedUser, setSelectedUser] = useState(null); // Change the initial state to null
+  console.log(selectedUser, "kkkkkkkkkkkk");
   const [messages, setMessages] = useState([]);
   const [AdminData, setAdminData] = useState({});
-  console.log(AdminData,"Admin Data")
-  const [newMessage, setNewMessage] = useState('');
-
+  console.log(AdminData, "Admin Data");
+  const [newMessage, setNewMessage] = useState("");
   const handleUserSelect = (user) => {
     setSelectedUser(user);
   };
 
   const handleSendMessage = () => {
-    if (newMessage.trim() !== '') {
+    if (newMessage.trim() !== "") {
       setMessages([...messages, { user: selectedUser, text: newMessage }]);
-      setNewMessage('');
+      setNewMessage("");
     }
   };
 
-  useEffect(()=>{
-    const fetchData = async()=>{
-        const response = await AdminsChat();
-        setAdminData(response.data.AdminData)
-        console.log(response,"response reached")
-    }
-    fetchData()
-  },[])
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await AdminsChat(AdminId);
+      setAdminData(response.data);
+      console.log(response.data, "response reached");
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -49,33 +53,47 @@ const ChatBox = () => {
             variant="outlined"
           />
           <ul>
-            {Array.isArray(AdminData) && AdminData.map((user) => (
-              <li
-                key={user.id}
-                className={`flex items-center cursor-pointer ${
-                  selectedUser && selectedUser.id === user.id ? 'text-blue-500 font-bold' : ''
-                } p-2 rounded hover:bg-gray-300 transition-all duration-300`}
-                onClick={() => handleUserSelect(user)}
-              > 
-                <img src={img} alt={user.name} className="w-8 h-8 rounded-full mr-2" />
-                <span>{user.name}</span>
-              </li>
-            ))}
+            {Array.isArray(AdminData) &&
+              AdminData.map((user) => (
+                <li
+                  key={user.id}
+                  className={`flex items-center cursor-pointer ${
+                    selectedUser && selectedUser.id === user.id
+                      ? "text-blue-500 font-bold"
+                      : ""
+                  } p-2 rounded hover:bg-gray-300 transition-all duration-300`}
+                  onClick={() => handleUserSelect(user)}
+                >
+                  <img
+                    src={img}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full mr-2"
+                  />
+                  <span>{user.name}</span>
+                </li>
+              ))}
           </ul>
         </div>
 
         {/* Chat Display */}
         <div className="flex-1 p-4">
           {selectedUser && (
-            <div className='flex border border-gray-400'>
-              <img className='w-12 h-12 mt-2 ml-2 rounded-full' src={selectedUser.profileimage} alt="" />
-              <h1 className="mt-4 mx-2 text-2xl font-bold mb-4">{selectedUser.name}</h1>
+            <div className="flex border border-gray-400">
+              <img
+                className="w-12 h-12 mt-2 ml-2 rounded-full"
+                src={selectedUser.profileimage}
+                alt=""
+              />
+              <h1 className="mt-4 mx-2 text-2xl font-bold mb-4">
+                {selectedUser.name}
+              </h1>
             </div>
           )}
           <div className="mt-2 border p-4 mb-4 h-[44rem] overflow-y-auto bg-white rounded shadow">
             {messages.map((message, index) => (
               <div key={index} className="mb-2">
-                <span className="font-bold">{message.user.name}:</span> {message.text}
+                <span className="font-bold">{message.user.name}:</span>{" "}
+                {message.text}
               </div>
             ))}
           </div>

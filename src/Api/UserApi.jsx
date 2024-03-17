@@ -11,7 +11,6 @@ console.log(userRequest,"fffffffffffffffffffffffffff");
 
 export  const userSignup = async (data) => {
   try {
-    alert('hh')
     console.log('hi');
     console.log(data,"in api");
   const datas = await userApi.post("/signup", data, {
@@ -295,13 +294,24 @@ export const CancelBookApi = async(BookedId)=>{
   }
 }
 
-export const AdminsChat = async()=>{
+export const AdminsChat = async(AdminId)=>{
   try {
-    console.log("Reached AdminChat Api")
-    const data = await userRequest.get('/admindatachat');
+    console.log(AdminId,"Reached AdminChat Api")
+    const data = await userRequest.get(`/chat/${AdminId}`);
     console.log(data)
     return data
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const Createchat = async(adminId,userId)=>{
+  try {
+    console.log(adminId,userId,"Reached Create Chat Api")
+    const data = await userRequest.get(`/chat/${adminId}/${userId}`);
+    console.log(data);
+    return data
+  } catch (error) {
+    console.log(error);    
   }
 }

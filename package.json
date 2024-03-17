@@ -20,6 +20,7 @@
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.4.0",
     "@tanstack/react-query": "^5.0.5",
+    "ag-charts-react": "^9.1.1",
     "axios": "^1.5.1",
     "dispatch": "^1.0.2",
     "dotenv": "^16.3.1",

@@ -62,16 +62,16 @@ function BookingList() {
   <div className="flex flex-col justify-between p-4 leading-normal">
     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base  text-gray-700">USER NAME : </span>{" "}
-      {item.bookeduserid.name}
+      {item.bookeduserid && item.bookeduserid.name}
     </h5>
 
     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base  text-gray-700">USER MOBILE : </span>{" "}
-      {item.bookeduserid.mobile}
+      {item.bookeduserid && item.bookeduserid.mobile}
     </h5>
     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base text-gray-700">USER EMAIL : </span>{" "}
-      {item.bookeduserid.email}
+      {item.bookeduserid && item.bookeduserid.email}
     </h5>
   
   </div>
