@@ -8,14 +8,16 @@ import {
 import { useFormik } from "formik";
 import { HubAdminLoginSchema } from "../../../Yup/Validations";
 import { HubAdminLogin } from "../../../Api/HubAdminApi";
-import dispatch from "dispatch";
+import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../Redux/UserSlice/UsserSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { setHubAdminDetails } from "../../../Redux/UserSlice/HubAdminSlice";
    
   export default function HubAdminLoginForm() {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const initialValues={
@@ -35,8 +37,17 @@ import { Link } from "react-router-dom";
         validationSchema : HubAdminLoginSchema,
         onSubmit: async(values)=>{
             const response = await HubAdminLogin(values);
+            console.log(response,"loginnnnn")
             if(response.status == 200){
                 localStorage.setItem("hubtoken",response.data.hubadmintoken);
+                dispatch(
+                  setHubAdminDetails({
+                    id: response.data.Hubadmindata._id,
+                    name:response.data.Hubadmindata.name,
+                    email:response.data.Hubadmindata.email,
+                    mobile:response.data.Hubadmindata.mobile,
+                  })
+                )
                 console.log(response.data.message,'is working 200')
                navigate('/hub/dashboard')
              

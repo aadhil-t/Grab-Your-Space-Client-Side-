@@ -1,30 +1,55 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { Input } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
-import { UserChat } from '../../../Api/HubAdminApi';
+import { GetAdminMessageApi, SendAdminMessage, UserChat } from '../../../Api/HubAdminApi';
+import { useSelector } from 'react-redux';
 
 const AdminChatBox = () => {
   const [selectedUser, setSelectedUser] = useState(null);
+  console.log(selectedUser,"selected user")
   const [messages, setMessages] = useState([]);
-  const [UserData, setUserData] = useState([]);
+  console.log(messages,"Admin Message ")
+  const [UserData, setUserData] = useState({});
+    console.log(UserData,"User chat data")
   const [newMessage, setNewMessage] = useState('');
+
+  const AdminId = useSelector(state=>state.hubadmin.id);
+  console.log(AdminId,"reduxxxxxxxxxxx")
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
   };
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== '') {
-      setMessages([...messages, { user: selectedUser, text: newMessage }]);
-      setNewMessage('');
+  ///////////// Fetch Messages ///////////////
+    useEffect(()=>{
+      const fetchData = async()=>{
+        const response = await GetAdminMessageApi(selectedUser._id);
+        setMessages(response.data)
+        console.log(response)
+      }
+
+      fetchData()
+    },[selectedUser])
+
+
+  const handleSendMessage = async() => {
+    try {
+      if (newMessage.trim() !== '') {
+        setMessages([...messages, { user: selectedUser, text: newMessage }]);
+        setNewMessage('');
+      }
+      const SendMessage = await SendAdminMessage({newMessage},selectedUser._id);
+      console.log(SendMessage,"111111111111")
+    } catch (error) {
+      
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await UserChat();
-        setUserData(response.data.UserData || []);
+        const response = await UserChat(AdminId);
+            setUserData(response.data.chat)
         console.log(response, "response reached");
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -45,7 +70,8 @@ const AdminChatBox = () => {
             variant="outlined"
           />
           <ul>
-            {UserData.map((user) => (
+            {Array.isArray(UserData) &&
+              UserData.map((user) => (
               <li
                 key={user.id}
                 className={`flex items-center cursor-pointer ${
@@ -53,8 +79,8 @@ const AdminChatBox = () => {
                 } p-2 rounded hover:bg-gray-300 transition-all duration-300`}
                 onClick={() => handleUserSelect(user)}
               >
-                <img src={user.profileimage} alt={user.name} className="w-8 h-8 rounded-full mr-2" />
-                <span>{user.name}</span>
+                <img src={user.members[0].profileimage} alt={user.members[0].name} className="w-8 h-8 rounded-full mr-2" />
+                <span>{user.members[0].name}</span>
               </li>
             ))}
           </ul>
@@ -64,14 +90,14 @@ const AdminChatBox = () => {
         <div className="flex-1 p-4">
           {selectedUser && (
             <div className='flex border border-gray-400'>
-              <img className='w-12 h-12 mt-2 ml-2 rounded-full' src={selectedUser.profileimage} alt="" />
-              <h1 className="mt-4 mx-2 text-2xl font-bold mb-4">{selectedUser.name}</h1>
+              <img className='w-12 h-12 mt-2 ml-2 rounded-full' src={selectedUser.members[0].profileimage} alt="" />
+              <h1 className="mt-4 mx-2 text-2xl font-bold mb-4">{selectedUser.members[0].name}</h1>
             </div>
           )}
           <div className=" mt-2 border p-4 mb-4 h-[44rem] overflow-y-auto bg-white rounded shadow">
-            {messages.map((message, index) => (
+            {messages && messages.map((message, index) => (
               <div key={index} className="mb-2">
-                <span className="font-bold">{message.user.name}:</span> {message.text}
+                 {message.text}
               </div>
             ))}
           </div>

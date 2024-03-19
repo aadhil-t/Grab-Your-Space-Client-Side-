@@ -159,13 +159,35 @@ export const DashBoardData = async()=>{
     }
 }
 
-export const UserChat = async()=>{
+export const UserChat = async(AdminId)=>{
     try {
-        console.log("Reached at UserChat Api")
-        const data = await HubRequest.get('/userdatachat');
-        console.log(data);
-        return data;
+      console.log(AdminId,"Reached AdminChat Api")
+      const data = await HubRequest.get(`/adminchat/${AdminId}`);
+      console.log(data)
+      return data
     } catch (error) {
-        console.log(error)   
+      console.log(error)
     }
-}
+  }
+
+  export const GetAdminMessageApi = async(AdminChatId)=>{
+    try {
+        console.log(AdminChatId,"Reached Get Admin message")
+        const data = await HubRequest.get(`/getadminmessage/${AdminChatId}`);
+        console.log(data)
+        return data
+    } catch (error) {
+        
+    }
+  }
+
+  export const SendAdminMessage = async(AdminMessage,chatId)=>{
+    try {
+        console.log(AdminMessage,chatId,"Reached at Send admin Message")
+        const data = await HubRequest.post(`/adminmessagesend/${chatId}`,AdminMessage);
+        console.log(data);
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+  }

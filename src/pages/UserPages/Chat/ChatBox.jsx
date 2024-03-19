@@ -5,11 +5,6 @@ import React, { useEffect, useState } from "react";
 import { AdminsChat, GetMessagesApi, SendMessageApi } from "../../../Api/UserApi";
 import { useLocation } from "react-router-dom";
 
-const users = [
-  { id: 1, name: "User 1" },
-  { id: 2, name: "User 2" },
-  // Add more users as needed
-];
 
 const ChatBox = () => {
   const location = useLocation();
@@ -44,7 +39,7 @@ const ChatBox = () => {
       const data =  messages.find((item)=>setChatId(item.user._id))
   },[messages])
 
-console.log(chatId,"chattt ii idd");
+
   const handleSendMessage = async() => {
     try {
       if (newMessage.trim() !== "") {
@@ -58,8 +53,8 @@ console.log(chatId,"chattt ii idd");
       
     }
   };
-
 console.log(messages,"mesage")
+
 
   useEffect(() => {
     const fetchData = async () => {
