@@ -305,6 +305,28 @@ export const AdminsChat = async(AdminId)=>{
   }
 }
 
+export const SendMessageApi = async(messages,chatId)=>{
+  console.log(messages,chatId,"Message reached api")
+  try {
+    const data = await userRequest.post(`/message/messagesend/${chatId}`,messages);
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const GetMessagesApi = async(chatId)=>{
+  try {
+    console.log(chatId,"Reached at Get Message api")
+    const data = await userRequest.get(`/message/getmessages/${chatId}`);
+    console.log(data)
+    return data;
+  } catch (error) {
+    
+  }
+}
+
 export const Createchat = async(adminId,userId)=>{
   try {
     console.log(adminId,userId,"Reached Create Chat Api")

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { DashBoardData } from "../../Api/HubAdminApi";
 import { AgChartsReact } from "ag-charts-react";
 import moment from "moment";
-import { FaBook } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa";
+import { FaClipboardCheck } from "react-icons/fa";
+import { FaRupeeSign } from "react-icons/fa";
+
+
 
 export default function Dashboard() {
   const [options, setOptions] = useState({
@@ -21,6 +25,8 @@ export default function Dashboard() {
       position: "bottom",
     },
   });
+
+  const [totalUserBooked, setTotalUserBooked] = useState(null); // State to store total user bookings
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +55,7 @@ export default function Dashboard() {
               },
             ],
           }));
+          setTotalUserBooked(response.data); // Store total user bookings
           console.log(response, "Reached response");
         }
       } catch (error) {
@@ -65,23 +72,29 @@ export default function Dashboard() {
     >
       <div className="flex justify-evenly">
         <>
-        <div className="flex gap-96">
-          <div className="mx-6 my-5 text-5xl flex flex-row justify-evenly items-center bg-white w-32 h-24 rounded-xl ">
-            <FaBook />
-            <div className="bg-yellow-700">jjjj</div>
+        <div className="flex gap-72">
+          <div className=" mx-6 my-7 text-5xl flex flex-row justify-evenly items-center bg-white w-72 h-24 rounded-xl ">
+          <FaUserTie />
+            <div className=" border-l border-gray-400 pl-3 ">{totalUserBooked && totalUserBooked.TotalUserBooked}
+            <div className="text-lg">Total Booked User</div> 
+            </div> 
           </div>
-          <div className="mx-6 my-5 text-5xl flex flex-row justify-evenly items-center bg-white w-32 h-24 rounded-xl">
-            <FaBook />
-            <div className="bg-yellow-700">jjjj</div>
+          <div className="mx-6 my-7 text-5xl flex flex-row justify-evenly items-center bg-white w-72 h-24 rounded-xl">
+          <FaClipboardCheck />
+            <div className=" border-l border-gray-400 pl-3 ">{totalUserBooked && totalUserBooked.TotalUserBooked}
+            <div className="text-lg">Total Booked</div> 
+            </div>
           </div>
-          <div className="mx-6 my-5 text-5xl flex flex-row justify-evenly items-center bg-white w-32 h-24 rounded-xl">
-            <FaBook />
-            <div className="bg-yellow-700">jjjj</div>
+          <div className="mx-6 my-7 text-5xl flex flex-row justify-evenly items-center bg-white w-72 h-24 rounded-xl">
+          <FaRupeeSign />
+            <div className=" border-l border-gray-400 pl-3 ">{totalUserBooked && totalUserBooked.totalAmount}
+            <div className="text-lg">Total Payment</div> 
+            </div>
           </div>
           </div>
         </>
       </div>
-      <div className="mx-6 mt-5 w-[40rem]">
+      <div className="mx-6 mt-10 w-[40rem]">
         <AgChartsReact options={options} />
       </div>
     </div>
