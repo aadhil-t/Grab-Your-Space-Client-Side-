@@ -9,12 +9,24 @@ import { Typography } from "@material-tailwind/react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@material-tailwind/react";
-  
-
-
+import { useEffect, useState } from "react";
+import { HubDetailsHome } from "../../../Api/UserApi";
 
 function Home() {
+  const [HubData, setHubData] = useState([]);
+  console.log(HubData, "its Hubdata");
   const navigate = useNavigate();
+  // Array of objects containing image URLs, names, and details
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await HubDetailsHome();
+      setHubData(response.data.Hubdata);
+      console.log(response);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="">
@@ -39,72 +51,28 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex h-[40rem] justify-start items-center bg-[#1B4965] rounded-xl overflow-hidden">
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-      <div className="ml-7">
-        <Card className="mt-6 w-80 rounded-3xl">
-          <img
-            className="h-96 object-cover rounded-3xl"
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-            alt="card-image"
-          />
-        </Card>
-      </div> 
-    </div>
-
+      <div className=" mx-56 mt-20 flex h-[40rem] w-[90rem] justify-start items-center  overflow-hidden">
+        <Carousel loop="true" autoplay="true" className="">
+          {/* Mapping over the array of objects to create carousel images with names and details */}
+          {HubData.map((item, index) => (
+            <div className="flex " key={index}>
+              {item.images.length > 0 && (
+                <img
+                  src={item.images[0]} // Displaying only the first image from the array
+                  alt={`Image ${index + 1}`}
+                  className=" flex h-[37rem] w-[90rem] my-6 mx-4 object-cover rounded-3xl brightness-75 backdrop-blur-lg " 
+                />
+              )}
+              <div className="my-60 mx-[36rem]  flex flex-col justify-center absolute uppercase items-center text-white ">
+                <h2 className="text-5xl font-bold font-serif">{item.hubname}</h2><br />
+                <p className="text-4xl font-serif font-bold">{item.hublocation}</p><br />
+                <p className="text-3xl font-serif font-bold">Seats: {item.seatcount}</p><br />
+                <p className="text-2xl font-serif font-bold">Price: {item.price}</p>
+              </div>
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
       <div className="grid-cols-2 h-[40rem] flex justify-center items-center bg-white ">
         <div className="img2 w-[40rem] h-[30rem] bg-blue-300 flex justify-center items-center border"></div>

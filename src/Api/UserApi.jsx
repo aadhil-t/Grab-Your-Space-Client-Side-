@@ -337,3 +337,14 @@ export const Createchat = async(adminId,userId)=>{
     console.log(error);    
   }
 }
+
+export const HubDetailsHome = async()=>{
+  try {
+    console.log("Reached at home Hub Details")
+    const data = await userRequest.get('/homehubdeatils');
+    console.log(data);
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -1,11 +1,16 @@
 .img{
   background-image: url("./assets/UserAssets/Web_150DPI-20191106_WeWork_Gateway-1-Salt-Lake-City_004-1120x630.jpg");
-  border-image:fill 0 linear-gradient(rgba(34, 25, 25, 0.259),#181313ec);
+    border-image:fill 0 linear-gradient(rgba(34, 25, 25, 0.259),#181313ec);
   background-size: cover ;
   width: 100%;
   height: 100%;
 }
 
+.border-gradient {
+  border: 1px solid transparent; /* Set a transparent border */
+  border-image: linear-gradient(to right, rgba(34, 25, 25, 0.259), #e43333ec) 1; /* Define the border gradient */
+  background-size: cover ; 
+}
 
 
 .img2{
