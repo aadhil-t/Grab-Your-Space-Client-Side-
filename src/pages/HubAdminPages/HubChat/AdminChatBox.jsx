@@ -96,11 +96,13 @@ const AdminChatBox = () => {
           )}
           <div className=" mt-2 border p-4 mb-4 h-[44rem] overflow-y-auto bg-white rounded shadow">
             {messages && messages.map((message, index) => (
-              <div key={index} className="mb-2">
+              <div key={index} className={`mb-2 ${message.senderId === AdminId ? " text-end" : ""}`}>
                  {message.text}
               </div>
             ))}
           </div>
+
+
 
           {/* Message Input */}
           <div className="flex items-center">

@@ -1,10 +1,10 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Input } from "@material-tailwind/react";
 import img from "../../../assets/UserAssets/depositphotos_167655496-stock-photo-directly-above-view-of-human.jpg";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,userRef } from "react";
 import { AdminsChat, GetMessagesApi, SendMessageApi } from "../../../Api/UserApi";
 import { useLocation } from "react-router-dom";
-
+import { io } from "socket.io-client";
 
 const ChatBox = () => {
   const location = useLocation();
@@ -18,10 +18,33 @@ const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const [AdminData, setAdminData] = useState({});
   const [newMessage, setNewMessage] = useState("");
+  const [onlineUsers, setOnlineUsers] = useState([])
+  const [istyping, setIsTyping] = useState(false);
+
+  const socket = userRef()
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
   };
+
+
+  
+  useEffect(() => {
+    socket.current = io('http://localhost:4000', {
+      withCredentials: true,
+    })
+    socket.current.emit("new-user-add", user.id)
+    socket.current.on('get-users', (users) => {
+      setOnlineUsers(users);
+      console.log(onlineUsers, "online userss");
+    })
+    socket.current.on("typing", () => setIsTyping(true));
+    socket.current.on("stop typing", () => setIsTyping(false));
+    socket.current.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+    });
+  }, [user])
+  console.log(chats, "heyy");
 
   
   ///////////// Fetch Messages ///////////////

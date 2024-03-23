@@ -60,14 +60,15 @@ function Home() {
                 <img
                   src={item.images[0]} // Displaying only the first image from the array
                   alt={`Image ${index + 1}`}
-                  className=" flex h-[37rem] w-[90rem] my-6 mx-4 object-cover rounded-3xl brightness-75 backdrop-blur-lg " 
+                  className=" flex h-[37rem] w-[90rem] my-6 mx-4 object-cover rounded-3xl brightness-50 backdrop-blur-lg " 
                 />
               )}
-              <div className="my-60 mx-[36rem]  flex flex-col justify-center absolute uppercase items-center text-white ">
+              <div className="my-48 mx-[36rem]  flex flex-col justify-center absolute uppercase items-center text-white ">
                 <h2 className="text-5xl font-bold font-serif">{item.hubname}</h2><br />
                 <p className="text-4xl font-serif font-bold">{item.hublocation}</p><br />
                 <p className="text-3xl font-serif font-bold">Seats: {item.seatcount}</p><br />
                 <p className="text-2xl font-serif font-bold">Price: {item.price}</p>
+              <Button onClick={()=> navigate("/hubs")} className="text-lg mt-10 w-52 bg-white text-black hover:text-white hover:bg-black">Discover</Button>
               </div>
             </div>
           ))}
