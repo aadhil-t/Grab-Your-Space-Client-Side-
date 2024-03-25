@@ -15,44 +15,22 @@ const ChatBox = () => {
   const location = useLocation();
   const AdminId = location.state?.AdminId; // Use optional chaining for safer access
   const [messageData, setMessageData] = useState(null);
-  console.log(messageData, "Message Data");
   const [selectedUser, setSelectedUser] = useState(null);
-  console.log(selectedUser, "selected user"); // Change the initial state to null
   const [chatId, setChatId] = useState(null); // Change the initial state to null
-  console.log(chatId, "Chat id");
   const [messages, setMessages] = useState([]);
   const [AdminData, setAdminData] = useState({});
   const [newMessage, setNewMessage] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [istyping, setIsTyping] = useState(false);
-
-  const socket = useRef();
-
+  const [ownMessage, setownMessage] = useState(0);
+  const [sendMessage, setSendMessage] = useState(null);
+  
   const handleUserSelect = (user) => {
-    console.log(
-      user,
-      "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-    );
     setSelectedUser(user);
   };
+  
+  const socket = useRef();
 
-  useEffect(() => {
-    socket.current = io("http://localhost:4000", {
-      withCredentials: true,
-    });
-    // socket.current.emit("new-user-add", selectedUser._id)
-    // socket.current.on('get-users', (users) => {
-    //   setOnlineUsers(users);
-    //   console.log(onlineUsers, "online userss");
-    // })
-    // socket.current.on("typing", () => setIsTyping(true));
-    // socket.current.on("stop typing", () => setIsTyping(false));
-    // socket.current.on('connect_error', (error) => {
-    //   console.error('Socket connection error:', error);
-    // });
-  }, [selectedUser]);
-
-  // console.log(chats, "heyy");
 
   ///////////// Fetch Messages ///////////////
   useEffect(() => {
@@ -64,6 +42,25 @@ const ChatBox = () => {
     fetchData();
   }, [selectedUser]);
 
+
+  useEffect(() => {
+    socket.current = io("http://localhost:4000",{
+      withCredentials: true,
+    });
+    if(selectedUser)socket.current.emit("new-user-add", selectedUser._id)
+    socket.current.on('get-users', (users) => {
+      setOnlineUsers(users);
+    })
+    // socket.current.on("typing", () => setIsTyping(true));
+    // socket.current.on("stop typing", () => setIsTyping(false));
+    // socket.current.on('connect_error', (error) => {
+    //   console.error('Socket connection error:', error);
+    // });
+  }, [selectedUser]);
+
+
+
+
   useEffect(() => {
     const data = messages.find((item) => setChatId(item.user._id));
   }, [messages]);
@@ -73,29 +70,43 @@ const ChatBox = () => {
       if (newMessage.trim() !== "") {
         setMessages([...messages, { user: selectedUser, text: newMessage }]);
         setNewMessage("");
-      }
+      } 
       const SendMessage = await SendMessageApi(
         { newMessage },
         selectedUser._id
       );
-      console.log(SendMessage, "111111111111");
+      const msg = [...messageData, SendMessage.data];
+      setMessageData(msg)
+      setSendMessage(SendMessage.data)
     } catch (error) {}
   };
-  console.log(messages, "mesage");
+  
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit("send-message", sendMessage);
+      setownMessage(1)
+    }
+  }, [sendMessage]);
+
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await AdminsChat(AdminId);
-      // console.log(response,"dataa in admins chat--------------------");
       setAdminData(response.data);
-      console.log(AdminData, "response reached------------------------");
     };
     fetchData();
   }, []);
-  console.log(
-    AdminData ?? "ff",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  );
+
+  useEffect(() => {
+    const handlerecievedMess = async (data) => {
+      const msg = [...messageData,data];
+      setMessageData(msg);
+    };
+    socket.current.on("receive-message",handlerecievedMess);
+  },); 
+
+
+
   return (
     <>
       <div className="flex mt-16 bg-gray-100">

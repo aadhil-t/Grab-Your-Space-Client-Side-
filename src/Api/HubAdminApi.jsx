@@ -172,20 +172,16 @@ export const UserChat = async(AdminId)=>{
 
   export const GetAdminMessageApi = async(AdminChatId)=>{
     try {
-        console.log(AdminChatId,"Reached Get Admin message")
         const data = await HubRequest.get(`/getadminmessage/${AdminChatId}`);
-        console.log(data)
         return data
     } catch (error) {
         
     }
   }
 
-  export const SendAdminMessage = async(AdminMessage,chatId)=>{
+  export const SendAdminMessage = async(AdminMessage,receverId)=>{
     try {
-        console.log(AdminMessage,chatId,"Reached at Send admin Message")
-        const data = await HubRequest.post(`/adminmessagesend/${chatId}`,AdminMessage);
-        console.log(data);
+        const data = await HubRequest.post(`/adminmessagesend/${receverId}`,AdminMessage);
         return data
     } catch (error) {
         console.log(error)
