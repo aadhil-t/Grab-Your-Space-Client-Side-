@@ -1,94 +1,101 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Input } from "@material-tailwind/react";
 import img from "../../../assets/UserAssets/depositphotos_167655496-stock-photo-directly-above-view-of-human.jpg";
-import React, { useEffect, useState,userRef } from "react";
-import { AdminsChat, GetMessagesApi, SendMessageApi } from "../../../Api/UserApi";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  AdminsChat,
+  GetMessagesApi,
+  SendMessageApi,
+} from "../../../Api/UserApi";
 import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
+import { format } from "timeago.js";
 
 const ChatBox = () => {
   const location = useLocation();
   const AdminId = location.state?.AdminId; // Use optional chaining for safer access
   const [messageData, setMessageData] = useState(null);
-  console.log(messageData,"Message Data")
+  console.log(messageData, "Message Data");
   const [selectedUser, setSelectedUser] = useState(null);
-  console.log(selectedUser,"selected user") // Change the initial state to null
+  console.log(selectedUser, "selected user"); // Change the initial state to null
   const [chatId, setChatId] = useState(null); // Change the initial state to null
   console.log(chatId, "Chat id");
   const [messages, setMessages] = useState([]);
   const [AdminData, setAdminData] = useState({});
   const [newMessage, setNewMessage] = useState("");
-  const [onlineUsers, setOnlineUsers] = useState([])
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [istyping, setIsTyping] = useState(false);
 
-  const socket = userRef()
+  const socket = useRef();
 
   const handleUserSelect = (user) => {
+    console.log(
+      user,
+      "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    );
     setSelectedUser(user);
   };
 
-
-  
   useEffect(() => {
-    socket.current = io('http://localhost:4000', {
+    socket.current = io("http://localhost:4000", {
       withCredentials: true,
-    })
-    socket.current.emit("new-user-add", user.id)
-    socket.current.on('get-users', (users) => {
-      setOnlineUsers(users);
-      console.log(onlineUsers, "online userss");
-    })
-    socket.current.on("typing", () => setIsTyping(true));
-    socket.current.on("stop typing", () => setIsTyping(false));
-    socket.current.on('connect_error', (error) => {
-      console.error('Socket connection error:', error);
     });
-  }, [user])
-  console.log(chats, "heyy");
+    // socket.current.emit("new-user-add", selectedUser._id)
+    // socket.current.on('get-users', (users) => {
+    //   setOnlineUsers(users);
+    //   console.log(onlineUsers, "online userss");
+    // })
+    // socket.current.on("typing", () => setIsTyping(true));
+    // socket.current.on("stop typing", () => setIsTyping(false));
+    // socket.current.on('connect_error', (error) => {
+    //   console.error('Socket connection error:', error);
+    // });
+  }, [selectedUser]);
 
-  
+  // console.log(chats, "heyy");
+
   ///////////// Fetch Messages ///////////////
-  useEffect(()=>{
-    const fetchData = async()=>{
+  useEffect(() => {
+    const fetchData = async () => {
       const response = await GetMessagesApi(selectedUser._id);
-         setMessageData(response.data)
-      console.log(response)
-    }
-    fetchData()
-  },[selectedUser])
+      setMessageData(response.data);
+      console.log(response);
+    };
+    fetchData();
+  }, [selectedUser]);
 
+  useEffect(() => {
+    const data = messages.find((item) => setChatId(item.user._id));
+  }, [messages]);
 
-  useEffect(()=>{
-      const data =  messages.find((item)=>setChatId(item.user._id))
-  },[messages])
-
-
-  const handleSendMessage = async() => {
+  const handleSendMessage = async () => {
     try {
       if (newMessage.trim() !== "") {
         setMessages([...messages, { user: selectedUser, text: newMessage }]);
         setNewMessage("");
       }
-      const SendMessage = await SendMessageApi({newMessage},selectedUser._id);
-      console.log(SendMessage,"111111111111")
-      
-    } catch (error) {
-      
-    }
+      const SendMessage = await SendMessageApi(
+        { newMessage },
+        selectedUser._id
+      );
+      console.log(SendMessage, "111111111111");
+    } catch (error) {}
   };
-console.log(messages,"mesage")
-
+  console.log(messages, "mesage");
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await AdminsChat(AdminId);
-      console.log(response.data,"dataa in admins chat");
+      // console.log(response,"dataa in admins chat--------------------");
       setAdminData(response.data);
-      console.log(response.data, "response reached");
+      console.log(AdminData, "response reached------------------------");
     };
     fetchData();
   }, []);
-
+  console.log(
+    AdminData ?? "ff",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  );
   return (
     <>
       <div className="flex mt-16 bg-gray-100">
@@ -117,7 +124,7 @@ console.log(messages,"mesage")
                     alt={user.name}
                     className="w-8 h-8 rounded-full mr-2"
                   />
-                  <span>{AdminData[0]?.members[0].name}</span>
+                  <span>{user?.members[0].name}</span>
                 </li>
               ))}
           </ul>
@@ -138,11 +145,18 @@ console.log(messages,"mesage")
             </div>
           )}
           <div className="mt-2 border p-4 mb-4 h-[44rem] overflow-y-auto bg-white rounded shadow">
-            {messageData && messageData.map((message, index) => (
-              <div key={index} className="mb-2">
-                {message.text}
-              </div>
-            ))}
+            {messageData &&
+              messageData.map((message, index) => (
+                <div
+                  key={index}
+                  className={`mb-2  ${
+                    message.senderId !== selectedUser.members[0]._id ? "text-end" : ""
+                  }`}
+                >
+                  {message.text}<br/>
+                  {format(message.createdAt)}
+                </div>
+              ))}
           </div>
 
           {/* Message Input */}

@@ -76,7 +76,7 @@ export function BookedList() {
                   <div className="w-72 h-52">
                     <img
                       className="w-full h-full object-cover"
-                      src={item.bookedhubid.images[0]}
+                      src={item.bookedhubid?.images?.[0]}
                       alt=""
                     />
                   </div>
@@ -85,11 +85,11 @@ export function BookedList() {
                 <div className="flex flex-col justify-between p-4 leading-normal">
                   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                     <span className="text-base  text-gray-700"> </span>{" "}
-                    {item.bookedhubid.hubname}
+                    {item.bookedhubid?.hubname}
                   </h5>
                   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                     <span className="text-base text-gray-700"> </span>{" "}
-                    {item.bookedhubid.hublocation}
+                    {item.bookedhubid?.hublocation}
                   </h5>
                 </div>
 
