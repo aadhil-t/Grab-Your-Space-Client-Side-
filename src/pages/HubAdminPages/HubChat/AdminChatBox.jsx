@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 const AdminChatBox = () => {
-  const socket = useRef();
   const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [UserData, setUserData] = useState({});
@@ -21,10 +20,12 @@ const AdminChatBox = () => {
 
   const AdminId = useSelector((state) => state.hubadmin.id);
 
-
   const handleUserSelect = (user) => {
     setSelectedUser(user);
   };
+
+  const socket = useRef();
+
 
   useEffect(() => {
     socket.current = io("http://localhost:4000", {
@@ -34,10 +35,10 @@ const AdminChatBox = () => {
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
     });
-    socket.current.on("typing", () => setIsTyping(true));
-    socket.current.on("stop typing", () => setIsTyping(false));
-    socket.current.on("connect_error", (error) => {
-    });
+    // socket.current.on("typing", () => setIsTyping(true));
+    // socket.current.on("stop typing", () => setIsTyping(false));
+    // socket.current.on("connect_error", (error) => {
+    // });
   }, [selectedUser]);
 
   ///////////// Fetch Messages ///////////////
@@ -46,10 +47,11 @@ const AdminChatBox = () => {
       const response = await GetAdminMessageApi(selectedUser._id);
       setMessages(response.data);
     };
-
     fetchData();
   }, [selectedUser]);
 
+
+  
   const handleSendMessage = async () => {
     try {
       if (newMessage.trim() !== "") {
@@ -60,7 +62,6 @@ const AdminChatBox = () => {
         { newMessage },
         selectedUser._id
       ).then(res=>setSendMessage(res.data));
-      
       const msg = [...messageData,SendMessage.data];
       setMessages(msg);
       ;
@@ -88,12 +89,19 @@ const AdminChatBox = () => {
 
 
   useEffect(() => {
-    const handlerecievedMess = async (data) => {
-      const msg = [...messages,data];
-      setMessages(msg);
+    // const handlerecievedMess = async (data) => {
+    //   const msg = [...messages,data];
+    //   setMessages(msg);
+    //   console.log('admin',data,'kjhjhhhjh');
+    // };
+    // console.log('test');
+    // socket.current.on("receive-message",handlerecievedMess);
+    const fetchData = async () => {
+      const response = await GetAdminMessageApi(selectedUser._id);
+      setMessages(response.data);
     };
-    socket.current.on("receive-message",handlerecievedMess);
-  },);
+    fetchData();
+  },[messages, selectedUser]);
 
   return (
     <>
@@ -149,7 +157,7 @@ const AdminChatBox = () => {
                 <div
                   key={index}
                   className={`mb-2 ${
-                    message.senderId === AdminId ? " text-end" : ""
+                    message.senderId === AdminId ? " text-end" : "text-start"
                   }`}
                 >
                   {message.text}
@@ -167,7 +175,7 @@ const AdminChatBox = () => {
               className="flex-1 border p-3 mr-2 rounded"
             />
             <button
-              onClick={() => handleSendMessage()}
+              onClick={handleSendMessage}
               className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-all duration-300"
             >
               Send

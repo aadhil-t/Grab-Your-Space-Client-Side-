@@ -16,13 +16,11 @@ const ChatBox = () => {
   const AdminId = location.state?.AdminId; // Use optional chaining for safer access
   const [messageData, setMessageData] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [chatId, setChatId] = useState(null); // Change the initial state to null
   const [messages, setMessages] = useState([]);
   const [AdminData, setAdminData] = useState({});
   const [newMessage, setNewMessage] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [istyping, setIsTyping] = useState(false);
-  const [ownMessage, setownMessage] = useState(0);
   const [sendMessage, setSendMessage] = useState(null);
   
   const handleUserSelect = (user) => {
@@ -32,15 +30,7 @@ const ChatBox = () => {
   const socket = useRef();
 
 
-  ///////////// Fetch Messages ///////////////
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await GetMessagesApi(selectedUser._id);
-      setMessageData(response.data);
-      console.log(response);
-    };
-    fetchData();
-  }, [selectedUser]);
+
 
 
   useEffect(() => {
@@ -58,12 +48,21 @@ const ChatBox = () => {
     // });
   }, [selectedUser]);
 
-
-
-
+  ///////////// Fetch Messages ///////////////
   useEffect(() => {
-    const data = messages.find((item) => setChatId(item.user._id));
-  }, [messages]);
+    const fetchData = async () => {
+      const response = await GetMessagesApi(selectedUser._id);
+      setMessageData(response.data);
+      console.log('8888888888',response);
+    };
+    fetchData();
+  }, [selectedUser]);
+
+
+  // useEffect(() => {
+  //   const data = messages.find((item) => setChatId(item.user._id));
+  // }, [messages]);
+
 
   const handleSendMessage = async () => {
     try {
@@ -74,25 +73,28 @@ const ChatBox = () => {
       const SendMessage = await SendMessageApi(
         { newMessage },
         selectedUser._id
-      );
+      ).then(res =>setSendMessage(res.data));
       const msg = [...messageData, SendMessage.data];
       setMessageData(msg)
-      setSendMessage(SendMessage.data)
+      
     } catch (error) {}
   };
   
   useEffect(() => {
     if (sendMessage !== null) {
       socket.current.emit("send-message", sendMessage);
-      setownMessage(1)
     }
   }, [sendMessage]);
 
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await AdminsChat(AdminId);
-      setAdminData(response.data);
+      try {
+        const response = await AdminsChat(AdminId);
+        setAdminData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
     fetchData();
   }, []);
@@ -161,7 +163,7 @@ const ChatBox = () => {
                 <div
                   key={index}
                   className={`mb-2  ${
-                    message.senderId !== selectedUser.members[0]._id ? "text-end" : ""
+                    message.senderId !== selectedUser.members[0]._id ? "text-end" : "text-start"
                   }`}
                 >
                   {message.text}<br/>
