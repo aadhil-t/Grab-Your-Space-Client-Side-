@@ -24,9 +24,9 @@ userRequest.interceptors.response.use(
       }, 200);
       window.location = "/";
     }
-    //  else if (error.response && error.response.status === 404) {
-    //   window.location = "/error";
-    // } 
+     else if (error.response && error.response.status === 404) {
+      window.location = "/error";
+    } 
     else if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
       setTimeout(() => {

@@ -19,6 +19,7 @@ import SettingNewPassword from "../components/user/NewPasswordSetting";
 import SeatArrangement from "../pages/UserPages/SeatPage/SeatArrangement";
 import BookedSinglePage from "../components/user/BookedSinglePage";
 import ChatBox from "../pages/UserPages/Chat/ChatBox";
+import ErrorPage from "../pages/UserPages/ErrorPage/ErrorPage";
 function UserRoutes(){
 
  return(
@@ -45,6 +46,8 @@ function UserRoutes(){
             <Route path="/seatarrangment" element={<SeatArrangement/>}/>
             <Route path="/bookedsinglepage" element={<BookedSinglePage/>}/>
             <Route path="/chat" element={<ChatBox/>}/>
+            <Route path="/error" element={<ErrorPage/>}/>
+            
             </Route>
         </Route>
     </Routes>
