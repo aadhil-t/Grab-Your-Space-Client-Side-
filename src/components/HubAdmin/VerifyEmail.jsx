@@ -7,7 +7,7 @@ export default function EmailVerify(){
         <div className="flex items-center justify-center h-screen">
             <div>
             <div className="flex flex-col items-center  space-y-2">
-                <img className="h-[30rem] w-[70rem]" src={Verifyimg} alt="" />
+                <img className="h-[30rem] w-[70rem]" src={Verifyimg&&Verifyimg} alt="" />
                 <h1 className="text-4xl font-bold">Thank You !</h1>
           <p className="pb-3">
             Please verify this email address by click button below. 
