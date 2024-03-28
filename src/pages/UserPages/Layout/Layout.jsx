@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "../../../components/Common/user/NavBar";
+
 import Footer from "../../../components/Common/user/Footer";
 import { ToastContainer } from "react-toastify";
 
