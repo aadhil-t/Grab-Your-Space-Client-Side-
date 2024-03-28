@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Verifying from "../../assets/HubAdminAssets/verifyEmail.png"
+import Verifying from "../../../src/assets/HubAdminAssets/verifyEmail.png"
 
 export default function EmailVerify(){
     return(
