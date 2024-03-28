@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Verifyimg from "../../assets/HubAdminAssets/VerifyEmail.png"
+import {Verifyimg} from "../../assets/HubAdminAssets/VerifyEmail.png"
 
 export default function EmailVerify(){
     return(
         <div className="flex items-center justify-center h-screen">
             <div>
             <div className="flex flex-col items-center  space-y-2">
-                <img className="h-[30rem] w-[70rem]" src={Verifyimg&&Verifyimg} alt="" />
+                <img src={Verifyimg&&Verifyimg} className="h-[30rem] w-[70rem]"  alt="" />
                 <h1 className="text-4xl font-bold">Thank You !</h1>
           <p className="pb-3">
             Please verify this email address by click button below. 
