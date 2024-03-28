@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutDetails } from "../../../Redux/UserSlice/UsserSlice";
 
-export default function Navbar() {
+ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -242,3 +242,4 @@ export default function Navbar() {
     </navbar>
   );
 }
+export default Navbar
