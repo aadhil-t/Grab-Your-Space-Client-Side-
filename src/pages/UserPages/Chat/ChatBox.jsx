@@ -100,11 +100,18 @@ const ChatBox = () => {
   }, []);
 
   useEffect(() => {
-    const handlerecievedMess = async (data) => {
-      const msg = [...messageData,data];
-      setMessageData(msg);
+    // const handlerecievedMess = async (data) => {
+    //   const msg = [...messageData,data];
+    //   setMessageData(msg);
+    // };
+    // socket.current.on("receive-message",handlerecievedMess);
+
+    const fetchData = async () => {
+      const response = await GetMessagesApi(selectedUser._id);
+      setMessageData(response.data);
+      console.log('8888888888',response);
     };
-    socket.current.on("receive-message",handlerecievedMess);
+    fetchData();
   },[messageData]); 
 
 
