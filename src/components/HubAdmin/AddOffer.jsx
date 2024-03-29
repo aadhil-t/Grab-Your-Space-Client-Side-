@@ -11,6 +11,7 @@ import {
 import { useFormik } from "formik";
 import { AddOfferSchema } from "../../Yup/Validations";
 import { AddOfferApi } from "../../Api/HubAdminApi";
+import { GenerateSuccess } from "../../Toast/toast";
 
 function AddOffer({hubId, hubAdminId}) {
   console.log(hubId,hubAdminId,"jjjjj")
@@ -28,7 +29,9 @@ function AddOffer({hubId, hubAdminId}) {
     validationSchema: AddOfferSchema,
     onSubmit: async (values) => {
       const response = await AddOfferApi({ values: { ...values, hubId,hubAdminId } });
-      console.log(response,"response aadhil")
+      if(response){
+       GenerateSuccess(response.data.message);
+      }
     },
   });
 

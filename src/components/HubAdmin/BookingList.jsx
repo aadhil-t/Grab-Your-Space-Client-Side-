@@ -47,15 +47,15 @@ function BookingList() {
 <div className="ml-3">
   <h5 className=" mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base text-gray-700"> HUB NAME : </span>{" "}
-      {item.bookedhubid.hubname}
+      {item.bookedhubid && item.bookedhubid.hubname}
     </h5>
   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base text-gray-700"> HUB LOCATION  : </span>{" "}
-      {item.bookedhubid.hublocation}
+      {item.bookedhubid && item.bookedhubid.hublocation}
     </h5>
   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
       <span className="text-base text-gray-700"> HUB  SEAT PRICE : </span>{" "}
-      {item.bookedhubid.price}
+      {item.bookedhubid && item.bookedhubid.price}
     </h5>
   </div>
 

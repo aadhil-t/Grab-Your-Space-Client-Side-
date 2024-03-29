@@ -16,6 +16,7 @@ import { Formik, useFormik } from "formik";
 import { HubCreateSchema } from "../../Yup/Validations";
 import { HubCreate } from "../../Api/HubAdminApi";
 import { useNavigate } from "react-router-dom";
+import { GenerateSuccess } from "../../Toast/toast";
 
 export default function AddhubForm() {
   const [open, setOpen] = React.useState(false);
@@ -59,6 +60,10 @@ export default function AddhubForm() {
           console.log(formData, "registration");
           const response = await HubCreate(formData);
           if (response) {
+            setTimeout(() => {
+              console.log("sucessssssssssss")
+              GenerateSuccess(response.message)
+            }, 200);
             resetForm(initialValues);
             handleOpen();
           }

@@ -13,6 +13,7 @@ import {
 import { useFormik } from "formik";
 import { EditHubAdminProfileSchema } from "../../Yup/Validations";
 import { EditHubAdminPro } from "../../Api/HubAdminApi";
+import { GenerateSuccess } from "../../Toast/toast";
 
 export default function EditHubAdminProfile({data,onDataUpdate}) {
   const [open, setOpen] = React.useState(false);
@@ -36,6 +37,9 @@ export default function EditHubAdminProfile({data,onDataUpdate}) {
     onSubmit : async(values)=>{
         console.log(values,"enter in edit formik ");
         const response = await EditHubAdminPro(values)
+        if(response){
+          GenerateSuccess(response.data.message)
+        }
         onDataUpdate(true)
     }
   })
