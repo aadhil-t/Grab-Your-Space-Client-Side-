@@ -105,7 +105,7 @@ const ChatBox = () => {
       setMessageData(msg);
     };
     socket.current.on("receive-message",handlerecievedMess);
-  },); 
+  },[messageData]); 
 
 
 
