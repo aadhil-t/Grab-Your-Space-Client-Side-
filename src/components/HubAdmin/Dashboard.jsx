@@ -27,6 +27,7 @@ export default function Dashboard() {
   });
 
   const [totalUserBooked, setTotalUserBooked] = useState(null); // State to store total user bookings
+  console.log(totalUserBooked,"total booked ")
 
   useEffect(() => {
     const fetchData = async () => {

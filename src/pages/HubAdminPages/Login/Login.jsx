@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { setHubAdminDetails } from "../../../Redux/UserSlice/HubAdminSlice";
+import { GenerateSuccess } from "../../../Toast/toast";
    
   export default function HubAdminLoginForm() {
 
@@ -39,6 +40,9 @@ import { setHubAdminDetails } from "../../../Redux/UserSlice/HubAdminSlice";
             const response = await HubAdminLogin(values);
             console.log(response,"loginnnnn")
             if(response.status == 200){
+              setTimeout(() => {
+                GenerateSuccess(response.data.message)
+              }, 200);
                 localStorage.setItem("hubtoken",response.data.hubadmintoken);
                 dispatch(
                   setHubAdminDetails({
