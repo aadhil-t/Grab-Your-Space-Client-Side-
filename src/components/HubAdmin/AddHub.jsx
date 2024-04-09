@@ -190,6 +190,7 @@ export default function AddhubForm() {
                   <option value="Kochi">Kochi</option>
                   <option value="Hyderabad">Hyderabad</option>
                   <option value="Kannur">Kannur</option>
+                  <option value="Kannur">Coimbatore</option>
                 </select>
               </div>
               {touched.location && errors.location && (

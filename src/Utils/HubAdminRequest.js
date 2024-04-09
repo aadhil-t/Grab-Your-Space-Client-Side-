@@ -25,7 +25,7 @@ HubAdminRequest.interceptors.response.use(
             window.location = '/hub'
         }
         else if (error.response && error.response.status === 404) {
-            window.location = "/error";
+            // window.location = "/error";
           } 
           else if (error.response && error.response.status === 401) {
             localStorage.removeItem("hubtoken");
